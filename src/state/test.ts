@@ -1,8 +1,4 @@
 import {
-    Presentation,
-    Slide,
-    TextElement,
-    ImageElement,
     updatePresentationTitle,
     addSlide,
     removeSlide,
@@ -15,7 +11,8 @@ import {
     updateTextFontSize,
     updateTextFontFamily,
     updateSlideBackground,
-} from "./state.ts";
+} from "./Methods/methods";
+import { Presentation, Slide, TextElement, ImageElement } from "./Types/types";
 
 // *** Минимальные данные ***
 const minimalTextElement: TextElement = {
@@ -39,7 +36,7 @@ const minimalPresentation: Presentation = {
     title: "",
     author: "",
     slides: [],
-    localSlideId: ""
+    localSlideId: "",
 };
 
 // *** Максимальные данные ***
