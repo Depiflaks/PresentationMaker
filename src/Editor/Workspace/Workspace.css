@@ -1,0 +1,8 @@
+.workspace {
+    flex-grow: 1;
+    margin: 10px 10px 0;
+    background-color: #fff5cc;
+    /* border: 2px solid #d1a538; */
+    min-height: 400px;
+    width: 100%;
+}

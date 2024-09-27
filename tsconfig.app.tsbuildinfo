@@ -1,1 +1,1 @@
-{"root":["./src/app.tsx","./src/main.tsx","./src/vite-env.d.ts"],"version":"5.6.2"}
+{"root":["./src/app.tsx","./src/main.tsx","./src/vite-env.d.ts","./src/editor/propertyeditor/propertyeditor.tsx","./src/editor/slidelist/slidelist.tsx","./src/editor/toolbar/toolbar.tsx","./src/editor/workspace/workspace.tsx","./src/state/test.ts","./src/state/methods/methods.ts","./src/state/types/types.ts"],"version":"5.6.2"}

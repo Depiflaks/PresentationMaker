@@ -1,0 +1,10 @@
+.property-editor {
+    padding: 20px 30px;
+    background-color: #ffffff;
+    /* border-left: 1px solid #ccc; */
+}
+
+.property-editor p {
+    font-style: italic;
+}
+
