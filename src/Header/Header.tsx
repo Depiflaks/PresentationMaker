@@ -3,15 +3,17 @@ import save from "../assets/Header/save.svg";
 import logout from "../assets/Header/logout.svg";
 import "./Header.css";
 
+type Props = {title: string}
+
 // Компонент заголовка
-export default function Header() {
+export default function Header({title}: Props) {
     return (
         <header className="header">
             <div className="header-left">
                 <img src={icon} alt="Logo" className="logo" />
                 <input
                     type="text"
-                    defaultValue="My presentation"
+                    defaultValue={title}
                     className="title-input"
                 />
             </div>

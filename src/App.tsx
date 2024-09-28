@@ -5,18 +5,20 @@ import Workspace from "./Editor/Workspace/Workspace";
 import SlideList from "./Editor/SlideList/SlideList";
 import PropertyEditor from "./Editor/PropertyEditor/PropertyEditor";
 
+import { presentation } from "./state/Data/data";
+
 // Основной компонент приложения
 function App() {
     return (
-        <div className="app">
-            <Header />
+        <>
+            <Header title={presentation.title}/>
             <ToolBar />
             <div className="main">
-                <SlideList />
+                <SlideList slides={presentation.slides}/>
                 <Workspace />
                 <PropertyEditor />
             </div>
-        </div>
+        </>
     );
 };
 
