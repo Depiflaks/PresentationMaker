@@ -12,23 +12,31 @@
     margin-bottom: 10px;
 }
 
-.slide-list ul {
-    list-style: none;
-}
-
-.slide-list li {
-    padding: 5px 0;
-    cursor: pointer;
-}
-
-.slide-list li:hover {
-    background-color: #ffe135;
-}
-
 .slide-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 20px;
+}
+
+.add-button {
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    width: 108%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.add-button img {
+    width: 50px;
+}
+
+.add-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }

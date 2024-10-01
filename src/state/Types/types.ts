@@ -9,7 +9,7 @@ export type Size = {
 }
 
 export interface BaseElement {
-    id: string;
+    id: number;
     position: Position;
     size: Size;
 }
@@ -32,7 +32,7 @@ export type Elements = (TextElement | ImageElement)[];
 export type Selections = string[];
 
 export interface Slide {
-    id: string;
+    id: number;
     background: string;
     elements: Elements;
 }
@@ -40,9 +40,9 @@ export interface Slide {
 export type SlideCollection = Slide[];
 
 export interface Presentation {
-    id: string;
+    id: number;
     title: string;
     author: string;
     slides: SlideCollection;
-    localSlideId: string;
+    localSlideId: number;
 }

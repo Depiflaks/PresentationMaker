@@ -6,7 +6,6 @@
     aspect-ratio: 16 / 9;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     cursor: pointer;
-    
 }
 
 .slide-svg {

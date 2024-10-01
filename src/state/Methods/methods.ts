@@ -8,7 +8,7 @@ export function updatePresentationTitle(
 }
 
 export function createSlide(
-    id: string,
+    id: number,
     background: string,
     elements: Elements,
 ): Slide {
@@ -24,7 +24,7 @@ export function addSlide(
 
 export function removeSlide(
     presentation: Presentation,
-    slideId: string,
+    slideId: number,
 ): Presentation {
     return {
         ...presentation,
@@ -34,7 +34,7 @@ export function removeSlide(
 
 export function moveSlide(
     presentation: Presentation,
-    slideId: string,
+    slideId: number,
     newIndex: number,
 ): Presentation {
     const slideIndex = presentation.slides.findIndex(
@@ -62,7 +62,7 @@ export function addSelection(
     return { ...slide, elements: [...slide.elements, element] };
 }
 
-export function removeSelection(slide: Slide, elementId: string): Slide {
+export function removeSelection(slide: Slide, elementId: number): Slide {
     return {
         ...slide,
         elements: slide.elements.filter((el) => el.id !== elementId),
@@ -71,7 +71,7 @@ export function removeSelection(slide: Slide, elementId: string): Slide {
 
 export function updateElementPosition(
     slide: Slide,
-    elementId: string,
+    elementId: number,
     newPosition: { x: number; y: number },
 ): Slide {
     return {
@@ -84,7 +84,7 @@ export function updateElementPosition(
 
 export function updateElementSize(
     slide: Slide,
-    elementId: string,
+    elementId: number,
     newSize: { width: number; height: number },
 ): Slide {
     return {
@@ -97,7 +97,7 @@ export function updateElementSize(
 
 export function updateTextContent(
     slide: Slide,
-    textId: string,
+    textId: number,
     newText: string,
 ): Slide {
     return {
@@ -112,7 +112,7 @@ export function updateTextContent(
 
 export function updateTextFontSize(
     slide: Slide,
-    textId: string,
+    textId: number,
     newFontSize: number,
 ): Slide {
     return {
@@ -127,7 +127,7 @@ export function updateTextFontSize(
 
 export function updateTextFontFamily(
     slide: Slide,
-    textId: string,
+    textId: number,
     newFontFamily: string,
 ): Slide {
     return {

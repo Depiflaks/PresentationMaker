@@ -1,19 +1,7 @@
 import { ImageElement, Presentation, Slide, TextElement} from "../Types/types";
 
-const slide1: Slide = {
-    background: 'white',
-    elements: [],
-    id: '3',
-}
-
-const slide2: Slide = {
-    background: 'white',
-    elements: [],
-    id: '4',
-}
-
 const maxTextElement: TextElement = {
-    id: "text1",
+    id: 0,
     type: "text",
     content: "Hello world!",
     fontSize: 50,
@@ -24,7 +12,7 @@ const maxTextElement: TextElement = {
 };
 
 const maxImageElement: ImageElement = {
-    id: "image1",
+    id: 1,
     type: "image",
     src: "./image.png",
     position: { x: 250, y: 150 },
@@ -32,23 +20,22 @@ const maxImageElement: ImageElement = {
 };
 
 const maxSlide: Slide = {
-    id: "1",
+    id: 0,
     background: "#FFFFFF",
     elements: [maxTextElement, maxImageElement],
 };
 
 const emptySlide: Slide = {
-    id: '2',
+    id: 0,
     background: "#fff",
     elements: []
 }
 
-export const presentation: Presentation = {
-    id: '0',
-    author: 'Sergey',
-    localSlideId: '0',
+export const minPresentation: Presentation = {
+    id: 0,
+    author: 's.smirnov',
+    localSlideId: 0,
     slides: [
-        maxSlide,
         emptySlide
     ],
     title: 'My Presentation'
