@@ -16,25 +16,32 @@ const maxTextElement: TextElement = {
     id: "text1",
     type: "text",
     content: "Hello world!",
-    fontSize: 16,
+    fontSize: 50,
+    color: "black",
     fontFamily: "Verdana",
-    position: { x: 10, y: 20 },
-    size: { width: 100, height: 50 },
+    position: { x: 300, y: 100 },
+    size: { width: 150, height: 50 },
 };
 
 const maxImageElement: ImageElement = {
     id: "image1",
     type: "image",
-    src: "https://example.com/image.jpg",
-    position: { x: 30, y: 40 },
-    size: { width: 200, height: 100 },
+    src: "./image.png",
+    position: { x: 250, y: 150 },
+    size: { width: 1000, height: 500 },
 };
 
 const maxSlide: Slide = {
-    id: "slide1",
+    id: "1",
     background: "#FFFFFF",
     elements: [maxTextElement, maxImageElement],
 };
+
+const emptySlide: Slide = {
+    id: '2',
+    background: "#fff",
+    elements: []
+}
 
 export const presentation: Presentation = {
     id: '0',
@@ -42,7 +49,7 @@ export const presentation: Presentation = {
     localSlideId: '0',
     slides: [
         maxSlide,
-        {...maxSlide, id: '2'}
+        emptySlide
     ],
-    title: 'My Presentation123'
+    title: 'My Presentation'
 }

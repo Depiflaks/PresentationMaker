@@ -1,10 +1,34 @@
 .property-editor {
+    background-color: #f7f7f7; /* Светлый фон */
     padding: 20px 30px;
-    background-color: #ffffff;
-    /* border-left: 1px solid #ccc; */
+    width: 20%; /* Ширина редактора */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Тень */
+    max-height: 100vh; /* Не превышать высоту экрана */
+    overflow-y: auto; /* Прокрутка, если контент слишком большой */
+    display: inline-block; /* Сжимаем высоту до контента */
 }
+
+
 
 .property-editor p {
     font-style: italic;
 }
 
+.properties-settings {
+    margin-bottom: 20px;
+}
+
+.components-settings {
+    margin-bottom: 20px;
+}
+
+
+/* Горизонтальный разделитель */
+.resizer {
+    height: 5px;
+    background-color: #ccc;
+    cursor: row-resize;
+    margin: 10px 0;
+    border-radius: 5px;
+}

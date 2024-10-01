@@ -15,8 +15,8 @@ function App() {
             <ToolBar />
             <div className="main">
                 <SlideList slides={presentation.slides}/>
-                <Workspace />
-                <PropertyEditor />
+                <Workspace slide={presentation.slides[0]}/>
+                <PropertyEditor slide={presentation.slides[0]}/>
             </div>
         </>
     );

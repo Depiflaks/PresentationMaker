@@ -19,6 +19,7 @@ export interface TextElement extends BaseElement {
     content: string;
     fontSize: number;
     fontFamily: string;
+    color: string;
 }
 
 export interface ImageElement extends BaseElement {

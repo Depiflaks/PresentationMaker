@@ -1,12 +1,22 @@
+import { Slide } from "../../state/Types/types";
 import "./PropertyEditor.css";
 
-// Компонент PropertyEditor
-export default function PropertyEditor() {
+type Props = {
+    slide: Slide
+}
+
+export default function PropertyEditor({slide}: Props) {
     return (
         <div className="property-editor">
             <h3>Properties</h3>
-            {/* Здесь будет настройка свойств выбранных объектов */}
-            <p>No element selected</p>
+            
+            <div className="properties-settings">
+                {true ? <p>No element selected</p> : <></>}
+            </div>
+            <h3>Components</h3>
+            <div className="components-settings">
+                {true ? <p>The list of components is empty</p> : <></>}
+            </div>
         </div>
     );
 };

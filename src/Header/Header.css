@@ -2,8 +2,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px;
-
+    padding: 10px 0;
+    margin-bottom: 10px;
 }
 
 .header-left {
@@ -18,31 +18,32 @@
 }
 
 .title-input {
-    background-color: #f0f0f0; /* Лёгкий background */
+    background-color: #f0f0f0;
     border: none;
-    border-radius: 5px; /* Закруглённые края */
-    font-size: 16px; /* Увеличение шрифта */
+    border-radius: 5px;
+    font-size: 16px;
     color: #888;
     padding: 5px 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .title-input:focus {
-    outline: none; /* Убираем обводку при фокусе */
+    outline: none;
 }
 
 .header-center {
     text-align: center;
-    background-color: #fce181; /* Заливка фона */
+    background-color: #fce181;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 5px 20px;
-    border-radius: 10px; /* Закругляем */
+    border-radius: 10px;
 }
 
 .header-center h1 {
     margin: 0;
-    /* font-family: "Comic Sans MS", cursive, sans-serif; Менее строгий шрифт */
-    /* font-family: "Edu AU VIC WA NT Guides", cursive, sans-serif; */
+    font-family: "Comic Sans MS", cursive, sans-serif;
     font-size: 24px;
-    color: #d38e10; /* Более приятный и читаемый жёлтый цвет */
+    color: #d38e10;
     text-transform: uppercase;
 }
 
@@ -50,7 +51,7 @@
     display: block;
     font-size: 18px;
     text-transform: none;
-    color: #333; /* Более тёмный оттенок */
+    color: #333;
 }
 
 .header-right {
@@ -59,16 +60,17 @@
 }
 
 .icon-button {
-    background-color: #FFE135; /* Оранжевый цвет, как название сервиса */
+    background-color: #FFE135;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border: none;
-    border-radius: 10px; /* Закруглённые края */
+    border-radius: 10px;
     cursor: pointer;
     margin-left: 10px;
     padding: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: background-color 0.3s ease; /* Плавная смена цвета */
+    transition: background-color 0.3s ease;
 }
 
 .icon-button img {
@@ -77,7 +79,7 @@
 }
 
 .icon-button:hover {
-    background-color: #b97c0b; /* Более тёмный оранжевый при наведении */
+    background-color: #b97c0b;
 }
 
 
