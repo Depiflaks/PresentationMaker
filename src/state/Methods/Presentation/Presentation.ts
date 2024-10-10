@@ -8,11 +8,20 @@ export function updatePresentationTitle(
 }
 
 
-export function addSlide(
+export function storeSlide(
     presentation: Presentation,
-    newSlide: Slide,
+    slide: Slide,
 ): Presentation {
-    return { ...presentation, slides: {...presentation.slides, [newSlide.id]: newSlide} };
+    return { 
+        ...presentation, 
+        slides: {
+            ...presentation.slides, 
+            [slide.id]: slide
+        },
+        order: 
+            slide.id in presentation.slides ? 
+            [...presentation.order, slide.id] : presentation.order
+    };
 }
 
 export function removeSlide(
@@ -21,9 +30,6 @@ export function removeSlide(
 ): Presentation {
     const newSlides: SlideCollection = {...presentation.slides};
     delete newSlides[slideId]
-    // Object.fromEntries(
-    //     Object.entries(presentation.slides).filter(([id, _]) => id !== slideId)
-    // );
     return {
         ...presentation,
         slides: newSlides,
