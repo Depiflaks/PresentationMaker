@@ -1,6 +1,6 @@
-import { ImageElement, Presentation, Slide, TextElement} from "../Types/types";
+import { Elements, ImageElement, Presentation, Slide, SlideCollection, TextElement} from "../Types/types";
 
-const maxTextElement: TextElement = {
+const caption1: TextElement = {
     id: 0,
     type: "text",
     content: "Hello world!",
@@ -15,14 +15,14 @@ const maxImageElement: ImageElement = {
     id: 1,
     type: "image",
     src: "./image.png",
-    position: { x: 250, y: 150 },
+    position: { x: 400, y: 150 },
     size: { width: 1000, height: 500 },
 };
 
 const maxSlide: Slide = {
-    id: 0,
+    id: 2,
     background: "#FFFFFF",
-    elements: [maxTextElement, maxImageElement],
+    elements: [caption1, maxImageElement],
 };
 
 const emptySlide: Slide = {
@@ -36,7 +36,9 @@ export const minPresentation: Presentation = {
     author: 's.smirnov',
     localSlideId: 0,
     slides: [
-        emptySlide
+        maxSlide,
+        emptySlide,
+        maxSlide,
     ],
     title: 'My Presentation'
 }

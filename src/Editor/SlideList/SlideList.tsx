@@ -5,7 +5,7 @@ import add from "../../assets/SlideList/add.svg"
 
 type Props = {
     slides: SlideCollection,
-    change: (newArg: (prevArg: number) => number) => void
+    // change: (newArg: (prevArg: number) => number) => void
 }
 
 // Компонент SlideList
