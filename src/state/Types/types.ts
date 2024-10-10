@@ -46,5 +46,5 @@ export interface Presentation {
     author: string;
     order: string[];
     slides: SlideCollection,
-    localSlideId: string;
+    current: string;
 }

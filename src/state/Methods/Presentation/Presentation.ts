@@ -7,6 +7,15 @@ export function updatePresentationTitle(
     return { ...presentation, title: newTitle };
 }
 
+export function changeCurrent(
+    presentation: Presentation,
+    newId: string
+) {
+    return {
+        ...presentation,
+        current: newId
+    }
+}
 
 export function storeSlide(
     presentation: Presentation,
@@ -20,10 +29,10 @@ export function storeSlide(
         },
         order: 
             slide.id in presentation.slides ? 
-            [...presentation.order, slide.id] : presentation.order
+            presentation.order : [...presentation.order, slide.id]
     };
 }
-
+    
 export function removeSlide(
     presentation: Presentation,
     slideId: string,

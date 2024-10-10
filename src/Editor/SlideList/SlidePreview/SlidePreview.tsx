@@ -6,6 +6,7 @@ import "./SlidePreview.css";
 type Props = {slide: Slide}
 
 export default function SlidePreview({slide}: Props) {
+    const elements = Object.values(slide.elements);
     return (
         <div className="slide-preview">
             <svg
@@ -17,7 +18,7 @@ export default function SlidePreview({slide}: Props) {
                 <rect width="1600" height="900" fill={slide.background} />
 
                 {/* Динамически вставляемый контент */}
-                {slide.elements.map((element, i) => {
+                {elements.map((element, i) => {
                     if (element.type === 'text') {
                         return <TextComponent key={i} element={element as TextElement} />
                     }

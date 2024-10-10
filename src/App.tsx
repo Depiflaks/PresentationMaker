@@ -5,15 +5,16 @@ import Workspace from "./Editor/Workspace/Workspace";
 import SlideList from "./Editor/SlideList/SlideList";
 import PropertyEditor from "./Editor/PropertyEditor/PropertyEditor";
 
-import { minPresentation } from "./state/Data/data";
+import { getMinPresentation } from "./state/Data/MinPresentation";
 import React from "react";
+import { getTestPresentation } from "./state/Data/TestPresentation";
 
 function App() {
     //const presentation = {...minPresentation};
-    const [presentation, setPresentation] = React.useState({...minPresentation});
+    const [presentation, setPresentation] = React.useState(getTestPresentation());
 
     //const [selectedTool, setselectedTool] = React.useState("selection");
-
+    console.log(presentation.slides, presentation.current)
     return (
         <>
             <Header title={presentation.title}/>
@@ -21,11 +22,10 @@ function App() {
             <div className="main">
                 <SlideList 
                     slides={presentation.slides} 
-                    // currentSlide={selectedSlide} 
-                    // changeHandle={changeSlide}
+                    order={presentation.order}
                 />
-                <Workspace slide={presentation.slides[0]}/>
-                <PropertyEditor slide={presentation.slides[0]}/>
+                <Workspace slide={presentation.slides[presentation.current]}/>
+                <PropertyEditor slide={presentation.slides[presentation.current]}/>
             </div>
         </>
     );

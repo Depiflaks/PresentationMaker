@@ -19,7 +19,7 @@ export default function Header({title}: Props) {
             </div>
             <div className="header-center">
                 <h1>
-                    PRESENTATION <span className="maker-text">MAKER</span>
+                    BANANA <span className="maker-text">MAKER</span>
                 </h1>
             </div>
             <div className="header-right">
