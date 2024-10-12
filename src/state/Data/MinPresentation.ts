@@ -15,6 +15,5 @@ export function getMinPresentation(): Presentation {
     };
     empty = storeSlide(empty, createSlide(0));
     empty = changeCurrent(empty, empty.order[0]);
-    console.log(empty.order[0])
     return empty;
 }

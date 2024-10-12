@@ -1,15 +1,17 @@
-import { TextElement } from "../../state/Types/types"
+import { Position, TextElement } from "../../state/Types/types"
 
 type Props = {
-    element: TextElement
+    element: TextElement,
+    scale: number,
+    relative: Position
 }
 
-export default function TextComponent({element} : Props) {
+export default function TextComponent({element, scale, relative} : Props) {
     return (
         <text
-            x={element.position.x}
-            y={element.position.y}
-            fontSize={element.fontSize}
+            x={element.position.x + relative.x}
+            y={element.position.y + relative.y}
+            fontSize={element.fontSize * scale}
             fontFamily={element.fontFamily}
             fill={element.color}
         >

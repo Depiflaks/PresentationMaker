@@ -1,23 +1,33 @@
-import { SlideCollection } from "../../state/Types/types";
+import { Presentation } from "../../state/Types/types";
 import "./SlideList.css";
 import SlidePreview from "./SlidePreview/SlidePreview";
 import add from "../../assets/SlideList/add.svg"
+import { changeCurrent } from "../../state/Methods/Presentation/Presentation";
 
 type Props = {
-    slides: SlideCollection,
-    order: string[],
-    // change: (newArg: (prevArg: number) => number) => void
+    presentation: Presentation,
+    setPresentation: (newArg: (prevArg: Presentation) => Presentation) => void
 }
 
 // Компонент SlideList
-export default function SlideList({slides, order}: Props) {
+export default function SlideList({presentation, setPresentation}: Props) {
+    const {order, current, slides} = presentation;
+
     const slideArray = order.map((id) => slides[id]);
+
+    const slideClickHandler = (id: string): void => {
+        setPresentation((prev) => changeCurrent(prev, id));
+    }
+
     return (
         <div className="slide-list">
             <h3>Slides {}</h3>
             <div className="slide-container">
                 {slideArray.map((slide, i) => (
-                    <SlidePreview key={i} slide={slide}/>
+                    <SlidePreview 
+                        key={i} slide={slide} 
+                        isSelected={current === slide.id} 
+                        clickHandler={() => slideClickHandler(slide.id)}/>
                 ))}
                 <div className="add-button">
                     <img src={add}/>

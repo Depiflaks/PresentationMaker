@@ -3,12 +3,16 @@ import ImageComponent from "../../components/ImageComponent";
 import TextComponent from "../../components/TextComponent";
 import "./SlidePreview.css";
 
-type Props = {slide: Slide}
+type Props = {
+    slide: Slide,
+    isSelected: boolean
+    clickHandler: () => void
+}
 
-export default function SlidePreview({slide}: Props) {
+export default function SlidePreview({slide, isSelected, clickHandler}: Props) {
     const elements = Object.values(slide.elements);
     return (
-        <div className="slide-preview">
+        <div className={`slide-preview ${isSelected ? 'selected' : ''}`} onClick={clickHandler}>
             <svg
                 className="slide-svg"
                 viewBox="0 0 1600 900" // Пропорции 16:9
@@ -20,10 +24,10 @@ export default function SlidePreview({slide}: Props) {
                 {/* Динамически вставляемый контент */}
                 {elements.map((element, i) => {
                     if (element.type === 'text') {
-                        return <TextComponent key={i} element={element as TextElement} />
+                        return <TextComponent key={i} element={element as TextElement} relative={{x: 0, y: 0}} scale={1} />
                     }
                     if (element.type === 'image') {
-                        return <ImageComponent key={i} element={element as ImageElement} />
+                        return <ImageComponent key={i} element={element as ImageElement} relative={{x: 0, y: 0}} scale={1} />
                     }
                 })}
             </svg>

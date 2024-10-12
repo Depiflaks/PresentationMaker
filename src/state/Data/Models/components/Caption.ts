@@ -5,12 +5,12 @@ import { TextElement } from "../../../Types/types";
 export const caption: TextElement = {
     type: 'text',
     id: createId(),
-    content: '',
-    fontSize: 50,
+    content: 'Your Title',
+    fontSize: 120,
     fontFamily: 'arial',
-    color: 'black',
+    color: '#333',
     position: {
-        x: 100,
+        x: 100, 
         y: 300
     },
     size: {

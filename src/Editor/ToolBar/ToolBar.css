@@ -17,8 +17,8 @@
     justify-content: center;
     padding: 5px 40px;
     background-color: transparent;
-    border: none;
     cursor: pointer;
+    border: none;
     transition: background-color 0.3s ease;
 
     font-family: Arial, sans-serif;
@@ -33,4 +33,13 @@
 
 .toolbar button:hover {
     background-color: #e0e0e0;
+    border: none;
+}
+
+.toolbar .selected {
+    outline: 3px solid #fce181;
+}
+
+.toolbar .selected:hover {
+    outline: 3px solid #fce181;
 }

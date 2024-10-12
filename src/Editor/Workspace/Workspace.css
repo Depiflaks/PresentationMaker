@@ -2,17 +2,15 @@
     display: flex;
     justify-content: center; /* Центрируем по горизонтали */
     align-items: center;     /* Центрируем по вертикали */
-    padding: 20px;
     box-sizing: border-box;
     width: 100%;
 }
 
-/* Контейнер для холста */
 .canvas {
     background-color: #ffffff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Лёгкая тень */
     max-width: 90vw; /* Максимальная ширина */
-    width: 90%;
+    width: 100%;
     aspect-ratio: 16 / 9; /* Масштабирование в соотношении 16:9 */
     border: 2px solid #e0e0e0; /* Серая рамка */
     display: flex;
@@ -20,7 +18,6 @@
     align-items: center;
 }
 
-/* SVG-холст внутри контейнера */
 .canvas-svg {
     width: 100%;
     height: 100%;

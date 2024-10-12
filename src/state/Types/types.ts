@@ -8,6 +8,8 @@ export type Size = {
     height: number,
 }
 
+export type SelectedTool = 'hand' | 'selection' | 'zoom' | 'text' | 'image' | 'none';
+
 export interface BaseElement {
     type: string;
     id: string;

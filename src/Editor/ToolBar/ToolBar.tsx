@@ -5,31 +5,86 @@ import text from "../../assets/ToolBar/text.svg";
 import zoom from "../../assets/ToolBar/zoom.svg";
 
 import "./ToolBar.css";
+import { SelectedTool } from "../../state/Types/types";
+import { useEffect } from "react";
+import Tool from "./Tool/Tool";
 
-// Компонент ToolBar с SVG-кнопками
-export default function ToolBar() {
+type Props = {
+    current: SelectedTool;
+    change: (newTool: SelectedTool) => void;
+};
+
+type toolInput = {
+    value: SelectedTool,
+    imgSrc: string
+}
+
+export default function ToolBar({ current, change }: Props) {
+    useEffect(() => {
+        const handleKeyPress = (event: KeyboardEvent) => {
+            switch (event.key) {
+                case " ":
+                    change("hand");
+                    break;
+                case "v":
+                    change("selection");
+                    break;
+                case "t":
+                    change("text");
+                    break;
+                case "i":
+                    change("image");
+                    break;
+                case "z":
+                    change("zoom");
+                    break;
+                default:
+                    break;
+            }
+        };
+
+        window.addEventListener("keydown", handleKeyPress);
+        return () => {
+            window.removeEventListener("keydown", handleKeyPress);
+        };
+    }, [change]);
+
+    const barValues: toolInput[] = [
+        {
+            value: "hand",
+            imgSrc: hand,
+        },
+        {
+            value: "selection",
+            imgSrc: cursor,
+        },
+        {
+            value: "zoom",
+            imgSrc: zoom,
+        },
+        {
+            value: "text",
+            imgSrc: text,
+        },
+        {
+            value: "image",
+            imgSrc: image,
+        },
+    ];
+    // todo: переделать img на наормальные ссылки
     return (
         <div className="toolbar">
-            <button>
-                <img src={hand}/>
-                Hand
-            </button>
-            <button>
-                <img src={cursor}/>
-                Selection
-            </button>
-            <button>
-                <img src={zoom}/>
-                Zoom
-            </button>
-            <button>
-                <img src={text}/>
-                Text
-            </button>
-            <button>
-                <img src={image}/>
-                Image
-            </button>
+            {barValues.map((element, i) => {
+                return (
+                    <Tool
+                        key={i}
+                        change={change}
+                        current={current}
+                        value={element.value}
+                        imgSrc={element.imgSrc}
+                    />
+                );
+            })}
         </div>
     );
-};
+}

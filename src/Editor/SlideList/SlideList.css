@@ -20,6 +20,11 @@
     gap: 20px;
 }
 
+.slide-container .selected {
+    border: 3px solid #fce181;
+    transform: scale(1.05);
+}
+
 .add-button {
     background-color: #fff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
