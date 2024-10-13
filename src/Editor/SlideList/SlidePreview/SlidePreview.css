@@ -24,3 +24,31 @@
 }
 
 
+.delete-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    background-color: rgba(230, 230, 230, 0.8);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s ease;
+}
+
+.delete-icon:hover {
+    background-color: rgba(255, 0, 0, 0.8);
+}
+
+.delete-icon svg {
+    width: 18px;
+    height: 18px;
+    color: #333;
+}
+
+.delete-icon:hover svg {
+    color: white;
+}

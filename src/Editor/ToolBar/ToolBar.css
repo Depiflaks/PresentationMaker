@@ -36,10 +36,12 @@
     border: none;
 }
 
-.toolbar .selected {
-    outline: 3px solid #fce181;
+.toolbar button:focus {
+    outline: none;
 }
 
-.toolbar .selected:hover {
+.toolbar .selected,
+.toolbar .selected:hover,
+.toolbar .selected:focus {
     outline: 3px solid #fce181;
 }

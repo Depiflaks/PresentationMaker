@@ -9,7 +9,6 @@ type Props = {
     setPresentation: (newArg: (prevArg: Presentation) => Presentation) => void
 }
 
-// Компонент SlideList
 export default function SlideList({presentation, setPresentation}: Props) {
     const {order, current, slides} = presentation;
 
