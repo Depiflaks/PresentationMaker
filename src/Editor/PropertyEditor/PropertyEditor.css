@@ -5,30 +5,52 @@
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Тень */
     max-height: 100vh; /* Не превышать высоту экрана */
-    overflow-y: auto; /* Прокрутка, если контент слишком большой */
-    display: inline-block; /* Сжимаем высоту до контента */
+    display: inline-block;
 }
 
-
+.property-editor h3 {
+    text-align: center;
+}
 
 .property-editor p {
     font-style: italic;
 }
 
-.properties-settings {
-    margin-bottom: 20px;
-}
-
+.properties-settings,
 .components-settings {
-    margin-bottom: 20px;
+    overflow-y: auto;
+    background-color: #f1f1f1;
+    padding: 5px;
+    border-radius: 10px;
 }
 
+.properties-settings::-webkit-scrollbar,
+.components-settings::-webkit-scrollbar {
+    width: 5px;
+}
 
-/* Горизонтальный разделитель */
+.properties-settings::-webkit-scrollbar-thumb,
+.components-settings::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 10px;
+}
+
+.properties-settings::-webkit-scrollbar-track,
+.components-settings::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
+    border-radius: 5px;
+}
+
+.properties-settings::-webkit-scrollbar-button,
+.components-settings::-webkit-scrollbar-button {
+    display: none;
+}
+
 .resizer {
     height: 5px;
     background-color: #ccc;
     cursor: row-resize;
-    margin: 10px 0;
+    margin: 10px auto;
     border-radius: 5px;
+    width: 80%;
 }
