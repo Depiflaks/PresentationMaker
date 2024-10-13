@@ -4,13 +4,15 @@ import ImageComponent from "../../components/ImageComponent";
 import TextComponent from "../../components/TextComponent";
 import "./SlidePreview.css";
 
+import remove from "../../../assets/SlideList/remove.svg";
+
 type Props = {
     slide: Slide,
     isSelected: boolean
-    clickHandler: () => void
+    onSlideClick: () => void
 }
 
-export default function SlidePreview({slide, isSelected, clickHandler}: Props) {
+export default function SlidePreview({slide, isSelected, onSlideClick}: Props) {
     const elements = Object.values(slide.elements);
 
     const [isHovered, setIsHovered] = useState<boolean>(false);
@@ -20,7 +22,8 @@ export default function SlidePreview({slide, isSelected, clickHandler}: Props) {
             className={`slide-preview ${isSelected ? 'selected' : ''}`} 
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
-            onClick={clickHandler}
+            onClick={onSlideClick}
+            draggable={true}
         >
             <svg
                 className="slide-svg"
@@ -40,21 +43,7 @@ export default function SlidePreview({slide, isSelected, clickHandler}: Props) {
             </svg>
             {isHovered && isSelected && (
                 <div className="delete-icon">
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        className="feather feather-trash"
-                    >
-                        <polyline points="3 6 5 6 21 6" />
-                        <path d="M19 6l-1 14H6L5 6m5 4v6m4-6v6" />
-                        <line x1="10" y1="4" x2="14" y2="4" />
-                        <line x1="10" y1="2" x2="14" y2="2" />
-                    </svg>
+                    <img src={remove} />
                 </div>
             )}
         </div>

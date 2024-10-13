@@ -29,7 +29,6 @@ export default function Resizer({onSeparatorChange, propertiesRef}: Props) {
         <div
             className="resizer"
             ref={resizerRef}
-            draggable={true}
             onMouseDown={handleMouseDown}
         />
     )
