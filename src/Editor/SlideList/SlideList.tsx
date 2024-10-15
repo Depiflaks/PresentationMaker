@@ -40,7 +40,9 @@ export default function SlideList({presentation, setPresentation}: Props) {
                         <SlideSeparator
                             slideId={slide.id}
                             isSelected={slide.id === activeSeparator}
+                            isEntered={slide.id === dragEnterId}
                             onSeparatorClick={() => {onSeparatorClick(slide.id)}}
+                            onDragEnter={() => {onDragEnter(slide.id)}}
                         />
                         <SlidePreview 
                             key={i} slide={slide} 
@@ -52,7 +54,9 @@ export default function SlideList({presentation, setPresentation}: Props) {
                 <SlideSeparator
                     slideId="slide-end"
                     isSelected={"slide-end" === activeSeparator}
+                    isEntered={"slide-end" === dragEnterId}
                     onSeparatorClick={() => {onSeparatorClick("slide-end")}}
+                    onDragEnter={() => {onDragEnter("slide-end")}}
                 />
                 <div className="add-button">
                     <img src={add}/>
