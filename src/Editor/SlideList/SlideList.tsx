@@ -31,6 +31,10 @@ export default function SlideList({presentation, setPresentation}: Props) {
         setDragEnterId(id);
     }
 
+    const onDrop = () => {
+        setDragEnterId("");
+    }
+
     return (
         <div className="slide-list">
             <h3>Slides {}</h3>
@@ -43,6 +47,7 @@ export default function SlideList({presentation, setPresentation}: Props) {
                             isEntered={slide.id === dragEnterId}
                             onSeparatorClick={() => {onSeparatorClick(slide.id)}}
                             onDragEnter={() => {onDragEnter(slide.id)}}
+                            onDrop={() => {onDrop()}}
                         />
                         <SlidePreview 
                             key={i} slide={slide} 
@@ -57,6 +62,7 @@ export default function SlideList({presentation, setPresentation}: Props) {
                     isEntered={"slide-end" === dragEnterId}
                     onSeparatorClick={() => {onSeparatorClick("slide-end")}}
                     onDragEnter={() => {onDragEnter("slide-end")}}
+                    onDrop={() => {onDrop()}}
                 />
                 <div className="add-button">
                     <img src={add}/>

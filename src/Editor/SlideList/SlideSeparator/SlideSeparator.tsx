@@ -5,16 +5,19 @@ type Props = {
     slideId: string;
     onSeparatorClick: () => void;
     onDragEnter: () => void;
+    onDrop: () => void;
     isSelected: boolean;
     isEntered: boolean;
 };
 
-export default function SlideSeparator({slideId, onSeparatorClick, isSelected, onDragEnter, isEntered}: Props) {
+export default function SlideSeparator({slideId, onSeparatorClick, isSelected, onDragEnter, isEntered, onDrop}: Props) {
 
     return (
         <div className="slide-separator-container"
             onClick={onSeparatorClick}
             onDragEnter={() => {onDragEnter()}}
+            onDragOver={(event) => {event.preventDefault()}}
+            onDrop={() => {onDrop()}}
         >
             <div
                 className={`slide-separator ${isSelected ? 'selected-separator' : ''} ${isEntered ? 'entered-separator' : ''}`}
