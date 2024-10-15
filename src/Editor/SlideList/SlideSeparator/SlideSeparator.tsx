@@ -15,7 +15,10 @@ export default function SlideSeparator({slideId, onSeparatorClick, isSelected, o
     return (
         <div className="slide-separator-container"
             onClick={onSeparatorClick}
-            onDragEnter={() => {onDragEnter()}}
+            onDragEnter={(event) => {
+                event.preventDefault()
+                onDragEnter()
+            }}
             onDragOver={(event) => {event.preventDefault()}}
             onDrop={() => {onDrop()}}
         >

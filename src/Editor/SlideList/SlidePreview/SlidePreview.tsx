@@ -9,10 +9,12 @@ import remove from "../../../assets/SlideList/remove.svg";
 type Props = {
     slide: Slide,
     isSelected: boolean
-    onSlideClick: () => void
+    onSlideClick: () => void;
+    onDragEnter: () => void;
+    onDrop: () => void;
 }
 
-export default function SlidePreview({slide, isSelected, onSlideClick}: Props) {
+export default function SlidePreview({slide, isSelected, onSlideClick, onDragEnter, onDrop}: Props) {
     const elements = Object.values(slide.elements);
 
     const [isHovered, setIsHovered] = useState<boolean>(false);
@@ -24,6 +26,12 @@ export default function SlidePreview({slide, isSelected, onSlideClick}: Props) {
             onMouseLeave={() => setIsHovered(false)}
             onClick={onSlideClick}
             draggable={true}
+            onDragEnter={(event) => {
+                event.preventDefault()
+                onDragEnter()
+            }}
+            onDragOver={(event) => {event.preventDefault()}}
+            onDrop={() => {onDrop()}}
         >
             <svg
                 className="slide-svg"

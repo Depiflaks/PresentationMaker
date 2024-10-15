@@ -53,6 +53,8 @@ export default function SlideList({presentation, setPresentation}: Props) {
                             key={i} slide={slide} 
                             isSelected={current === slide.id} 
                             onSlideClick={() => onSlideClick(slide.id)}
+                            onDragEnter={() => {onDragEnter(slide.id)}}
+                            onDrop={() => {onDrop()}}
                         />
                     </>
                 ))}
