@@ -56,14 +56,14 @@ export function moveSlide(
     if (
         slideIndex === -1 ||
         newIndex < 0 ||
-        newIndex >= presentation.order.length
+        newIndex > presentation.order.length
     ) {
         return presentation;                                                                                                                                                                                                                                                                                                            
     }
 
     const order = [...presentation.order];
     const [movedSlide] = order.splice(slideIndex, 1);
-    order.splice(newIndex, 0, movedSlide);
+    order.splice(newIndex - (slideIndex < newIndex ? 1 : 0), 0, movedSlide);
 
     return { ...presentation, order };
 }

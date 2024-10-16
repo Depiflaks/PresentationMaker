@@ -24,7 +24,7 @@ export default function SlidePreview({slide, isSelected, onSlideClick, onDragEnt
             className={`slide-preview ${isSelected ? 'selected' : ''}`} 
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
-            onClick={onSlideClick}
+            onMouseDown={() => {onSlideClick()}}
             draggable={true}
             onDragEnter={(event) => {
                 event.preventDefault()
