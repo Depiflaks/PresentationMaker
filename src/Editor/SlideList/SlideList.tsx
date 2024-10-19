@@ -2,7 +2,7 @@ import { Presentation } from "../../state/Types/types";
 import "./SlideList.css";
 import SlidePreview from "./SlidePreview/SlidePreview";
 import add from "../../assets/SlideList/add.svg"
-import { changeCurrent, moveSlide } from "../../state/Methods/Presentation/Presentation";
+import { changeCurrent, moveSlide, removeSlide } from "../../state/Methods/Presentation/Presentation";
 import SlideSeparator from "./SlideSeparator/SlideSeparator";
 import { useState } from "react";
 
@@ -39,6 +39,10 @@ export default function SlideList({presentation, setPresentation}: Props) {
         setPresentation((prev) => moveSlide(prev, current, newIndex));
     }
 
+    const deleteSlide = (id: string) => {
+        setPresentation((prev) => removeSlide(prev, id));
+    }
+
     return (
         <div className="slide-list">
             <h3>Slides {}</h3>
@@ -59,6 +63,7 @@ export default function SlideList({presentation, setPresentation}: Props) {
                             onSlideClick={() => onSlideClick(slide.id)}
                             onDragEnter={() => {onDragEnter(slide.id)}}
                             onDrop={() => {onDrop()}}
+                            onDelete={() => {deleteSlide(slide.id)}}
                         />
                     </>
                 ))}

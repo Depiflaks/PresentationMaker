@@ -16,8 +16,6 @@ export default function ImageComponent({element, scale, relative}: Props) {
             y={element.position.y + relative.y}
             width={element.size.width * scale}
             height={element.size.height * scale}
-            
-            // Добавь другие необходимые атрибуты и стили
         />
     );
 };

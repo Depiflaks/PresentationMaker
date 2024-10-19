@@ -12,16 +12,17 @@ type Props = {
     onSlideClick: () => void;
     onDragEnter: () => void;
     onDrop: () => void;
+    onDelete: () => void;
 }
 
-export default function SlidePreview({slide, isSelected, onSlideClick, onDragEnter, onDrop}: Props) {
+export default function SlidePreview({slide, isSelected, onSlideClick, onDragEnter, onDrop, onDelete}: Props) {
     const elements = Object.values(slide.elements);
 
     const [isHovered, setIsHovered] = useState<boolean>(false);
 
     return (
         <div 
-            className={`slide-preview ${isSelected ? 'selected' : ''}`} 
+            className={`slide-preview ${isSelected && 'selected'}`} 
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
             onMouseDown={() => {onSlideClick()}}
@@ -50,7 +51,9 @@ export default function SlidePreview({slide, isSelected, onSlideClick, onDragEnt
                 })}
             </svg>
             {isHovered && isSelected && (
-                <div className="delete-icon">
+                <div className="delete-icon"
+                    onClick={() => {onDelete()}}
+                >
                     <img src={remove} />
                 </div>
             )}

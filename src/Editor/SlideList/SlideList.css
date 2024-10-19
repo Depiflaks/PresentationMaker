@@ -30,7 +30,7 @@
     border-radius: 10px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     cursor: pointer;
-    width: 108%;
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;

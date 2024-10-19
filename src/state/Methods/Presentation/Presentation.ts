@@ -38,10 +38,16 @@ export function removeSlide(
     slideId: string,
 ): Presentation {
     const newSlides: SlideCollection = {...presentation.slides};
-    delete newSlides[slideId]
+    delete newSlides[slideId];
+    const order = [...presentation.order];
+    const slideInd = order.indexOf(slideId);
+    if (slideInd >= 0) order.splice(slideInd, 1);
+    const current = order.length === 0 ? order[slideInd === 0 ? slideInd : 0] : "";
     return {
         ...presentation,
+        order,
         slides: newSlides,
+        current: current,
     };
 }
 
