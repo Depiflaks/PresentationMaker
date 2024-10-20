@@ -5,7 +5,7 @@ import TextComponent from "../components/TextComponent";
 import "./Workspace.css";
 
 type Props = {
-    slide: Slide
+    slide: Slide|null
 }
 
 const FIELD: Size = {
@@ -24,10 +24,10 @@ export default function Workspace({slide}: Props) {
     }
 
     const [relative, setRelative] = React.useState<Position>({...startPosition});
-    const elements = Object.values(slide.elements);
+    const elements = slide ? Object.values(slide.elements) : [];
     return (
         <div className="workspace">
-            <svg className="canvas-svg" viewBox={`0 0 ${FIELD.width} ${FIELD.height}`}>
+            {slide && <svg className="canvas-svg" viewBox={`0 0 ${FIELD.width} ${FIELD.height}`}>
                 <rect
                     x={relative.x}
                     y={relative.y}
@@ -43,7 +43,7 @@ export default function Workspace({slide}: Props) {
                         return <ImageComponent key={element.id} element={element as ImageElement} relative={relative} scale={scale} />
                     }
                 })}
-            </svg>
+            </svg>}
         </div>
     );
 };

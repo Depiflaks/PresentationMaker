@@ -2,19 +2,26 @@ import icon from "../assets/logo.svg";
 import save from "../assets/Header/save.svg";
 import logout from "../assets/Header/logout.svg";
 import "./Header.css";
+import { useRef } from "react";
 
-type Props = {title: string}
+type Props = {
+    title: string
+    onTitleChange: (newTitle: string) => void
+}
 
 // Компонент заголовка
-export default function Header({title}: Props) {
+export default function Header({title, onTitleChange}: Props) {
+    const inputRef = useRef<HTMLInputElement>(null);
     return (
         <header className="header">
             <div className="header-left">
                 <img src={icon} alt="Logo" className="logo" />
                 <input
+                    ref={inputRef}
                     type="text"
                     defaultValue={title}
                     className="title-input"
+                    onChange={() => {onTitleChange(inputRef.current?.value ?? "");}}
                 />
             </div>
             <div className="header-center">
