@@ -1,11 +1,11 @@
-import hand from "../../assets/ToolBar/hand.svg";
-import image from "../../assets/ToolBar/image.svg";
-import cursor from "../../assets/ToolBar/cursor.svg";
-import text from "../../assets/ToolBar/text.svg";
-import zoom from "../../assets/ToolBar/zoom.svg";
+import hand from "~/views/assets/ToolBar/hand.svg";
+import image from "~/views/assets/ToolBar/image.svg";
+import cursor from "~/views/assets/ToolBar/cursor.svg";
+import text from "~/views/assets/ToolBar/text.svg";
+import zoom from "~/views/assets/ToolBar/zoom.svg";
 
 import "./ToolBar.css";
-import { SelectedTool } from "../../state/Types/types";
+import { SelectedTool } from "~/store/Types/types";
 import { useEffect } from "react";
 import Tool from "./Tool/Tool";
 

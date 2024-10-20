@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { Slide } from "../../state/Types/types";
+import { Slide } from "~/store/Types/types";
 import "./PropertyEditor.css";
 import Resizer from "./Resizer/Resizer";
 

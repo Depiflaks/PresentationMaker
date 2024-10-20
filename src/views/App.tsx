@@ -1,14 +1,14 @@
 import "./App.css";
 import React from "react";
-import Header from "./Header/Header";
-import ToolBar from "./Editor/ToolBar/ToolBar";
-import Workspace from "./Editor/Workspace/Workspace";
-import SlideList from "./Editor/SlideList/SlideList";
-import PropertyEditor from "./Editor/PropertyEditor/PropertyEditor";
+import Header from "~/views/Header/Header";
+import ToolBar from "~/views/Editor/ToolBar/ToolBar";
+import Workspace from "~/views/Editor/Workspace/Workspace";
+import SlideList from "~/views/Editor/SlideList/SlideList";
+import PropertyEditor from "~/views/Editor/PropertyEditor/PropertyEditor";
 
-import { getTestPresentation } from "./state/Data/TestPresentation";
-import { SelectedTool } from "./state/Types/types";
-import { updatePresentationTitle } from "./state/Methods/Presentation/Presentation";
+import { getTestPresentation } from "~/store/Data/TestPresentation";
+import { SelectedTool } from "~/store/Types/types";
+import { updatePresentationTitle } from "~/store/Methods/Presentation/Presentation";
 
 function App() {
     const [presentation, setPresentation] = React.useState(getTestPresentation());

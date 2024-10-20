@@ -1,16 +1,15 @@
 import "./SlideSeparator.css"
-import move from "../../../assets/SlideList/Separator/move.svg"
+import move from "~/views/assets/SlideList/Separator/move.svg"
 
 type Props = {
     slideId: string;
     onSeparatorClick: () => void;
     onDragEnter: () => void;
-    onDrop: () => void;
     isSelected: boolean;
     isEntered: boolean;
 };
 
-export default function SlideSeparator({slideId, onSeparatorClick, isSelected, onDragEnter, isEntered, onDrop}: Props) {
+export default function SlideSeparator({slideId, onSeparatorClick, isSelected, onDragEnter, isEntered}: Props) {
 
     return (
         <div className="slide-separator-container"
@@ -20,7 +19,6 @@ export default function SlideSeparator({slideId, onSeparatorClick, isSelected, o
                 onDragEnter()
             }}
             onDragOver={(event) => {event.preventDefault()}}
-            onDrop={() => {onDrop()}}
         >
             <div
                 className={`slide-separator ${isSelected ? 'selected-separator' : ''} ${isEntered ? 'entered-separator' : ''}`}

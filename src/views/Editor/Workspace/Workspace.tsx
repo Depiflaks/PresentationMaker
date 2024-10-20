@@ -1,8 +1,8 @@
 import React, { useRef } from "react";
-import { ImageElement, Position, Size, Slide, TextElement } from "../../state/Types/types";
-import ImageComponent from "../components/ImageComponent";
-import TextComponent from "../components/TextComponent";
-import "./Workspace.css";
+import { ImageElement, Position, Size, Slide, TextElement } from "~/store/Types/types";
+import ImageComponent from "~/components/ImageComponent";
+import TextComponent from "~/components/TextComponent";
+import "~/views/Editor/Workspace/Workspace.css";
 
 type Props = {
     slide: Slide|null

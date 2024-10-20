@@ -1,6 +1,6 @@
-import { ImageElement, Position } from "../../state/Types/types";
+import { ImageElement, Position } from "~/store/Types/types";
 
-import image from "../../assets/elements/image.png"
+import image from "~/views/assets/elements/image.png"
 
 interface Props {
     element: ImageElement;

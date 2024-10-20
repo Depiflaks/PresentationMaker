@@ -1,6 +1,6 @@
-import icon from "../assets/logo.svg";
-import save from "../assets/Header/save.svg";
-import logout from "../assets/Header/logout.svg";
+import icon from "~/views/assets/logo.svg";
+import save from "~/views/assets/Header/save.svg";
+import logout from "~/views/assets/Header/logout.svg";
 import "./Header.css";
 import { useRef } from "react";
 
@@ -9,7 +9,6 @@ type Props = {
     onTitleChange: (newTitle: string) => void
 }
 
-// Компонент заголовка
 export default function Header({title, onTitleChange}: Props) {
     const inputRef = useRef<HTMLInputElement>(null);
     return (
@@ -24,7 +23,7 @@ export default function Header({title, onTitleChange}: Props) {
                     onChange={() => {onTitleChange(inputRef.current?.value ?? "");}}
                 />
             </div>
-            <div className="header-center">
+            <div className="header-center"> 
                 <h1>
                     BANANA <span className="maker-text">MAKER</span>
                 </h1>

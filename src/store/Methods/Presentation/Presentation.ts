@@ -42,7 +42,7 @@ export function removeSlide(
     const order = [...presentation.order];
     const slideInd = order.indexOf(slideId);
     if (slideInd >= 0) order.splice(slideInd, 1);
-    const current = (order.length !== 0) ? order[slideInd === 0 ? slideInd : 0] : "";
+    const current = (order.length !== 0) ? order[slideInd - (slideInd === order.length ? 1 : 0)] : "";
     return {
         ...presentation,
         order,

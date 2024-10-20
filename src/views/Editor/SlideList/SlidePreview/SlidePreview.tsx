@@ -1,21 +1,20 @@
 import { useState } from "react";
-import { ImageElement, Slide, TextElement } from "../../../state/Types/types";
-import ImageComponent from "../../components/ImageComponent";
-import TextComponent from "../../components/TextComponent";
+import { ImageElement, Slide, TextElement } from "~/store/Types/types";
+import ImageComponent from "~/components/ImageComponent";
+import TextComponent from "~/components/TextComponent";
 import "./SlidePreview.css";
 
-import remove from "../../../assets/SlideList/remove.svg";
+import remove from "~/views/assets/SlideList/remove.svg";
 
 type Props = {
     slide: Slide,
     isSelected: boolean
     onSlideClick: () => void;
     onDragEnter: () => void;
-    onDrop: () => void;
     onDelete: () => void;
 }
 
-export default function SlidePreview({slide, isSelected, onSlideClick, onDragEnter, onDrop, onDelete}: Props) {
+export default function SlidePreview({slide, isSelected, onSlideClick, onDragEnter, onDelete}: Props) {
     const elements = Object.values(slide.elements);
 
     const [isHovered, setIsHovered] = useState<boolean>(false);
@@ -32,7 +31,6 @@ export default function SlidePreview({slide, isSelected, onSlideClick, onDragEnt
                 onDragEnter()
             }}
             onDragOver={(event) => {event.preventDefault()}}
-            onDrop={() => {onDrop()}}
         >
             <svg
                 className="slide-svg"
