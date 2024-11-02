@@ -47,7 +47,7 @@ export default function SlideList({presentation, setPresentation}: Props) {
         <div className="slide-list"
             onDragOver={(event) => {event.preventDefault()}}
             onDrop={() => {onDrop()}}
-            onMouseLeave={(event) => {
+            onMouseLeave={() => {
                 setDragEnterId("");
             }}
         >
