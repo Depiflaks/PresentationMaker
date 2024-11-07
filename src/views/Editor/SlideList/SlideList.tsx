@@ -4,8 +4,9 @@ import SlidePreview from "./SlidePreview/SlidePreview";
 import add from "~/views/assets/SlideList/add.svg"
 import { changeCurrent, moveSlide, removeSlide } from "~/store/Methods/Presentation/Presentation";
 import SlideSeparator from "./SlideSeparator/SlideSeparator";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { dispatch } from "~/store/editor";
+import MaketPanel from "./MaketPanel/MaketPanel";
 
 type Props = {
     editor: Presentation
@@ -18,6 +19,9 @@ export default function SlideList({editor}: Props) {
 
     const [activeSeparator, setActiveSeparator] = useState<string>(endSlide);
     const [dragEnterId, setDragEnterId] = useState<string>('');
+    const [isMaketPanelVisible, setIsMaketPanelVisible] = useState<boolean>(false);
+    const [panelPosition, setPanelPosition] = useState<{ top: number; left: number }>({ top: 0, left: 0 });
+    const addButtonRef = useRef<HTMLDivElement>(null);
 
     const slideArray = order.map((id) => slides[id]);
 
@@ -42,6 +46,22 @@ export default function SlideList({editor}: Props) {
     const deleteSlide = (id: string) => {
         dispatch(removeSlide, id);
     }
+
+    const toggleMaketPanel = () => {
+        if (!isMaketPanelVisible && addButtonRef.current) {
+            const { top, left, width, height } = addButtonRef.current.getBoundingClientRect();
+            setPanelPosition({
+                top: top + window.scrollY + height / 2,
+                left: left + window.scrollX + width + 10,
+            });
+        }
+        setIsMaketPanelVisible((prev) => !prev);
+    };
+
+    const onMaketSelect = (maketId: number) => {
+        console.log(`Maket ${maketId} selected`);
+        setIsMaketPanelVisible(false);
+    };
 
     return (
         <div className="slide-list"
@@ -88,9 +108,15 @@ export default function SlideList({editor}: Props) {
                     }}
                     onDragOver={(event) => {event.preventDefault()}}
                     draggable={false}
+                    onClick={toggleMaketPanel}
+                    ref={addButtonRef}
                 >
                     <img src={add} draggable={false}/>
                 </div>
+                {isMaketPanelVisible && <MaketPanel 
+                    onSelect={onMaketSelect} 
+                    style={{ top: `${panelPosition.top}px`, left: `${panelPosition.left}px` }} 
+                />}
             </div>
         </div>
     );

@@ -8,7 +8,7 @@ import PropertyEditor from "~/views/Editor/PropertyEditor/PropertyEditor";
 import { Presentation, SelectedTool } from "~/store/Types/types";
 import { updatePresentationTitle } from "~/store/Methods/Presentation/Presentation";
 import { dispatch } from "~/store/editor";
-import SlideList from "./Editor/SlideList/SlideList";
+import SlideList from "~/views/Editor/SlideList/SlideList";
 
 type Props = {
     editor: Presentation;
