@@ -7,6 +7,7 @@ type Props = {
 };
 
 export default function MaketPanel({ onSelect, style }: Props) {
+    const layouts = 
     return (
         <div className="maket-panel" style={style}>
             {[...Array(9)].map((_, i) => (
