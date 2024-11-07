@@ -5,16 +5,16 @@ import add from "~/views/assets/SlideList/add.svg"
 import { changeCurrent, moveSlide, removeSlide } from "~/store/Methods/Presentation/Presentation";
 import SlideSeparator from "./SlideSeparator/SlideSeparator";
 import { useState } from "react";
+import { dispatch } from "~/store/editor";
 
 type Props = {
-    presentation: Presentation,
-    setPresentation: (newArg: (prevArg: Presentation) => Presentation) => void
+    editor: Presentation
 }
 
 const endSlide = "endSlide"
 
-export default function SlideList({presentation, setPresentation}: Props) {
-    const {order, current, slides} = presentation;
+export default function SlideList({editor}: Props) {
+    const {order, current, slides} = editor;
 
     const [activeSeparator, setActiveSeparator] = useState<string>(endSlide);
     const [dragEnterId, setDragEnterId] = useState<string>('');
@@ -22,7 +22,7 @@ export default function SlideList({presentation, setPresentation}: Props) {
     const slideArray = order.map((id) => slides[id]);
 
     const onSlideClick = (id: string): void => {
-        setPresentation((prev) => changeCurrent(prev, id));
+        dispatch(changeCurrent, id);
     }
 
     const onSeparatorClick = (id: string) => {
@@ -35,12 +35,12 @@ export default function SlideList({presentation, setPresentation}: Props) {
 
     const onDrop = () => {
         const newIndex = dragEnterId === endSlide ? order.length : order.indexOf(dragEnterId);
-        setPresentation((prev) => moveSlide(prev, current, newIndex));
+        dispatch(moveSlide, {slideId: current, newIndex: newIndex});
         setDragEnterId("");
     }
 
     const deleteSlide = (id: string) => {
-        setPresentation((prev) => removeSlide(prev, id));
+        dispatch(removeSlide, id);
     }
 
     return (

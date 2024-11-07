@@ -4,6 +4,7 @@ export function updatePresentationTitle(
     presentation: Presentation,
     newTitle: string,
 ): Presentation {
+    console.log(newTitle);
     return { ...presentation, title: newTitle };
 }
 
@@ -53,8 +54,10 @@ export function removeSlide(
 
 export function moveSlide(
     presentation: Presentation,
-    slideId: string,
-    newIndex: number,
+    {slideId, newIndex}: {
+        slideId: string,
+        newIndex: number,
+    }
 ): Presentation {
     const slideIndex = presentation.order.findIndex(
         (id) => id === slideId,
