@@ -1,5 +1,7 @@
 import { CSSProperties } from "react";
 import "./MaketPanel.css"
+import SlideThumbnail from "./SlideThumbnail/SlideThumbnail";
+import { slidesModels } from "~/store/Data/Models/Models";
 
 type Props = {
     onSelect: (maketId: number) => void;
@@ -7,17 +9,11 @@ type Props = {
 };
 
 export default function MaketPanel({ onSelect, style }: Props) {
-    const layouts = 
+    const makets = slidesModels;
     return (
         <div className="maket-panel" style={style}>
-            {[...Array(9)].map((_, i) => (
-                <div
-                    key={i}
-                    className="maket-option"
-                    onClick={() => onSelect(i + 1)}
-                >
-                    Maket {i + 1}
-                </div>
+            {makets.map((maket, index) => (
+                <SlideThumbnail key={index} elements={maket} onClick={() => onSelect(index + 1)}/>
             ))}
         </div>
     );

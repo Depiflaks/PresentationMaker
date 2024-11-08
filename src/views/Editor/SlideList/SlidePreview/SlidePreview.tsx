@@ -34,7 +34,7 @@ export default function SlidePreview({slide, isSelected, onSlideClick, onDragEnt
         >
             <svg
                 className="slide-svg"
-                viewBox="0 0 1600 900" // Пропорции 16:9
+                viewBox="0 0 1600 900"
                 xmlns="http://www.w3.org/2000/svg"
             >
                 <rect width="1600" height="900" fill={slide.background} />
