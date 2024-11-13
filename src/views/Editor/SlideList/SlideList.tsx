@@ -1,12 +1,13 @@
-import { Presentation } from "~/store/Types/types";
+import { Elements, Presentation } from "~/store/Types/types";
 import "./SlideList.css";
 import SlidePreview from "./SlidePreview/SlidePreview";
 import add from "~/views/assets/SlideList/add.svg"
-import { changeCurrent, moveSlide, removeSlide } from "~/store/Methods/Presentation/Presentation";
+import { changeCurrent, moveSlide, removeSlide, storeSlide } from "~/store/Methods/Presentation/Presentation";
 import SlideSeparator from "./SlideSeparator/SlideSeparator";
 import { useRef, useState } from "react";
 import { dispatch } from "~/store/editor";
 import MaketPanel from "./MaketPanel/MaketPanel";
+import { createSlide } from "~/store/Methods/Slide/Slide";
 
 type Props = {
     editor: Presentation
@@ -58,8 +59,10 @@ export default function SlideList({editor}: Props) {
         setIsMaketPanelVisible((prev) => !prev);
     };
 
-    const onMaketSelect = (maketId: number) => {
-        console.log(`Maket ${maketId} selected`);
+    const onMaketSelect = (index: number) => {
+        const newSlide = createSlide(index);
+        console.log(index);
+        dispatch(storeSlide, newSlide);
         setIsMaketPanelVisible(false);
     };
 
@@ -116,6 +119,8 @@ export default function SlideList({editor}: Props) {
                 {isMaketPanelVisible && <MaketPanel 
                     onSelect={onMaketSelect} 
                     style={{ top: `${panelPosition.top}px`, left: `${panelPosition.left}px` }} 
+                    isVisible={isMaketPanelVisible}
+                    onClose={() => {setIsMaketPanelVisible(false);}}
                 />}
             </div>
         </div>
