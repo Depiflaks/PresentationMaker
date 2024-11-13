@@ -8,11 +8,11 @@ type Props = {
     style: CSSProperties;
     isVisible: boolean;
     onClose: () => void;
+    panelRef: React.RefObject<HTMLDivElement>;
 };
 
-export default function MaketPanel({ onSelect, style, isVisible, onClose }: Props) {
+export default function MaketPanel({ onSelect, style, isVisible, onClose, panelRef }: Props) {
     const [isAnimating, setIsAnimating] = useState(false);
-    const panelRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         function handleClickOutside(event: MouseEvent) {

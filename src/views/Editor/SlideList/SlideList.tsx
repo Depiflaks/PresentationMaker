@@ -1,4 +1,4 @@
-import { Elements, Presentation } from "~/store/Types/types";
+import { Presentation } from "~/store/Types/types";
 import "./SlideList.css";
 import SlidePreview from "./SlidePreview/SlidePreview";
 import add from "~/views/assets/SlideList/add.svg"
@@ -23,6 +23,7 @@ export default function SlideList({editor}: Props) {
     const [isMaketPanelVisible, setIsMaketPanelVisible] = useState<boolean>(false);
     const [panelPosition, setPanelPosition] = useState<{ top: number; left: number }>({ top: 0, left: 0 });
     const addButtonRef = useRef<HTMLDivElement>(null);
+    const panelRef = useRef<HTMLDivElement>(null);
 
     const slideArray = order.map((id) => slides[id]);
 
@@ -52,7 +53,7 @@ export default function SlideList({editor}: Props) {
         if (!isMaketPanelVisible && addButtonRef.current) {
             const { top, left, width, height } = addButtonRef.current.getBoundingClientRect();
             setPanelPosition({
-                top: top + window.scrollY + height / 2,
+                top: Math.min(top, window.innerHeight - 150),
                 left: left + window.scrollX + width + 10,
             });
         }
@@ -96,31 +97,35 @@ export default function SlideList({editor}: Props) {
                         />
                     </div>
                 ))}
-                <SlideSeparator
-                    key={endSlide}
-                    slideId={endSlide}
-                    isSelected={endSlide === activeSeparator}
-                    isEntered={endSlide === dragEnterId}
-                    onSeparatorClick={() => {onSeparatorClick(endSlide)}}
-                    onDragEnter={() => {onDragEnter(endSlide)}}
-                />
-                <div className="add-button"
-                    onDragEnter={(event) => {
-                        event.preventDefault()
-                        onDragEnter(endSlide)
-                    }}
-                    onDragOver={(event) => {event.preventDefault()}}
-                    draggable={false}
-                    onClick={toggleMaketPanel}
-                    ref={addButtonRef}
-                >
-                    <img src={add} draggable={false}/>
+                <div style={{width: "100%"}}>
+                    <SlideSeparator
+                        key={endSlide}
+                        slideId={endSlide}
+                        isSelected={endSlide === activeSeparator}
+                        isEntered={endSlide === dragEnterId}
+                        onSeparatorClick={() => {onSeparatorClick(endSlide)}}
+                        onDragEnter={() => {onDragEnter(endSlide)}}
+                    />
+                    <div className="add-button"
+                        onDragEnter={(event) => {
+                            event.preventDefault()
+                            onDragEnter(endSlide)
+                        }}
+                        onDragOver={(event) => {event.preventDefault()}}
+                        draggable={false}
+                        onClick={toggleMaketPanel}
+                        ref={addButtonRef}
+                    >
+                        <img src={add} draggable={false}/>
+                    </div>
                 </div>
+                
                 {isMaketPanelVisible && <MaketPanel 
                     onSelect={onMaketSelect} 
                     style={{ top: `${panelPosition.top}px`, left: `${panelPosition.left}px` }} 
                     isVisible={isMaketPanelVisible}
                     onClose={() => {setIsMaketPanelVisible(false);}}
+                    panelRef={panelRef}
                 />}
             </div>
         </div>
