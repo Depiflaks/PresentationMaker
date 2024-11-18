@@ -2,16 +2,14 @@ import { Position, TextElement } from "~/store/Types/types"
 
 type Props = {
     element: TextElement,
-    scale: number,
-    relative: Position
 }
 
-export default function TextComponent({element, scale, relative} : Props) {
+export default function TextComponent({element} : Props) {
     return (
         <text
-            x={element.position.x + relative.x}
-            y={element.position.y + relative.y}
-            fontSize={element.fontSize * scale}
+            x={element.position.x}
+            y={element.position.y}
+            fontSize={element.fontSize}
             fontFamily={element.fontFamily}
             fill={element.color}
         >

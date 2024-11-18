@@ -13,21 +13,33 @@ const FIELD: Size = {
     height: 900
 }
 
+const START_POSITION: Position = {
+    x: 0,
+    y: 0
+}
+
 export default function Workspace({slide}: Props) {
-    const [scale, setScale] = React.useState<number>(0.9);
+    const [scale, setScale] = React.useState<number>(1.1);
 
     const deltaScale: number = 0.05;
 
-    const startPosition: Position = {
-        x: 0,
-        y: 0
-    }
+    const handleWheel = (event: React.WheelEvent<HTMLDivElement>) => {
+        event.preventDefault();
+        setScale((prev: number) => prev + (deltaScale * (event.deltaY > 0 ? 1 : -1)))
+    };
 
-    const [relative, setRelative] = React.useState<Position>({...startPosition});
+    const [relative, setRelative] = React.useState<Position>({...START_POSITION});
     const elements = slide ? Object.values(slide.elements) : [];
     return (
-        <div className="workspace">
-            {slide && <svg className="canvas-svg" viewBox={`0 0 1600 900`}>
+        <div className="workspace"
+            onWheel={handleWheel}
+        >
+            {slide && 
+            <svg 
+                className="canvas-svg" 
+                viewBox={`${relative.x} ${relative.y} ${FIELD.width * scale} ${FIELD.height * scale}`}
+                
+            >
                 <rect
                     x={relative.x}
                     y={relative.y}
@@ -37,10 +49,16 @@ export default function Workspace({slide}: Props) {
                 />
                 {elements.map((element) => {
                     if (element.type === 'text') {
-                        return <TextComponent key={element.id} element={element as TextElement} relative={relative} scale={1} />
+                        return <TextComponent 
+                            key={element.id} 
+                            element={element as TextElement} 
+                        />
                     }
                     if (element.type === 'image') {
-                        return <ImageComponent key={element.id} element={element as ImageElement} relative={relative} scale={1} />
+                        return <ImageComponent 
+                            key={element.id} 
+                            element={element as ImageElement} 
+                        />
                     }
                 })}
             </svg>}
