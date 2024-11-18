@@ -18,6 +18,27 @@ body {
     width: 90vw;
 }
 
+.slide-list,
+.workspace,
+.property-editor {
+    position: relative;
+}
+
+.slide-list {
+    order: 1;
+    z-index: 2;
+}
+
+.workspace {
+    order: 2;
+    z-index: 1;
+}
+
+.property-editor {
+    order: 3;
+    z-index: 2;
+}
+
 html, body {
     overflow-x: hidden;
     box-sizing: border-box;

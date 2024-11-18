@@ -44,6 +44,7 @@ export default function SlideContainer({editor, dragEnterId, setDragEnterId}: Pr
     const toggleMaketPanel = () => {
         if (!isMaketPanelVisible && addButtonRef.current) {
             const { top, left, width } = addButtonRef.current.getBoundingClientRect();
+            console.log(top);
             setPanelPosition({
                 top: Math.min(top, window.innerHeight - 150),
                 left: left + window.scrollX + width + 10,

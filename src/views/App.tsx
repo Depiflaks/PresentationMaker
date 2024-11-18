@@ -35,10 +35,10 @@ function App({editor}: Props) {
             />
             <ToolBar current={currentTool} change={changeTool}/>
             <div className="main">
+                <Workspace slide={currentSlide}/>
                 <SlideList 
                     editor={editor} 
                 />
-                <Workspace slide={currentSlide}/>
                 <PropertyEditor slide={currentSlide}/>
             </div>
         </>

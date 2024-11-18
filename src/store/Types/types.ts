@@ -32,6 +32,18 @@ export interface ImageElement extends BaseElement {
 
 export type Elements = Record<string, TextElement | ImageElement>;
 
+export type Selection = {
+    main: {
+        position: Position;
+        size: Size;
+    }
+    elements: {
+        position: Position;
+        size: Size;
+        id: string
+    }[]
+}
+
 export type Selections = string[];
 
 export interface Slide {
@@ -47,6 +59,7 @@ export interface Presentation {
     title: string;
     author: string;
     order: string[];
-    slides: SlideCollection,
+    slides: SlideCollection;
     current: string;
+    selection: Selection;
 }
