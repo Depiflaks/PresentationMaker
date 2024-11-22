@@ -1,40 +1,43 @@
 import React from "react";
-import { ImageElement, Position, Size, Slide, TextElement } from "~/store/Types/types";
+import { DragType, ImageElement, Position, Slide, TextElement } from "~/store/Types/types";
 import ImageComponent from "~/components/ImageComponent";
 import TextComponent from "~/components/TextComponent";
 import "~/views/Editor/Workspace/Workspace.css";
+import { DELTA_SCALE, FIELD, START_POSITION, START_SCALE } from "~/store/Const/CONST";
 
 type Props = {
     slide: Slide|null;
     tool: string;
 }
 
-const FIELD: Size = {
-    width: 1600,
-    height: 900
-}
-
-const START_SCALE: number = 1.1;
-
-const DELTA_SCALE: number = 0.05;
-
-const START_POSITION: Position = {
-    x: FIELD.width * (1 - START_SCALE) / 2,
-    y: FIELD.height * (1 - START_SCALE) / 2
-}
-
 export default function Workspace({slide, tool}: Props) {
     const [scale, setScale] = React.useState<number>(START_SCALE);
     const [relative, setRelative] = React.useState<Position>({...START_POSITION});
-
-    const deltaScale: number = DELTA_SCALE;
+    const [isDrag, setIsDrag] = React.useState<boolean>(false);
+    const [dragStart, setDragStart] = React.useState<Position>({x: 0, y: 0});
+    const [dragEnd, setDragEnd] = React.useState<Position>({x: 0, y: 0});
+    const [dragType, setDragType] = React.useState<DragType>('none');
 
     const handleWheel = (event: React.WheelEvent<HTMLDivElement>) => {
         event.preventDefault();
-        setScale((prev: number) => prev + (deltaScale * (event.deltaY > 0 ? 1 : -1)))
+
+        const rect = (event.currentTarget as HTMLDivElement).getBoundingClientRect();
+
+        const mouseX = event.clientX - rect.left;
+        const mouseY = event.clientY - rect.top;
+
+        const userX = relative.x + mouseX * (FIELD.width * scale) / rect.width;
+        const userY = relative.y + mouseY * (FIELD.height * scale) / rect.height;
+
+        const newScale = Math.max(scale + DELTA_SCALE * (event.deltaY > 0 ? 1 : -1), 0.1);
+
+        const newRelativeX = userX - (mouseX * (FIELD.width * newScale) / rect.width);
+        const newRelativeY = userY - (mouseY * (FIELD.height * newScale) / rect.height);
+
+        setScale(newScale);
+        setRelative({ x: newRelativeX, y: newRelativeY });
     };
 
-    
     const elements = slide ? Object.values(slide.elements) : [];
     return (
         <div className="workspace"

@@ -10,6 +10,8 @@ export type Size = {
 
 export type SelectedTool = 'hand' | 'selection' | 'zoom' | 'text' | 'image' | 'none';
 
+export type DragType = 'selection' | 'move' | 'none';
+
 export interface BaseElement {
     type: string;
     id: string;
