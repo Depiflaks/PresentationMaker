@@ -5,7 +5,8 @@ import TextComponent from "~/components/TextComponent";
 import "~/views/Editor/Workspace/Workspace.css";
 
 type Props = {
-    slide: Slide|null
+    slide: Slide|null;
+    tool: string;
 }
 
 const FIELD: Size = {
@@ -13,22 +14,27 @@ const FIELD: Size = {
     height: 900
 }
 
+const START_SCALE: number = 1.1;
+
+const DELTA_SCALE: number = 0.05;
+
 const START_POSITION: Position = {
-    x: 0,
-    y: 0
+    x: FIELD.width * (1 - START_SCALE) / 2,
+    y: FIELD.height * (1 - START_SCALE) / 2
 }
 
-export default function Workspace({slide}: Props) {
-    const [scale, setScale] = React.useState<number>(1.1);
+export default function Workspace({slide, tool}: Props) {
+    const [scale, setScale] = React.useState<number>(START_SCALE);
+    const [relative, setRelative] = React.useState<Position>({...START_POSITION});
 
-    const deltaScale: number = 0.05;
+    const deltaScale: number = DELTA_SCALE;
 
     const handleWheel = (event: React.WheelEvent<HTMLDivElement>) => {
         event.preventDefault();
         setScale((prev: number) => prev + (deltaScale * (event.deltaY > 0 ? 1 : -1)))
     };
 
-    const [relative, setRelative] = React.useState<Position>({...START_POSITION});
+    
     const elements = slide ? Object.values(slide.elements) : [];
     return (
         <div className="workspace"
@@ -38,11 +44,10 @@ export default function Workspace({slide}: Props) {
             <svg 
                 className="canvas-svg" 
                 viewBox={`${relative.x} ${relative.y} ${FIELD.width * scale} ${FIELD.height * scale}`}
-                
             >
                 <rect
-                    x={relative.x}
-                    y={relative.y}
+                    x={0}
+                    y={0}
                     width={FIELD.width}
                     height={FIELD.height}
                     fill={slide.background}
