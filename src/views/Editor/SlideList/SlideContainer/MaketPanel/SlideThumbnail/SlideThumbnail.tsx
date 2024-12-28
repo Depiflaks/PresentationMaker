@@ -1,6 +1,6 @@
 import { Elements, ImageElement, TextElement } from "~/store/types/Presentation";
-import ImageComponent from "~/components/ImageComponent";
-import TextComponent from "~/components/TextComponent";
+import ImageComponent from "~/views/components/ImageComponent";
+import TextComponent from "~/views/components/TextComponent";
 import "./SlideThumbnail.css";
 
 type Props = {

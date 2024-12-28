@@ -1,8 +1,8 @@
 import React from "react";
 
 import { dispatch } from "~/store/editor";
-import TextComponent from "~/components/TextComponent";
-import ImageComponent from "~/components/ImageComponent";
+import TextComponent from "~/views/components/TextComponent";
+import ImageComponent from "~/views/components/ImageComponent";
 import { changeRelative, changeScale } from "~/store/actions/slide/Slide";
 import { DELTA_SCALE, FIELD, START_POSITION, START_SCALE } from "~/store/const/CONST";
 import { DragType, ImageElement, Position, Slide, TextElement } from "~/store/types/Presentation";

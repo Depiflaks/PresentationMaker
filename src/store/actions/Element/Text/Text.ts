@@ -2,7 +2,7 @@ import { Editor } from "~/store/types/Editor";
 import { TextElement } from "~/store/types/Presentation";
 import { storeSlide } from "../../presentation/Presentation";
 
-type ParametersInput = {
+export type UpdateTextElementInputParameters = {
     type?: "text";
     content?: string;
     fontSize?: number;
@@ -12,7 +12,7 @@ type ParametersInput = {
 
 export type UpdateTextElementInput = {
     elementId: string;
-    parameters: ParametersInput;
+    parameters: UpdateTextElementInputParameters;
 };
 
 export function updateTextElement(editor: Editor, { elementId, parameters }: UpdateTextElementInput): Editor {
