@@ -1,19 +1,31 @@
 import { createId } from "../../utils/uuid";
 import { createSlide } from "../actions/slide/Slide";
-import { Presentation } from "../types/Presentation";
-import { changeCurrentSlide, storeSlide } from "../actions/presentation/Presentation";
+import { Editor } from "../types/Editor";
 
+const slide = createSlide();
 
-export function getMinPresentation(): Presentation {
-    let empty: Presentation = {
+export const defaultEditor: Editor = {
+    presentation: {
         id: createId(),
         author: 'user',
-        current: '',
-        order: [],
+        current: slide.id,
+        order: [slide.id],
         title: 'My Banana Presentation',
-        slides: {},
-    };
-    empty = storeSlide(empty, createSlide(0));
-    empty = changeCurrentSlide(empty, empty.order[0]);
-    return empty;
+        slides: {
+            [slide.id]: slide
+        },
+    },
+    selection: {
+        main: {
+            position: {
+                x: 0,
+                y: 0
+            },
+            size: {
+                width: 0,
+                height: 0
+            }
+        },
+        elements: []
+    }
 }
