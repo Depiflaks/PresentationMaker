@@ -4,20 +4,21 @@ import SlideSeparator from "~/views/editor/slideList/slideContainer/slideSeparat
 import MaketPanel from "~/views/editor/slideList/slideContainer/maketPanel/MaketPanel";
 import { createSlide } from "~/store/actions/slide/Slide";
 import { useRef, useState } from "react";
-import { Presentation } from "~/store/types/Presentation";
 import { dispatch } from "~/store/editor";
-import { changeCurrentSlide, removeSlide, storeSlide } from "~/store/actions/presentation/Presentation";
+import { useAppSelector } from "~/views/hooks/useAppSelector";
+import { useAppActions } from "~/views/hooks/useAppActions";
 
 type Props = {
-    editor: Presentation;
     dragEnterId: string;
     setDragEnterId: (dragId: string) => void;
 }
 
 const endSlide = "endSlide";
 
-export default function SlideContainer({editor, dragEnterId, setDragEnterId}: Props) {
-    const {order, current, slides} = editor;
+export default function SlideContainer({dragEnterId, setDragEnterId}: Props) {
+    const {order, current, slides} = useAppSelector((editor => editor.presentation));
+    const { changeCurrentSlide, removeSlide, storeSlide } = useAppActions();
+    
     const slideArray = order.map((id) => slides[id]);
     const [activeSeparator, setActiveSeparator] = useState<string>(endSlide);
     const [isMaketPanelVisible, setIsMaketPanelVisible] = useState<boolean>(false);
@@ -26,7 +27,9 @@ export default function SlideContainer({editor, dragEnterId, setDragEnterId}: Pr
     const panelRef = useRef<HTMLDivElement>(null);
 
     const onSlideClick = (id: string): void => {
-        dispatch(changeCurrentSlide, id);
+        changeCurrentSlide({
+            newSlideId: id
+        });
     }
 
     const onSeparatorClick = (id: string) => {
@@ -38,13 +41,14 @@ export default function SlideContainer({editor, dragEnterId, setDragEnterId}: Pr
     }
 
     const deleteSlide = (id: string) => {
-        dispatch(removeSlide, id);
+        removeSlide({
+            slideId: id
+        });
     }
 
     const toggleMaketPanel = () => {
         if (!isMaketPanelVisible && addButtonRef.current) {
             const { top, left, width } = addButtonRef.current.getBoundingClientRect();
-            console.log(top);
             setPanelPosition({
                 top: Math.min(top, window.innerHeight - 150),
                 left: left + window.scrollX + width + 10,
@@ -55,7 +59,9 @@ export default function SlideContainer({editor, dragEnterId, setDragEnterId}: Pr
 
     const onMaketSelect = (index: number) => {
         const newSlide = createSlide(index);
-        dispatch(storeSlide, newSlide);
+        storeSlide({
+            slide: newSlide
+        });
         setIsMaketPanelVisible(false);
     };
 

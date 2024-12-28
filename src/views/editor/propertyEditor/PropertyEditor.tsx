@@ -3,16 +3,12 @@ import { Slide } from "~/store/types/Presentation";
 import "./PropertyEditor.css";
 import Resizer from "./resizer/Resizer";
 
-type Props = {
-    slide: Slide
-}
-
 export const Interval: {min: number, max: number} = {
     min: 150,
     max: 500
 }
 
-export default function PropertyEditor({slide}: Props) {
+export default function PropertyEditor() {
 
     const [separator, setSeparator] = useState<number>(Interval.min);
     const propertiesRef = useRef<HTMLDivElement>(null);

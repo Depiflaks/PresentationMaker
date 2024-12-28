@@ -11,7 +11,7 @@ import Tool from "./tool/Tool";
 
 type Props = {
     current: SelectedTool;
-    change: (newTool: SelectedTool) => void;
+    onToolChange: (newTool: SelectedTool) => void;
 };
 
 type toolInput = {
@@ -19,7 +19,7 @@ type toolInput = {
     imgSrc: string
 }
 
-export default function ToolBar({ current, change }: Props) {
+export default function ToolBar({ current, onToolChange: change }: Props) {
     useEffect(() => {
         const handleKeyPress = (event: KeyboardEvent) => {
             switch (event.key) {
