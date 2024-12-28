@@ -1,4 +1,6 @@
-import { TextElement } from "../../../types/Presentation";
+import { Editor } from "~/store/types/Editor";
+import { TextElement } from "~/store/types/Presentation";
+import { storeSlide } from "../../presentation/Presentation";
 
 type ParametersInput = {
     type?: "text";
@@ -8,12 +10,28 @@ type ParametersInput = {
     color?: string;
 }
 
-export function updateTextElement(
-    element: TextElement,
-    parameters: ParametersInput,
-): TextElement {
-    return {
+export type UpdateTextElementInput = {
+    elementId: string;
+    parameters: ParametersInput;
+};
+
+export function updateTextElement(editor: Editor, { elementId, parameters }: UpdateTextElementInput): Editor {
+    const slide = editor.presentation.slides[editor.presentation.current];
+    const element = slide.elements[elementId];
+    if (!element || element.type !== "text") return editor;
+
+    const updatedElement: TextElement = {
         ...element,
-        ...parameters
+        ...parameters,
     };
+
+    const updatedSlide = {
+        ...slide,
+        elements: {
+            ...slide.elements,
+            [elementId]: updatedElement,
+        },
+    };
+
+    return storeSlide(editor, { slide: updatedSlide });
 }

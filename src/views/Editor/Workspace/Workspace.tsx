@@ -1,11 +1,13 @@
 import React from "react";
-import { DragType, ImageElement, Position, Slide, TextElement } from "~/store/types/Presentation";
-import ImageComponent from "~/components/ImageComponent";
-import TextComponent from "~/components/TextComponent";
-import "~/views/Editor/Workspace/Workspace.css";
-import { DELTA_SCALE, FIELD, START_POSITION, START_SCALE } from "~/store/const/CONST";
+
 import { dispatch } from "~/store/editor";
-import { changeRelative, changeScale } from "~/store/actions/Slide/Slide";
+import TextComponent from "~/components/TextComponent";
+import ImageComponent from "~/components/ImageComponent";
+import { changeRelative, changeScale } from "~/store/actions/slide/Slide";
+import { DELTA_SCALE, FIELD, START_POSITION, START_SCALE } from "~/store/const/CONST";
+import { DragType, ImageElement, Position, Slide, TextElement } from "~/store/types/Presentation";
+
+import "~/views/Editor/Workspace/Workspace.css";
 
 type Props = {
     slide: Slide|null;

@@ -2,11 +2,11 @@ import SlidePreview from "~/views/editor/slideList/slideContainer/slidePreview/S
 import add from "~/views/assets/SlideList/add.svg"
 import SlideSeparator from "~/views/editor/slideList/slideContainer/slideSeparator/SlideSeparator";
 import MaketPanel from "~/views/editor/slideList/slideContainer/maketPanel/MaketPanel";
-import { createSlide } from "~/store/actions/Slide/Slide";
+import { createSlide } from "~/store/actions/slide/Slide";
 import { useRef, useState } from "react";
 import { Presentation } from "~/store/types/Presentation";
 import { dispatch } from "~/store/editor";
-import { changeCurrent, removeSlide, storeSlide } from "~/store/actions/Presentation/Presentation";
+import { changeCurrent, removeSlide, storeSlide } from "~/store/actions/presentation/Presentation";
 
 type Props = {
     editor: Presentation;

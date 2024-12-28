@@ -1,5 +1,7 @@
 import { ImageElement, TextElement, Position, Size } from "../../types/Presentation";
 import { createId } from "../../../utils/uuid";
+import { Editor } from "~/store/types/Editor";
+import { storeSlide } from "../presentation/Presentation";
 
 type Element = TextElement | ImageElement;
 
@@ -20,31 +22,52 @@ type TextProp = {
     color: string;
 }
 
+export type CreateElementInput = ImageProp | TextProp;
+
 export function createElement(properties: ImageProp | TextProp): Element {
-    switch (properties.type) {
-        case "text":
-            return {...properties, id: createId()}
-        case "image":
-            return {...properties, id: createId()}
-    }
+    return {...properties, id: createId()}
 }
 
-export function updatePosition(
-    element: Element,
-    newPosition: { x: number; y: number },
-): Element {
-    return {
-        ...element,
-        position: newPosition,
+export type UpdateElementPositionInput = {
+    elementId: string;
+    newPosition: Position;
+};
+
+export function updateElementPosition(editor: Editor, { elementId, newPosition }: UpdateElementPositionInput): Editor {
+    const slide = editor.presentation.slides[editor.presentation.current];
+    const element = slide.elements[elementId];
+    if (!element) return editor;
+
+    const updatedElement = { ...element, position: newPosition };
+    const updatedSlide = {
+        ...slide,
+        elements: {
+            ...slide.elements,
+            [elementId]: updatedElement,
+        },
     };
+
+    return storeSlide(editor, { slide: updatedSlide });
 }
 
-export function updateSize(
-    element: Element,
-    newSize: { width: number; height: number },
-): Element {
-    return {
-        ...element,
-        size: newSize,
+export type UpdateElementSizeInput = {
+    elementId: string;
+    newSize: Size;
+};
+
+export function updateElementSize(editor: Editor, { elementId, newSize }: UpdateElementSizeInput): Editor {
+    const slide = editor.presentation.slides[editor.presentation.current];
+    const element = slide.elements[elementId];
+    if (!element) return editor;
+
+    const updatedElement = { ...element, size: newSize };
+    const updatedSlide = {
+        ...slide,
+        elements: {
+            ...slide.elements,
+            [elementId]: updatedElement,
+        },
     };
+
+    return storeSlide(editor, { slide: updatedSlide });
 }

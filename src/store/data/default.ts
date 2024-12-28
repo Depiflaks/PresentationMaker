@@ -1,7 +1,7 @@
 import { createId } from "../../utils/uuid";
-import { changeCurrent, storeSlide } from "../actions/Presentation/Presentation";
-import { createSlide } from "../actions/Slide/Slide";
+import { createSlide } from "../actions/slide/Slide";
 import { Presentation } from "../types/Presentation";
+import { changeCurrent, storeSlide } from "../actions/presentation/Presentation";
 
 
 export function getMinPresentation(): Presentation {

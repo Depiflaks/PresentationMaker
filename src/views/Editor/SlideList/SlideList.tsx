@@ -1,7 +1,7 @@
 import { Presentation } from "~/store/types/Presentation";
 import "./SlideList.css";
 
-import { moveSlide } from "~/store/actions/Presentation/Presentation";
+import { moveSlide } from "~/store/actions/presentation/Presentation";
 
 import { useState } from "react";
 import { dispatch } from "~/store/editor";

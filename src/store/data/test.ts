@@ -1,6 +1,6 @@
 import { createId } from "../../utils/uuid";
-import { changeCurrent, storeSlide } from "../actions/Presentation/Presentation";
-import { createSlide } from "../actions/Slide/Slide";
+import { changeCurrent, storeSlide } from "../actions/presentation/Presentation";
+import { createSlide } from "../actions/slide/Slide";
 import { Presentation } from "../types/Presentation";
 
 
