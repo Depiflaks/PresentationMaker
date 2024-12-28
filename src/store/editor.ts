@@ -1,5 +1,5 @@
-import { getTestPresentation } from "./Data/TestPresentation";
-import { Presentation } from "./Types/types";
+import { getTestPresentation } from "./data/test";
+import { Presentation } from "./types/Presentation";
 
 export let editor = getTestPresentation();
 let editorChangeHandler: Function = (): void => {};

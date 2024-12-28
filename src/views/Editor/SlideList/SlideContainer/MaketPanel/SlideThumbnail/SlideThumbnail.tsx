@@ -1,4 +1,4 @@
-import { Elements, ImageElement, TextElement } from "~/store/Types/types";
+import { Elements, ImageElement, TextElement } from "~/store/types/Presentation";
 import ImageComponent from "~/components/ImageComponent";
 import TextComponent from "~/components/TextComponent";
 import "./SlideThumbnail.css";

@@ -5,9 +5,9 @@ import text from "~/views/assets/ToolBar/text.svg";
 import zoom from "~/views/assets/ToolBar/zoom.svg";
 
 import "./ToolBar.css";
-import { SelectedTool } from "~/store/Types/types";
+import { SelectedTool } from "~/store/types/Presentation";
 import { useEffect } from "react";
-import Tool from "./Tool/Tool";
+import Tool from "./tool/Tool";
 
 type Props = {
     current: SelectedTool;

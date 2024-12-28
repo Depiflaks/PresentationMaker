@@ -1,4 +1,4 @@
-import { TextElement } from "../../../Types/types";
+import { TextElement } from "../../../types/Presentation";
 
 type ParametersInput = {
     type?: "text";

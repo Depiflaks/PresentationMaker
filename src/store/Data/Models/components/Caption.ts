@@ -1,5 +1,5 @@
-import { createId } from "../../../Methods/Generator/Generator";
-import { TextElement } from "../../../Types/types";
+import { createId } from "../../../actions/Generator/Generator";
+import { TextElement } from "../../../types/Presentation";
 
 
 export const caption: TextElement = {

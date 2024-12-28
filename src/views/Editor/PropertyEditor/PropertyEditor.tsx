@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
-import { Slide } from "~/store/Types/types";
+import { Slide } from "~/store/types/Presentation";
 import "./PropertyEditor.css";
-import Resizer from "./Resizer/Resizer";
+import Resizer from "./resizer/Resizer";
 
 type Props = {
     slide: Slide

@@ -1,4 +1,4 @@
-import { ImageElement, TextElement, Position, Size } from "../../Types/types";
+import { ImageElement, TextElement, Position, Size } from "../../types/Presentation";
 import { createId } from "../Generator/Generator";
 
 type Element = TextElement | ImageElement;

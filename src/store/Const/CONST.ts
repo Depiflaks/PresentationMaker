@@ -1,4 +1,4 @@
-import { Position, Size } from "~/store/Types/types";
+import { Position, Size } from "~/store/types/Presentation";
 
 export const FIELD: Size = {
     width: 1600,

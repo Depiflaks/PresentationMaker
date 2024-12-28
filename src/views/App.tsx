@@ -1,14 +1,14 @@
 import "./App.css";
 import React from "react";
-import Header from "~/views/Header/Header";
-import ToolBar from "~/views/Editor/ToolBar/ToolBar";
-import Workspace from "~/views/Editor/Workspace/Workspace";
-import PropertyEditor from "~/views/Editor/PropertyEditor/PropertyEditor";
+import Header from "~/views/header/Header";
+import ToolBar from "~/views/editor/toolBar/ToolBar";
+import Workspace from "~/views/editor/workspace/Workspace";
+import PropertyEditor from "~/views/editor/propertyEditor/PropertyEditor";
 
-import { Presentation, SelectedTool } from "~/store/Types/types";
-import { updatePresentationTitle } from "~/store/Methods/Presentation/Presentation";
+import { Presentation, SelectedTool } from "~/store/types/Presentation";
+import { updatePresentationTitle } from "~/store/actions/Presentation/Presentation";
 import { dispatch } from "~/store/editor";
-import SlideList from "~/views/Editor/SlideList/SlideList";
+import SlideList from "~/views/editor/slideList/SlideList";
 
 type Props = {
     editor: Presentation;
@@ -16,7 +16,7 @@ type Props = {
 
 function App({editor}: Props) {
 
-    const [currentTool, setCurrentTool] = React.useState<SelectedTool>('none');
+    const [currentTool, setCurrentTool] = React.useState<SelectedTool>('hand');
 
     const changeTool = (newArg: SelectedTool) => {
         setCurrentTool((prevArg) => newArg === prevArg ? 'none' : newArg);

@@ -1,4 +1,4 @@
-import { SelectedTool } from "~/store/Types/types";
+import { SelectedTool } from "~/store/types/Presentation";
 
 type Props = {
     current: SelectedTool;

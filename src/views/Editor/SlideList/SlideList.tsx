@@ -1,11 +1,11 @@
-import { Presentation } from "~/store/Types/types";
+import { Presentation } from "~/store/types/Presentation";
 import "./SlideList.css";
 
-import { moveSlide } from "~/store/Methods/Presentation/Presentation";
+import { moveSlide } from "~/store/actions/Presentation/Presentation";
 
 import { useState } from "react";
 import { dispatch } from "~/store/editor";
-import SlideContainer from "~/views/Editor/SlideList/SlideContainer/SlideContainer";
+import SlideContainer from "~/views/editor/slideList/slideContainer/SlideContainer";
 
 
 type Props = {

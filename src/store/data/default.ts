@@ -1,7 +1,7 @@
-import { createId } from "../Methods/Generator/Generator";
-import { changeCurrent, storeSlide } from "../Methods/Presentation/Presentation";
-import { createSlide } from "../Methods/Slide/Slide";
-import { Presentation } from "../Types/types";
+import { createId } from "../actions/Generator/Generator";
+import { changeCurrent, storeSlide } from "../actions/Presentation/Presentation";
+import { createSlide } from "../actions/Slide/Slide";
+import { Presentation } from "../types/Presentation";
 
 
 export function getMinPresentation(): Presentation {

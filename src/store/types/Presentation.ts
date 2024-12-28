@@ -52,6 +52,8 @@ export interface Slide {
     id: string;
     background: string;
     elements: Elements;
+    scale: number;
+    relative: Position;
 }
 
 export type SlideCollection = Record<string, Slide>;
@@ -63,5 +65,4 @@ export interface Presentation {
     order: string[];
     slides: SlideCollection;
     current: string;
-    selection: Selection;
 }

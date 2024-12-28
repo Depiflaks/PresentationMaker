@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ImageElement, Slide, TextElement } from "~/store/Types/types";
+import { ImageElement, Slide, TextElement } from "~/store/types/Presentation";
 import ImageComponent from "~/components/ImageComponent";
 import TextComponent from "~/components/TextComponent";
 import "./SlidePreview.css";

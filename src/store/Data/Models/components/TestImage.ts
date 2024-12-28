@@ -1,5 +1,5 @@
-import { createId } from "../../../Methods/Generator/Generator";
-import { ImageElement } from "../../../Types/types";
+import { createId } from "../../../actions/Generator/Generator";
+import { ImageElement } from "../../../types/Presentation";
 
 export const testImage: ImageElement = {
     id: createId(),

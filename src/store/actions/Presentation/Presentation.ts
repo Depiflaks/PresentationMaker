@@ -1,4 +1,4 @@
-import { Presentation, Slide, SlideCollection } from "../../Types/types";
+import { Presentation, Slide, SlideCollection } from "../../types/Presentation";
 
 export function updatePresentationTitle(
     presentation: Presentation,

@@ -1,7 +1,7 @@
 import { CSSProperties, useEffect, useRef, useState } from "react";
 import "./MaketPanel.css";
-import SlideThumbnail from "./SlideThumbnail/SlideThumbnail";
-import { slidesModels } from "~/store/Data/Models/Models";
+import SlideThumbnail from "./slideThumbnail/SlideThumbnail";
+import { slidesModels } from "~/store/data/models/Models";
 
 type Props = {
     onSelect: (maketId: number) => void;
