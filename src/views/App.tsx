@@ -12,37 +12,31 @@ import { updatePresentationTitle } from "~/store/actions/presentation/Presentati
 import "./App.css";
 type Props = {
     editor: Presentation;
-}
+};
 
-function App({editor}: Props) {
-
-    const [currentTool, setCurrentTool] = React.useState<SelectedTool>('hand');
+function App({ editor }: Props) {
+    const [currentTool, setCurrentTool] = React.useState<SelectedTool>("hand");
 
     const changeTool = (newArg: SelectedTool) => {
-        setCurrentTool((prevArg) => newArg === prevArg ? 'none' : newArg);
-    }
+        setCurrentTool((prevArg) => (newArg === prevArg ? "none" : newArg));
+    };
 
     const onTitleChange = (newTitle: string) => {
         dispatch(updatePresentationTitle, newTitle);
-    }
+    };
 
     const currentSlide = editor.slides[editor.current];
     return (
         <>
-            <Header 
-                title={editor.title}
-                onTitleChange={onTitleChange}
-            />
-            <ToolBar current={currentTool} change={changeTool}/>
+            <Header title={editor.title} onTitleChange={onTitleChange} />
+            <ToolBar current={currentTool} change={changeTool} />
             <div className="main">
-                <Workspace slide={currentSlide} tool={currentTool}/>
-                <SlideList 
-                    editor={editor} 
-                />
-                <PropertyEditor slide={currentSlide}/>
+                <Workspace slide={currentSlide} tool={currentTool} />
+                <SlideList editor={editor} />
+                <PropertyEditor slide={currentSlide} />
             </div>
         </>
     );
-};
+}
 
 export default App;
