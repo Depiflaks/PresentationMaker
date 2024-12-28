@@ -1,5 +1,5 @@
 import { ImageElement, TextElement, Position, Size } from "../../types/Presentation";
-import { createId } from "../Generator/Generator";
+import { createId } from "../../../utils/uuid";
 
 type Element = TextElement | ImageElement;
 

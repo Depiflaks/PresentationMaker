@@ -1,7 +1,7 @@
 import { START_POSITION, START_SCALE } from "~/store/const/CONST";
 import { slidesModels } from "~/store/data/models/Models";
 import { Elements, ImageElement, Position, Slide, TextElement } from "~/store/types/Presentation";
-import { createId } from "~/store/actions/Generator/Generator";
+import { createId } from "~/utils/uuid";
 
 export function createSlide(model: number = 0): Slide {
     return {

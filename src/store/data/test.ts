@@ -1,4 +1,4 @@
-import { createId } from "../actions/Generator/Generator";
+import { createId } from "../../utils/uuid";
 import { changeCurrent, storeSlide } from "../actions/Presentation/Presentation";
 import { createSlide } from "../actions/Slide/Slide";
 import { Presentation } from "../types/Presentation";
