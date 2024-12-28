@@ -1,3 +1,4 @@
+import { StoreElementInput } from "../actions/slide/Slide";
 import { ImageElement, Position, Size, Slide, TextElement } from "../types/Presentation";
 
 export enum ActionType {
@@ -93,10 +94,7 @@ export type UpdateSlideBackgroundAction = {
 
 export type StoreElementAction = {
     type: ActionType.STORE_ELEMENT;
-    payload: {
-        slideId: string;
-        element: TextElement | ImageElement;
-    };
+    payload: StoreElementInput;
 };
 
 // Element
@@ -139,7 +137,7 @@ export type EditorAction =
     | StoreSlideAction
     | RemoveSlideAction
     | MoveSlideAction
-    
+
     | RemoveElementAction
     | ChangeRelativeAction
     | ChangeScaleAction
