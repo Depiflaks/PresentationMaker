@@ -5,16 +5,13 @@ import Header from "~/views/header/Header";
 import ToolBar from "~/views/editor/toolBar/ToolBar";
 import Workspace from "~/views/editor/workspace/Workspace";
 import SlideList from "~/views/editor/slideList/SlideList";
-import { Presentation, SelectedTool } from "~/store/types/Presentation";
+import { SelectedTool } from "~/store/types/Presentation";
 import PropertyEditor from "~/views/editor/propertyEditor/PropertyEditor";
 import { updatePresentationTitle } from "~/store/actions/presentation/Presentation";
 
 import "./App.css";
-type Props = {
-    editor: Presentation;
-};
 
-function App({ editor }: Props) {
+function App() {
     const [currentTool, setCurrentTool] = React.useState<SelectedTool>("hand");
 
     const changeTool = (newArg: SelectedTool) => {
