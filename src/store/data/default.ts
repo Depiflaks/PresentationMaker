@@ -1,7 +1,7 @@
 import { createId } from "../../utils/uuid";
 import { createSlide } from "../actions/slide/Slide";
 import { Presentation } from "../types/Presentation";
-import { changeCurrent, storeSlide } from "../actions/presentation/Presentation";
+import { changeCurrentSlide, storeSlide } from "../actions/presentation/Presentation";
 
 
 export function getMinPresentation(): Presentation {
@@ -14,6 +14,6 @@ export function getMinPresentation(): Presentation {
         slides: {},
     };
     empty = storeSlide(empty, createSlide(0));
-    empty = changeCurrent(empty, empty.order[0]);
+    empty = changeCurrentSlide(empty, empty.order[0]);
     return empty;
 }

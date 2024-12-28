@@ -6,7 +6,7 @@ import { createSlide } from "~/store/actions/slide/Slide";
 import { useRef, useState } from "react";
 import { Presentation } from "~/store/types/Presentation";
 import { dispatch } from "~/store/editor";
-import { changeCurrent, removeSlide, storeSlide } from "~/store/actions/presentation/Presentation";
+import { changeCurrentSlide, removeSlide, storeSlide } from "~/store/actions/presentation/Presentation";
 
 type Props = {
     editor: Presentation;
@@ -26,7 +26,7 @@ export default function SlideContainer({editor, dragEnterId, setDragEnterId}: Pr
     const panelRef = useRef<HTMLDivElement>(null);
 
     const onSlideClick = (id: string): void => {
-        dispatch(changeCurrent, id);
+        dispatch(changeCurrentSlide, id);
     }
 
     const onSeparatorClick = (id: string) => {

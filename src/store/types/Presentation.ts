@@ -32,7 +32,9 @@ export interface ImageElement extends BaseElement {
     src: string;
 }
 
-export type Elements = Record<string, TextElement | ImageElement>;
+export type Element = TextElement | ImageElement;
+
+export type Elements = Record<string, Element>;
 
 export type Selection = {
     main: {

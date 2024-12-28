@@ -1,27 +1,15 @@
+import { ChangeCurrentSlideInput, MoveSlideInput, RemoveSlideInput, StoreSlideInput, UpdatePresentationTitleInput } from "~/store/input/presentation/PresentationInputs";
 import { Editor } from "~/store/types/Editor";
-import { Slide } from "../../types/Presentation";
-
-export type UpdatePresentationTitleInput = {
-    newTitle: string;
-};
 
 export function updatePresentationTitle(editor: Editor, { newTitle }: UpdatePresentationTitleInput): Editor {
     const presentation = { ...editor.presentation, title: newTitle };
     return { ...editor, presentation };
 }
 
-export type ChangeCurrentInput = {
-    newId: string;
-};
-
-export function changeCurrent(editor: Editor, { newId }: ChangeCurrentInput): Editor {
-    const presentation = { ...editor.presentation, current: newId };
+export function changeCurrentSlide(editor: Editor, { newSlideId }: ChangeCurrentSlideInput): Editor {
+    const presentation = { ...editor.presentation, current: newSlideId };
     return { ...editor, presentation };
 }
-
-export type StoreSlideInput = {
-    slide: Slide;
-};
 
 export function storeSlide(editor: Editor, { slide }: StoreSlideInput): Editor {
     const slides = { ...editor.presentation.slides, [slide.id]: slide };
@@ -32,10 +20,6 @@ export function storeSlide(editor: Editor, { slide }: StoreSlideInput): Editor {
     const presentation = { ...editor.presentation, slides, order };
     return { ...editor, presentation };
 }
-
-export type RemoveSlideInput = {
-    slideId: string;
-};
 
 export function removeSlide(editor: Editor, { slideId }: RemoveSlideInput): Editor {
     const slides = { ...editor.presentation.slides };
@@ -52,11 +36,6 @@ export function removeSlide(editor: Editor, { slideId }: RemoveSlideInput): Edit
     const presentation = { ...editor.presentation, slides, order, current };
     return { ...editor, presentation };
 }
-
-export type MoveSlideInput = {
-    slideId: string;
-    newIndex: number;
-};
 
 export function moveSlide(editor: Editor, { slideId, newIndex }: MoveSlideInput): Editor {
     const slideIndex = editor.presentation.order.findIndex((id) => id === slideId);

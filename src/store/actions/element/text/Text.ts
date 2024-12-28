@@ -1,19 +1,7 @@
 import { Editor } from "~/store/types/Editor";
 import { TextElement } from "~/store/types/Presentation";
 import { storeSlide } from "../../presentation/Presentation";
-
-export type UpdateTextElementInputParameters = {
-    type?: "text";
-    content?: string;
-    fontSize?: number;
-    fontFamily?: string;
-    color?: string;
-}
-
-export type UpdateTextElementInput = {
-    elementId: string;
-    parameters: UpdateTextElementInputParameters;
-};
+import { UpdateTextElementInput } from "~/store/input/element/text/TextElementInputs";
 
 export function updateTextElement(editor: Editor, { elementId, parameters }: UpdateTextElementInput): Editor {
     const slide = editor.presentation.slides[editor.presentation.current];

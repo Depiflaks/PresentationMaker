@@ -1,5 +1,5 @@
 import { createId } from "../../utils/uuid";
-import { changeCurrent, storeSlide } from "../actions/presentation/Presentation";
+import { changeCurrentSlide, storeSlide } from "../actions/presentation/Presentation";
 import { createSlide } from "../actions/slide/Slide";
 import { Presentation } from "../types/Presentation";
 
@@ -16,6 +16,6 @@ export function getTestPresentation(): Presentation {
     empty = storeSlide(empty, createSlide(0));
     empty = storeSlide(empty, createSlide(1));
     empty = storeSlide(empty, createSlide(2));
-    empty = changeCurrent(empty, empty.order[0]);
+    empty = changeCurrentSlide(empty, empty.order[0]);
     return empty;
 }

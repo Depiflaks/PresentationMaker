@@ -1,37 +1,13 @@
-import { ImageElement, TextElement, Position, Size } from "../../types/Presentation";
-import { createId } from "../../../utils/uuid";
 import { Editor } from "~/store/types/Editor";
 import { storeSlide } from "../presentation/Presentation";
+import { createId } from "../../../utils/uuid";
+import { CreateElementInput, UpdateElementPositionInput, UpdateElementSizeInput } from "~/store/input/element/ElementInputs";
+import { Element } from "~/store/types/Presentation";
 
-type Element = TextElement | ImageElement;
 
-type ImageProp = {
-    type: "image";
-    position: Position;
-    size: Size;
-    src: string;
-}
-
-type TextProp = {
-    type: "text";
-    position: Position;
-    size: Size;
-    content: string;
-    fontSize: number;
-    fontFamily: string;
-    color: string;
-}
-
-export type CreateElementInput = ImageProp | TextProp;
-
-export function createElement(properties: ImageProp | TextProp): Element {
+export function createElement(properties: CreateElementInput): Element {
     return {...properties, id: createId()}
 }
-
-export type UpdateElementPositionInput = {
-    elementId: string;
-    newPosition: Position;
-};
 
 export function updateElementPosition(editor: Editor, { elementId, newPosition }: UpdateElementPositionInput): Editor {
     const slide = editor.presentation.slides[editor.presentation.current];
@@ -49,11 +25,6 @@ export function updateElementPosition(editor: Editor, { elementId, newPosition }
 
     return storeSlide(editor, { slide: updatedSlide });
 }
-
-export type UpdateElementSizeInput = {
-    elementId: string;
-    newSize: Size;
-};
 
 export function updateElementSize(editor: Editor, { elementId, newSize }: UpdateElementSizeInput): Editor {
     const slide = editor.presentation.slides[editor.presentation.current];

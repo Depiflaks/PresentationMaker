@@ -1,9 +1,11 @@
-import { StoreElementInput } from "../actions/slide/Slide";
-import { ImageElement, Position, Size, Slide, TextElement } from "../types/Presentation";
+import { UpdateElementPositionInput, UpdateElementSizeInput } from "../input/element/ElementInputs";
+import { UpdateTextElementInput } from "../input/element/text/TextElementInputs";
+import { ChangeCurrentSlideInput, MoveSlideInput, RemoveSlideInput, StoreSlideInput, UpdatePresentationTitleInput } from "../input/presentation/PresentationInputs";
+import { ChangeRelativeInput, ChangeScaleInput, RemoveElementInput, StoreElementInput, UpdateSlideBackgroundInput } from "../input/slide/SlideInputs";
 
 export enum ActionType {
     UPDATE_PRESENTATION_TITLE = "updatePresentationTitle",
-    CHANGE_CURRENT = "changeCurrent",
+    CHANGE_CURRENT_SLIDE = "changeCurrentSlide",
     STORE_SLIDE = "storeSlide",
     REMOVE_SLIDE = "removeSlide",
     MOVE_SLIDE = "moveSlide",
@@ -24,72 +26,49 @@ export enum ActionType {
 
 export type UpdatePresentationTitleAction = {
     type: ActionType.UPDATE_PRESENTATION_TITLE;
-    payload: {
-        newTitle: string;
-    };
+    payload: UpdatePresentationTitleInput;
 };
 
-export type ChangeCurrentAction = {
-    type: ActionType.CHANGE_CURRENT;
-    payload: {
-        newId: string;
-    };
+export type ChangeCurrentSlideAction = {
+    type: ActionType.CHANGE_CURRENT_SLIDE;
+    payload: ChangeCurrentSlideInput;
 };
 
 export type StoreSlideAction = {
     type: ActionType.STORE_SLIDE;
-    payload: {
-        slide: Slide;
-    };
+    payload: StoreSlideInput;
 };
 
 export type RemoveSlideAction = {
     type: ActionType.REMOVE_SLIDE;
-    payload: {
-        slideId: string;
-    };
+    payload: RemoveSlideInput;
 };
 
 export type MoveSlideAction = {
     type: ActionType.MOVE_SLIDE;
-    payload: {
-        slideId: string;
-        newIndex: number;
-    };
+    payload: MoveSlideInput;
 };
 
 // Slide
 
 export type RemoveElementAction = {
     type: ActionType.REMOVE_ELEMENT;
-    payload: {
-        slideId: string;
-        elementId: string;
-    };
+    payload: RemoveElementInput;
 };
 
 export type ChangeRelativeAction = {
     type: ActionType.CHANGE_RELATIVE;
-    payload: {
-        slideId: string;
-        newRelative: Position;
-    };
+    payload: ChangeRelativeInput;
 };
 
 export type ChangeScaleAction = {
     type: ActionType.CHANGE_SCALE;
-    payload: {
-        slideId: string;
-        newScale: number;
-    };
+    payload: ChangeScaleInput;
 };
 
 export type UpdateSlideBackgroundAction = {
     type: ActionType.UPDATE_SLIDE_BACKGROUND;
-    payload: {
-        slideId: string;
-        newBackground: string;
-    };
+    payload: UpdateSlideBackgroundInput;
 };
 
 export type StoreElementAction = {
@@ -101,39 +80,24 @@ export type StoreElementAction = {
 
 export type UpdateElementPositionAction = {
     type: ActionType.UPDATE_ELEMENT_POSITION;
-    payload: {
-        elementId: string;
-        newPosition: Position;
-    };
+    payload: UpdateElementPositionInput;
 };
 
 export type UpdateElementSizeAction = {
     type: ActionType.UPDATE_ELEMENT_SIZE;
-    payload: {
-        elementId: string;
-        newSize: Size;
-    };
+    payload: UpdateElementSizeInput;
 };
 
 // Text
 
 export type UpdateTextElementAction = {
     type: ActionType.UPDATE_TEXT_ELEMENT;
-    payload: {
-        elementId: string;
-        parameters: {
-            type?: "text";
-            content?: string;
-            fontSize?: number;
-            fontFamily?: string;
-            color?: string;
-        };
-    };
+    payload: UpdateTextElementInput;
 };
 
 export type EditorAction =
     | UpdatePresentationTitleAction
-    | ChangeCurrentAction
+    | ChangeCurrentSlideAction
     | StoreSlideAction
     | RemoveSlideAction
     | MoveSlideAction
