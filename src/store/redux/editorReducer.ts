@@ -1,12 +1,18 @@
-import { defaultEditor } from "~/store/data/default"
 import { Editor } from "~/store/types/Editor"
 import { ActionType, EditorAction } from "./actions"
 import { changeCurrentSlide, moveSlide, removeSlide, storeSlide, updatePresentationTitle } from "~/store/actions/presentation/Presentation"
 import { changeRelative, changeScale, removeElement, storeElement, updateSlideBackground } from "~/store/actions/slide/Slide";
 import { updateElementPosition, updateElementSize } from "~/store/actions/element/Element";
 import { updateTextElement } from "~/store/actions/element/text/Text";
+import { loadEditorFromStorage, saveEditorToStorage } from "../storage/LocalStorageHandler";
 
-export function editorReducer(editor: Editor = defaultEditor, action: EditorAction): Editor {
+export function editorReducer(editor: Editor = loadEditorFromStorage(), action: EditorAction): Editor {
+    const updatedEditor = updateReduser(editor, action);
+    saveEditorToStorage(updatedEditor);
+    return updatedEditor;
+}
+
+function updateReduser(editor: Editor = loadEditorFromStorage(), action: EditorAction): Editor {
     switch (action.type) {
         case ActionType.UPDATE_PRESENTATION_TITLE:
             return updatePresentationTitle(editor, action.payload);
@@ -51,4 +57,3 @@ export function editorReducer(editor: Editor = defaultEditor, action: EditorActi
             return editor;
     }
 }
-

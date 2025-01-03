@@ -1,11 +1,9 @@
 import React from "react";
 
-import { dispatch } from "~/store/editor";
 import TextComponent from "~/views/components/TextComponent";
 import ImageComponent from "~/views/components/ImageComponent";
-import { changeRelative, changeScale } from "~/store/actions/slide/Slide";
 import { DELTA_SCALE, FIELD, START_POSITION, START_SCALE } from "~/store/const/CONST";
-import { DragType, ImageElement, Position, Slide, TextElement } from "~/store/types/Presentation";
+import { DragType, ImageElement, Position, TextElement } from "~/store/types/Presentation";
 
 import "~/views/editor/workspace/Workspace.css";
 import { useAppSelector } from "~/views/hooks/useAppSelector";
@@ -65,8 +63,8 @@ export default function Workspace({ tool }: Props) {
                 viewBox={`${slide.relative.x} ${slide.relative.y} ${FIELD.width * slide.scale} ${FIELD.height * slide.scale}`}
             >
                 <rect
-                    x={0}
-                    y={0}
+                    x={ 0 }
+                    y={ 0 }
                     width={FIELD.width}
                     height={FIELD.height}
                     fill={slide.background}
