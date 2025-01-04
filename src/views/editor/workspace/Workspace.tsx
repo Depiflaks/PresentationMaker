@@ -43,7 +43,6 @@ export default function Workspace({ tool }: Props) {
         const newRelativeY = userY - (mouseY * (FIELD.height * newScale) / rect.height);
         
         changeScale({slideId: slide.id, newScale: newScale});
-        console.log(slide);
         changeRelative({
             slideId: slide.id,
             newRelative: {

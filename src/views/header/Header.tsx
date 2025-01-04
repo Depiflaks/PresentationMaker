@@ -13,7 +13,7 @@ export default function Header({title, onTitleChange}: Props) {
     const inputRef = useRef<HTMLInputElement>(null);
     return (
         <header className="header">
-            <div className="header-left">
+            <div className="header-child header-left">
                 <img src={icon} alt="Logo" className="logo" />
                 <input
                     ref={inputRef}
@@ -28,7 +28,7 @@ export default function Header({title, onTitleChange}: Props) {
                     BANANA <span className="maker-text">MAKER</span>
                 </h1>
             </div>
-            <div className="header-right">
+            <div className="header-child header-right">
                 <button className="icon-button">
                     <img src={save} alt="Save" />
                 </button>

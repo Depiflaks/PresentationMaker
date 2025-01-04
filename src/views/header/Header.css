@@ -6,6 +6,10 @@
     margin-bottom: 10px;
 }
 
+.header-child {
+    width: 30%;
+}
+
 .header-left {
     display: flex;
     align-items: center;
@@ -57,6 +61,7 @@
 .header-right {
     display: flex;
     align-items: center;
+    justify-content: flex-end;
 }
 
 .icon-button {

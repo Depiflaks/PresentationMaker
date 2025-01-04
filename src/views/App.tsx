@@ -4,7 +4,7 @@ import Header from "~/views/header/Header";
 import ToolBar from "~/views/editor/toolBar/ToolBar";
 import Workspace from "~/views/editor/workspace/Workspace";
 import SlideList from "~/views/editor/slideList/SlideList";
-import { SelectedTool, ToolType } from "~/store/types/Presentation";
+import { ToolType } from "~/store/types/Presentation";
 import PropertyEditor from "~/views/editor/propertyEditor/PropertyEditor";
 
 import "./App.css";

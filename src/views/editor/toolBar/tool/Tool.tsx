@@ -1,16 +1,15 @@
-import { SelectedTool } from "~/store/types/Presentation";
+import { ToolType } from "~/store/types/Presentation";
 
 type Props = {
-    current: SelectedTool;
-    value: SelectedTool;
+    current: ToolType;
+    value: ToolType;
     imgSrc: string;
-    change: (newTool: SelectedTool) => void;
+    change: (newTool: ToolType) => void;
 };
 
 export default function Tool({ current, change, value, imgSrc }: Props) {
     function ucFirst(str: string): string {
         if (!str) return str;
-      
         return str[0].toUpperCase() + str.slice(1);
       }
     return (
@@ -19,9 +18,9 @@ export default function Tool({ current, change, value, imgSrc }: Props) {
             onClick={() => {
                 change(value);
             }}
+            title={ucFirst(value)}
         >
             <img src={imgSrc} />
-            {ucFirst(value)}
         </button>
     );
 }
