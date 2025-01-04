@@ -5,17 +5,17 @@ import text from "~/views/assets/ToolBar/text.svg";
 import zoom from "~/views/assets/ToolBar/zoom.svg";
 
 import "./ToolBar.css";
-import { SelectedTool } from "~/store/types/Presentation";
+import { ToolType } from "~/store/types/Presentation";
 import { useEffect } from "react";
 import Tool from "./tool/Tool";
 
 type Props = {
-    current: SelectedTool;
-    onToolChange: (newTool: SelectedTool) => void;
+    current: ToolType;
+    onToolChange: (newTool: ToolType) => void;
 };
 
 type toolInput = {
-    value: SelectedTool,
+    value: ToolType,
     imgSrc: string
 }
 
@@ -24,19 +24,19 @@ export default function ToolBar({ current, onToolChange: change }: Props) {
         const handleKeyPress = (event: KeyboardEvent) => {
             switch (event.key) {
                 case " ":
-                    change("hand");
+                    change(ToolType.HAND);
                     break;
                 case "v":
-                    change("selection");
+                    change(ToolType.SELECTION);
                     break;
                 case "t":
-                    change("text");
+                    change(ToolType.TEXT);
                     break;
                 case "i":
-                    change("image");
+                    change(ToolType.IMAGE);
                     break;
                 case "z":
-                    change("zoom");
+                    change(ToolType.ZOOM);
                     break;
                 default:
                     break;
@@ -51,23 +51,23 @@ export default function ToolBar({ current, onToolChange: change }: Props) {
 
     const barValues: toolInput[] = [
         {
-            value: "hand",
+            value: ToolType.HAND,
             imgSrc: hand,
         },
         {
-            value: "selection",
+            value: ToolType.SELECTION,
             imgSrc: cursor,
         },
         {
-            value: "zoom",
+            value: ToolType.ZOOM,
             imgSrc: zoom,
         },
         {
-            value: "text",
+            value: ToolType.TEXT,
             imgSrc: text,
         },
         {
-            value: "image",
+            value: ToolType.IMAGE,
             imgSrc: image,
         },
     ];

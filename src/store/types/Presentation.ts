@@ -10,6 +10,17 @@ export type Size = {
 
 export type SelectedTool = 'hand' | 'selection' | 'zoom' | 'text' | 'image' | 'none';
 
+export enum ToolType {
+    HAND = "hand",
+    SELECTION = "selection",
+    ZOOM = 'zoom',
+    TEXT = 'text',
+    IMAGE = 'image',
+    IMPORT = 'import',
+    EXPORT = 'export',
+    NONE = 'none'
+};
+
 export type DragType = 'selection' | 'move' | 'none';
 
 export interface BaseElement {

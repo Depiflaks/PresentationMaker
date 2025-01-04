@@ -4,7 +4,7 @@ import { changeCurrentSlide, moveSlide, removeSlide, storeSlide, updatePresentat
 import { changeRelative, changeScale, removeElement, storeElement, updateSlideBackground } from "~/store/actions/slide/Slide";
 import { updateElementPosition, updateElementSize } from "~/store/actions/element/Element";
 import { updateTextElement } from "~/store/actions/element/text/Text";
-import { loadEditorFromStorage, saveEditorToStorage } from "../storage/LocalStorageHandler";
+import { loadEditorFromStorage, saveEditorToStorage } from "../storage/localStorageHandler";
 
 export function editorReducer(editor: Editor = loadEditorFromStorage(), action: EditorAction): Editor {
     const updatedEditor = updateReduser(editor, action);

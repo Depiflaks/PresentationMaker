@@ -4,7 +4,7 @@ import Header from "~/views/header/Header";
 import ToolBar from "~/views/editor/toolBar/ToolBar";
 import Workspace from "~/views/editor/workspace/Workspace";
 import SlideList from "~/views/editor/slideList/SlideList";
-import { SelectedTool } from "~/store/types/Presentation";
+import { SelectedTool, ToolType } from "~/store/types/Presentation";
 import PropertyEditor from "~/views/editor/propertyEditor/PropertyEditor";
 
 import "./App.css";
@@ -15,10 +15,10 @@ function App() {
     const presentation = useAppSelector((editor => editor.presentation));
     const { updatePresentationTitle } = useAppActions()
 
-    const [currentTool, setCurrentTool] = React.useState<SelectedTool>("hand");
+    const [currentTool, setCurrentTool] = React.useState<ToolType>(ToolType.HAND);
 
-    const changeTool = (newArg: SelectedTool) => {
-        setCurrentTool((prevArg) => (newArg === prevArg ? "none" : newArg));
+    const changeTool = (newArg: ToolType) => {
+        setCurrentTool((prevArg) => (newArg === prevArg ? ToolType.NONE : newArg));
     };
 
     const onTitleChange = (newTitle: string) => {

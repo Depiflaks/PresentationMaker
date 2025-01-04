@@ -7,7 +7,6 @@ import { store } from "./store/redux/store.ts";
 
 const root = createRoot(document.getElementById("root")!);
 
-
 function render() {
     root.render(
         <StrictMode>
