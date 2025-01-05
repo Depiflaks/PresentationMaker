@@ -1,10 +1,9 @@
 import SlidePreview from "~/views/editor/slideList/slideContainer/slidePreview/SlidePreview";
-import add from "~/views/assets/SlideList/add.svg"
+import add from "~/views/assets/slideList/add.svg"
 import SlideSeparator from "~/views/editor/slideList/slideContainer/slideSeparator/SlideSeparator";
 import MaketPanel from "~/views/editor/slideList/slideContainer/maketPanel/MaketPanel";
 import { createSlide } from "~/store/actions/slide/Slide";
 import { useRef, useState } from "react";
-import { dispatch } from "~/store/editor";
 import { useAppSelector } from "~/views/hooks/useAppSelector";
 import { useAppActions } from "~/views/hooks/useAppActions";
 

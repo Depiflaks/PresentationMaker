@@ -4,7 +4,7 @@ import ImageComponent from "~/views/components/ImageComponent";
 import TextComponent from "~/views/components/TextComponent";
 import "./SlidePreview.css";
 
-import remove from "~/views/assets/SlideList/remove.svg";
+import remove from "~/views/assets/slideList/remove.svg";
 
 type Props = {
     slide: Slide,
@@ -41,10 +41,10 @@ export default function SlidePreview({slide, isSelected, onSlideClick, onDragEnt
 
                 {elements.map((element, i) => {
                     if (element.type === 'text') {
-                        return <TextComponent key={i} element={element as TextElement} relative={{x: 0, y: 0}} scale={1} />
+                        return <TextComponent key={i} element={element as TextElement}/>
                     }
                     if (element.type === 'image') {
-                        return <ImageComponent key={i} element={element as ImageElement} relative={{x: 0, y: 0}} scale={1} />
+                        return <ImageComponent key={i} element={element as ImageElement}/>
                     }
                 })}
             </svg>

@@ -1,8 +1,9 @@
-import hand from "~/views/assets/ToolBar/hand.svg";
-import image from "~/views/assets/ToolBar/image.svg";
-import cursor from "~/views/assets/ToolBar/cursor.svg";
-import text from "~/views/assets/ToolBar/text.svg";
-import zoom from "~/views/assets/ToolBar/zoom.svg";
+import hand from "~/views/assets/toolBar/hand.svg";
+import image from "~/views/assets/toolBar/image.svg";
+import cursor from "~/views/assets/toolBar/cursor.svg";
+import text from "~/views/assets/toolBar/text.svg";
+import zoom from "~/views/assets/toolBar/zoom.svg";
+import settings from "~/views/assets/toolBar/settings/settings.svg";
 
 import "./ToolBar.css";
 import { ToolType } from "~/store/types/Presentation";
@@ -13,11 +14,6 @@ type Props = {
     current: ToolType;
     onToolChange: (newTool: ToolType) => void;
 };
-
-type toolInput = {
-    value: ToolType,
-    imgSrc: string
-}
 
 export default function ToolBar({ current, onToolChange: change }: Props) {
     useEffect(() => {
@@ -48,29 +44,6 @@ export default function ToolBar({ current, onToolChange: change }: Props) {
             window.removeEventListener("keydown", handleKeyPress);
         };
     }, [change]);
-
-    const barValues: toolInput[] = [
-        {
-            value: ToolType.HAND,
-            imgSrc: hand,
-        },
-        {
-            value: ToolType.SELECTION,
-            imgSrc: cursor,
-        },
-        {
-            value: ToolType.ZOOM,
-            imgSrc: zoom,
-        },
-        {
-            value: ToolType.TEXT,
-            imgSrc: text,
-        },
-        {
-            value: ToolType.IMAGE,
-            imgSrc: image,
-        },
-    ];
     // todo: переделать img на наормальные ссылки
     return (
         <div className="toolbar">

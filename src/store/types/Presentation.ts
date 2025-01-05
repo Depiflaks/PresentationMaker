@@ -18,6 +18,7 @@ export enum ToolType {
     IMAGE = 'image',
     IMPORT = 'import',
     EXPORT = 'export',
+    SETTINGS = 'settings',
     NONE = 'none'
 };
 

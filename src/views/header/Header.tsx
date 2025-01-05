@@ -1,6 +1,6 @@
 import icon from "~/views/assets/logo.svg";
-import save from "~/views/assets/Header/save.svg";
-import logout from "~/views/assets/Header/logout.svg";
+import save from "~/views/assets/header/save.svg";
+import logout from "~/views/assets/header/logout.svg";
 import "./Header.css";
 import { useRef } from "react";
 

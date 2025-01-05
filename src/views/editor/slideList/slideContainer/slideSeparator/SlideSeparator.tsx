@@ -1,5 +1,5 @@
 import "./SlideSeparator.css"
-import move from "~/views/assets/SlideList/Separator/move.svg"
+import move from "~/views/assets/slideList/separator/move.svg"
 
 type Props = {
     slideId: string;
