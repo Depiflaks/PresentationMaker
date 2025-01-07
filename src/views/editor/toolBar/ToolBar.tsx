@@ -61,7 +61,7 @@ export default function ToolBar({ current, onToolChange: change }: Props) {
                             <Tool
                                 change={isSettings ? handleSettingsClick : change}
                                 current={current}
-                                type={type as ToolType}
+                                value={type as ToolType}
                                 imgSrc={imgSrc}
                             />
                             {isSettings && isPopupOpen && (
