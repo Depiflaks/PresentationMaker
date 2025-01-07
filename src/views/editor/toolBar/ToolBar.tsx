@@ -1,46 +1,20 @@
 import "./ToolBar.css";
 import { ToolType } from "~/store/types/Presentation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Tool from "./tool/Tool";
 import { toolBarIconsMap } from "~/store/icons/toolBar/toolBarIcons";
 import ToolPopup from "./popup/ToolPopup";
+import { useKeyboardShortcut } from "~/views/hooks/useKeyboardShortcut";
 
 type Props = {
     current: ToolType;
     onToolChange: (newTool: ToolType) => void;
 };
 
-export default function ToolBar({ current, onToolChange: change }: Props) {
+export default function ToolBar({ current, onToolChange }: Props) {
     const [isPopupOpen, setPopupOpen] = useState<boolean>(false);
 
-    useEffect(() => {
-        const handleKeyPress = (event: KeyboardEvent) => {
-            switch (event.key) {
-                case " ":
-                    change(ToolType.HAND);
-                    break;
-                case "v":
-                    change(ToolType.SELECTION);
-                    break;
-                case "t":
-                    change(ToolType.TEXT);
-                    break;
-                case "i":
-                    change(ToolType.IMAGE);
-                    break;
-                case "z":
-                    change(ToolType.ZOOM);
-                    break;
-                default:
-                    break;
-            }
-        };
-
-        window.addEventListener("keydown", handleKeyPress);
-        return () => {
-            window.removeEventListener("keydown", handleKeyPress);
-        };
-    }, [change]);
+    useKeyboardShortcut(onToolChange);
 
     const handleSettingsClick = () => {
         setPopupOpen((prev) => !prev);
@@ -59,9 +33,9 @@ export default function ToolBar({ current, onToolChange: change }: Props) {
                     return (
                         <div key={i} style={{ position: "relative" }}>
                             <Tool
-                                change={isSettings ? handleSettingsClick : change}
+                                change={isSettings ? handleSettingsClick : onToolChange}
                                 current={current}
-                                value={type as ToolType}
+                                type={type as ToolType}
                                 imgSrc={imgSrc}
                             />
                             {isSettings && isPopupOpen && (
@@ -75,7 +49,7 @@ export default function ToolBar({ current, onToolChange: change }: Props) {
                                     onClose={closePopup}
                                     onToolChange={(newTool) => {
                                         closePopup();
-                                        change(newTool);
+                                        onToolChange(newTool);
                                     }}
                                 />
                             )}
