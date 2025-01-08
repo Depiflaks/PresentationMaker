@@ -17,18 +17,23 @@ export function useMouseEvents({ tool, workspaceRef, editorRef }: UseMouseEvents
         const element = workspaceRef.current;
         if (!element) return;
 
-        const handler = new MouseEventsHandler(editorRef, actions);
+        const handler = new MouseEventsHandler({
+            actions: actions,
+            editor: editorRef,
+            element: element,
+            tool: tool
+        });
 
         const handleMouseDown = (event: MouseEvent) => {
-            // console.log("down");
+            handler.handleMouseDown(event);
         };
 
         const handleMouseUp = (event: MouseEvent) => {
-            // console.log("up");
+            handler.handleMouseUp(event);
         };
 
         const handleMouseMove = (event: MouseEvent) => {
-            // console.log("move");
+            handler.handleMouseMove(event);
         };
 
         const handleMouseWheel = (event: WheelEvent) => {
@@ -46,5 +51,5 @@ export function useMouseEvents({ tool, workspaceRef, editorRef }: UseMouseEvents
             element.removeEventListener("mousemove", handleMouseMove);
             element.removeEventListener("wheel", handleMouseWheel);
         };
-    }, [tool, workspaceRef]);
+    }, [tool]);
 }
