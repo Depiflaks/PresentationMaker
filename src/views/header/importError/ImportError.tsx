@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import styles from "./ImportError.module.css";
 import { headerIconsMap } from "~/store/icons/header/headerIcons";
 
@@ -7,7 +7,7 @@ interface ImportErrorProps {
     onClose: () => void;
 }
 
-export default function ImportError({ duration = 50000, onClose }: ImportErrorProps) {
+export default function ImportError({ duration = 3000, onClose }: ImportErrorProps) {
     const [isVisible, setIsVisible] = useState(false);
     const containerRef = useRef<HTMLDivElement>(null);
 

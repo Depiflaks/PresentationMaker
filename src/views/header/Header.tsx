@@ -3,7 +3,10 @@ import styles from "./Header.module.css";
 import { useRef, useState } from "react";
 import { useAppActions } from "../hooks/useAppActions";
 import { useAppSelector } from "../hooks/useAppSelector";
-import { loadEditorFromStorage, saveEditorToStorage } from "~/store/storage/localStorageHandler";
+import {
+    loadEditorFromStorage,
+    saveEditorToStorage,
+} from "~/store/storage/localStorageHandler";
 import { validateEditor } from "~/store/storage/importHandler";
 import ImportError from "./importError/ImportError";
 
@@ -27,7 +30,9 @@ export default function Header() {
 
     const onExportButtonClick = () => {
         const editor = loadEditorFromStorage();
-        const blob = new Blob([JSON.stringify(editor)], { type: 'application/json' });
+        const blob = new Blob([JSON.stringify(editor)], {
+            type: "application/json",
+        });
 
         const url = URL.createObjectURL(blob);
         if (exportLinkRef.current) {
@@ -36,11 +41,9 @@ export default function Header() {
             exportLinkRef.current.click();
         }
         URL.revokeObjectURL(url);
-    }
+    };
 
-    const onImport = async (
-        event: React.ChangeEvent<HTMLInputElement>,
-    ) => {
+    const onImport = async (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0];
         if (file) {
             const content = await file.text();
@@ -79,17 +82,16 @@ export default function Header() {
                 </h1>
             </div>
             <div className={`${styles.child} ${styles.right}`}>
-                {isError ? (
+                {isError && (
                     <ImportError
                         onClose={() => {
                             setIsError(false);
                         }}
                     />
-                ) : (
-                    <button title="Import" onClick={onImportButtonClick}>
-                        <img src={headerIconsMap.import} alt="Import" />
-                    </button>
                 )}
+                <button title="Import" onClick={onImportButtonClick}>
+                    <img src={headerIconsMap.import} alt="Import" />
+                </button>
                 <button title="Export" onClick={onExportButtonClick}>
                     <img src={headerIconsMap.export} alt="Export" />
                 </button>

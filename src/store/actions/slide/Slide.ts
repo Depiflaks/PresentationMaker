@@ -3,7 +3,7 @@ import { slidesModels } from "~/store/data/models/Models";
 import { Editor } from "~/store/types/Editor";
 import { createId } from "~/utils/uuid";
 import { RemoveElementInput, ChangeRelativeInput, ChangeScaleInput, UpdateSlideBackgroundInput, StoreElementInput } from "~/store/input/slide/SlideInputs";
-import { Elements, Slide } from "~/store/types/Presentation";
+import { Elements, Presentation, Slide, SlideCollection } from "~/store/types/Presentation";
 
 export function createSlide(model: number = 0): Slide {
     return {
@@ -42,14 +42,26 @@ export function changeRelative(editor: Editor, { slideId, newRelative }: ChangeR
 }
 
 export function changeScale(editor: Editor, { slideId, newScale }: ChangeScaleInput): Editor {
-    const slides = editor.presentation.slides;
-    slides[slideId].scale = newScale;
+    const currentSlide = editor.presentation.slides[slideId];
+
+    const updatedSlide: Slide = {
+        ...currentSlide,
+        scale: newScale,
+    };
+
+    const updatedSlides: SlideCollection = {
+        ...editor.presentation.slides,
+        [slideId]: updatedSlide,
+    };
+
+    const updatedPresentation: Presentation = {
+        ...editor.presentation,
+        slides: updatedSlides,
+    };
+
     return {
         ...editor,
-        presentation: {
-            ...editor.presentation,
-            slides,
-        },
+        presentation: updatedPresentation,
     };
 }
 

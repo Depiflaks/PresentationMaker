@@ -28,4 +28,6 @@
     image-rendering: crisp-edges;
     background-color: transparent;
     transform: translateZ(0);
+    user-select: none;
+    pointer-events: none;
 }
