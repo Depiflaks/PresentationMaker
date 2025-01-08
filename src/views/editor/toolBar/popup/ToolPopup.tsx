@@ -1,23 +1,23 @@
 import styles from "./ToolPopup.module.css";
 import Tool from "../tool/Tool";
 import { ToolType } from "~/store/types/Presentation";
+import { POPUP_TOOLS } from "../const/tools";
 
 type Props = {
-    tools: { value: ToolType; imgSrc: string }[];
     onToolChange: (newTool: ToolType) => void;
     onClose: () => void;
+    isPopupOpen: boolean;
 };
 
-export default function ToolPopup({ tools, onToolChange }: Props) {
+export default function ToolPopup({ onToolChange, isPopupOpen }: Props) {
     return (
-        <div className={styles.popup}>
-            {tools.map((tool, i) => (
+        <div className={`${styles.popup} ${isPopupOpen ? styles.show : ``}`}>
+            {POPUP_TOOLS.map((tool, i) => (
                 <Tool
                     key={i}
-                    current={ToolType.NONE}
-                    type={tool.value}
-                    imgSrc={tool.imgSrc}
-                    change={onToolChange}
+                    currentType={ToolType.NONE}
+                    type={tool}
+                    onToolChange={onToolChange}
                 />
             ))}
         </div>

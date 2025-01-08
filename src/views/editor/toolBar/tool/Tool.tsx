@@ -1,26 +1,29 @@
+import styles from "./Tool.module.css";
+import { toolBarIconsMap } from "~/store/icons/toolBar/toolBarIcons";
 import { ToolType } from "~/store/types/Presentation";
 
 type Props = {
-    current: ToolType;
+    currentType: ToolType;
     type: ToolType;
-    imgSrc: string;
-    change: (newTool: ToolType) => void;
+    onToolChange: (newTool: ToolType) => void;
 };
 
-export default function Tool({ current, change, type, imgSrc }: Props) {
-    function ucFirst(str: string): string {
-        if (!str) return str;
-        return str[0].toUpperCase() + str.slice(1);
-      }
+function ucFirst(str: string): string {
+    if (!str) return str;
+    return str[0].toUpperCase() + str.slice(1);
+}
+
+export default function Tool({ currentType, onToolChange, type }: Props) {
     return (
         <button
-            className={current === type ? `selected` : ``}
+            className={`${currentType === type ? styles.selected : ``}
+            ${styles.tool}`}
             onClick={() => {
-                change(type);
+                onToolChange(type);
             }}
             title={ucFirst(type)}
         >
-            <img src={imgSrc} />
+            <img src={toolBarIconsMap[type]} />
         </button>
     );
 }

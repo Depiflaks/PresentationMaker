@@ -1,15 +1,4 @@
-.toolbar {
-    display: flex;
-    justify-content: center;
-    column-gap: 10px;
-    padding: 10px;
-    background-color: #ffffff;
-    border-radius: 10px;
-    margin-bottom: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.toolbar button {
+.tool {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -20,26 +9,28 @@
     border: none;
     transition: background-color 0.3s ease;
 
+    position: relative;
+
     font-family: Arial, sans-serif;
     color: #383838;
 }
 
-.toolbar button img {
+.tool img {
     width: 24px;
     height: 24px;
 }
 
-.toolbar button:hover {
+.tool:hover {
     background-color: #e0e0e0;
     border: none;
 }
 
-.toolbar button:focus {
+.tool:focus {
     outline: none;
 }
 
-.toolbar .selected,
-.toolbar .selected:hover,
-.toolbar .selected:focus {
+.selected,
+.selected:hover,
+.selected:focus {
     outline: 3px solid #fce181;
 }

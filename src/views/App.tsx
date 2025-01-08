@@ -14,7 +14,7 @@ import { useAppActions } from "./hooks/useAppActions";
 function App() {
     const presentation = useAppSelector((editor => editor.presentation));
     const { updatePresentationTitle } = useAppActions()
-
+    
     const [currentTool, setCurrentTool] = React.useState<ToolType>(ToolType.HAND);
 
     const changeTool = (newArg: ToolType) => {
@@ -28,7 +28,7 @@ function App() {
     return (
         <>
             <Header title={presentation.title} onTitleChange={onTitleChange} />
-            <ToolBar current={currentTool} onToolChange={changeTool} />
+            <ToolBar currentType={currentTool} onToolChange={changeTool} />
             <div className="main">
                 <Workspace tool={currentTool} />
                 <SlideList />
