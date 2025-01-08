@@ -14,8 +14,8 @@
     direction: rtl;
 
     /* Для Firefox */
-    scrollbar-width: thin; /* Узкий скроллбар */
-    scrollbar-color: #ccc #f1f1f1; /* Цвет: thumb и track */
+    scrollbar-width: thin;
+    scrollbar-color: #ccc #f1f1f1;
 }
 
 .container > * {

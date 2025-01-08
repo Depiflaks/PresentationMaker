@@ -53,13 +53,14 @@ export default function Workspace({ tool }: Props) {
     };
 
     const elements = Object.values(slide.elements);
+    const roundedScale = Math.round(slide.scale * 100) / 100;
     return (
         <div className="workspace"
             onWheel={handleWheel}
         >
             <svg 
                 className="canvas-svg" 
-                viewBox={`${slide.relative.x} ${slide.relative.y} ${FIELD.width * slide.scale} ${FIELD.height * slide.scale}`}
+                viewBox={`${Math.round(slide.relative.x)} ${Math.round(slide.relative.y)} ${Math.round(FIELD.width * roundedScale)} ${Math.round(FIELD.height * roundedScale)}`}
             >
                 <rect
                     x={ 0 }
@@ -67,6 +68,8 @@ export default function Workspace({ tool }: Props) {
                     width={FIELD.width}
                     height={FIELD.height}
                     fill={slide.background}
+                    vectorEffect="non-scaling-stroke"
+                    shapeRendering="crispEdges"
                 />
                 {elements.map((element) => {
                     if (element.type === 'text') {
