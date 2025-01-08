@@ -3,25 +3,26 @@
     justify-content: center; /* Центрируем по горизонтали */
     align-items: center;     /* Центрируем по вертикали */
     box-sizing: border-box;
-    position: relative;
     overflow: hidden;
     width: 100%;
     height: 100%;
+    order: 2;
+    z-index: 1;
 }
 
 .canvas {
     background-color: #ffffff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Лёгкая тень */
-    max-width: 90vw; /* Максимальная ширина */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 90vw;
     width: 100%;
-    aspect-ratio: 16 / 9; /* Масштабирование в соотношении 16:9 */
-    border: 2px solid #e0e0e0; /* Серая рамка */
+    aspect-ratio: 16 / 9;
+    border: 2px solid #e0e0e0;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.canvas-svg {
+.svg {
     width: 100%;
     height: 100%;
     image-rendering: crisp-edges;

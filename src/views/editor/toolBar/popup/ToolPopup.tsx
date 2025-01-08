@@ -15,7 +15,7 @@ export default function ToolPopup({ onToolChange, isPopupOpen }: Props) {
             {POPUP_TOOLS.map((tool, i) => (
                 <Tool
                     key={i}
-                    currentType={ToolType.NONE}
+                    currentTool={ToolType.NONE}
                     type={tool}
                     onToolChange={onToolChange}
                 />

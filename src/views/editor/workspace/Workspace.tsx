@@ -3,14 +3,15 @@ import React from "react";
 import TextComponent from "~/views/components/TextComponent";
 import ImageComponent from "~/views/components/ImageComponent";
 import { DELTA_SCALE, FIELD, START_POSITION, START_SCALE } from "~/store/const/CONST";
-import { DragType, ImageElement, Position, TextElement } from "~/store/types/Presentation";
+import { DragType, ImageElement, Position, TextElement, ToolType } from "~/store/types/Presentation";
 
-import "~/views/editor/workspace/Workspace.css";
 import { useAppSelector } from "~/views/hooks/useAppSelector";
 import { useAppActions } from "~/views/hooks/useAppActions";
 
+import styles from "~/views/editor/workspace/Workspace.module.css";
+
 type Props = {
-    tool: string;
+    tool: ToolType;
 }
 
 export default function Workspace({ tool }: Props) {
@@ -55,11 +56,11 @@ export default function Workspace({ tool }: Props) {
     const elements = Object.values(slide.elements);
     const roundedScale = Math.round(slide.scale * 100) / 100;
     return (
-        <div className="workspace"
+        <div className={styles.workspace}
             onWheel={handleWheel}
         >
             <svg 
-                className="canvas-svg" 
+                className={styles.svg} 
                 viewBox={`${Math.round(slide.relative.x)} ${Math.round(slide.relative.y)} ${Math.round(FIELD.width * roundedScale)} ${Math.round(FIELD.height * roundedScale)}`}
             >
                 <rect
@@ -68,7 +69,6 @@ export default function Workspace({ tool }: Props) {
                     width={FIELD.width}
                     height={FIELD.height}
                     fill={slide.background}
-                    vectorEffect="non-scaling-stroke"
                     shapeRendering="crispEdges"
                 />
                 {elements.map((element) => {

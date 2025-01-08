@@ -1,6 +1,5 @@
 import { useRef, useState } from "react";
-import { Slide } from "~/store/types/Presentation";
-import "./PropertyEditor.css";
+import styles from "./PropertyEditor.module.css";
 import Resizer from "./resizer/Resizer";
 
 export const Interval: {min: number, max: number} = {
@@ -21,16 +20,16 @@ export default function PropertyEditor() {
     const conponentsHeight = editorRef.current ? editorRef.current!.getBoundingClientRect().height - separator - 120 : Interval.max;
     
     return (
-        <div className="property-editor" ref={editorRef}>
+        <div className={styles['property-editor']} ref={editorRef}>
             <h3>Properties</h3>
-            <div className="properties-settings" style={{height: `${separator}px`}} ref={propertiesRef}>
+            <div className={styles.properties} style={{height: `${separator}px`}} ref={propertiesRef}>
                 
                 {true ? <p>No element selected</p> : <></>}
             </div>
 
             <Resizer onSeparatorChange={onSeparatorChange} propertiesRef={propertiesRef}/>
             <h3>Components</h3>
-            <div className="components-settings" style={{height: `${conponentsHeight}px`}}>
+            <div className={styles.components} style={{height: `${conponentsHeight}px`}}>
                 
                 {true ? <p>The list of components is empty</p> : <></>}
             </div>

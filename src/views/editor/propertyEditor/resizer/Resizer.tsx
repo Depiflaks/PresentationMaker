@@ -1,4 +1,5 @@
 import React, { useRef } from "react"
+import styles from "../PropertyEditor.module.css"
 
 type Props = {
     onSeparatorChange: (newSize: number) => void
@@ -27,7 +28,7 @@ export default function Resizer({onSeparatorChange, propertiesRef}: Props) {
 
     return (
         <div
-            className="resizer"
+            className={styles.resizer}
             ref={resizerRef}
             onMouseDown={handleMouseDown}
         />

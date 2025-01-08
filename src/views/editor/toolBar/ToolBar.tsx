@@ -7,11 +7,11 @@ import { useKeyboardShortcut } from "~/views/hooks/useKeyboardShortcut";
 import { TOOLBAR_TOOLS } from "./const/tools";
 
 type Props = {
-    currentType: ToolType;
+    currentTool: ToolType;
     onToolChange: (newTool: ToolType) => void;
 };
 
-export default function ToolBar({ currentType, onToolChange }: Props) {
+export default function ToolBar({ currentTool, onToolChange }: Props) {
     const [isPopupOpen, setPopupOpen] = useState<boolean>(false);
 
     useKeyboardShortcut(onToolChange);
@@ -29,14 +29,14 @@ export default function ToolBar({ currentType, onToolChange }: Props) {
                 <Tool
                     key={i}
                     onToolChange={onToolChange}
-                    currentType={currentType}
+                    currentTool={currentTool}
                     type={toolType}
                 />
             ))}
             <div className={styles['settings-menu']}>
                 <Tool
                     onToolChange={handleSettingsClick}
-                    currentType={currentType}
+                    currentTool={currentTool}
                     type={ToolType.SETTINGS}
                 />
 

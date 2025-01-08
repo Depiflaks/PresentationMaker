@@ -2,14 +2,11 @@ import React from "react";
 
 import Header from "~/views/header/Header";
 import ToolBar from "~/views/editor/toolBar/ToolBar";
-import Workspace from "~/views/editor/workspace/Workspace";
-import SlideList from "~/views/editor/slideList/SlideList";
 import { ToolType } from "~/store/types/Presentation";
-import PropertyEditor from "~/views/editor/propertyEditor/PropertyEditor";
 
-import "./App.css";
 import { useAppSelector } from "./hooks/useAppSelector";
 import { useAppActions } from "./hooks/useAppActions";
+import Editor from "./editor/Editor";
 
 function App() {
     const presentation = useAppSelector((editor => editor.presentation));
@@ -28,12 +25,8 @@ function App() {
     return (
         <>
             <Header title={presentation.title} onTitleChange={onTitleChange} />
-            <ToolBar currentType={currentTool} onToolChange={changeTool} />
-            <div className="main">
-                <Workspace tool={currentTool} />
-                <SlideList />
-                <PropertyEditor />
-            </div>
+            <ToolBar currentTool={currentTool} onToolChange={changeTool} />
+            <Editor currentTool={currentTool} />
         </>
     );
 }

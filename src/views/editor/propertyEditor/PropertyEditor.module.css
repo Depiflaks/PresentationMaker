@@ -1,4 +1,6 @@
 .property-editor {
+    order: 3;
+    z-index: 2;
     background-color: #f7f7f7; /* Светлый фон */
     padding: 20px 30px;
     width: 20%; /* Ширина редактора */
@@ -16,33 +18,33 @@
     font-style: italic;
 }
 
-.properties-settings,
-.components-settings {
+.properties,
+.components {
     overflow-y: auto;
     background-color: #f1f1f1;
     padding: 5px;
     border-radius: 10px;
 }
 
-.properties-settings::-webkit-scrollbar,
-.components-settings::-webkit-scrollbar {
+.properties::-webkit-scrollbar,
+.components::-webkit-scrollbar {
     width: 5px;
 }
 
-.properties-settings::-webkit-scrollbar-thumb,
-.components-settings::-webkit-scrollbar-thumb {
+.properties::-webkit-scrollbar-thumb,
+.components::-webkit-scrollbar-thumb {
     background-color: #ccc;
     border-radius: 10px;
 }
 
-.properties-settings::-webkit-scrollbar-track,
-.components-settings::-webkit-scrollbar-track {
+.properties::-webkit-scrollbar-track,
+.components::-webkit-scrollbar-track {
     background-color: #f1f1f1;
     border-radius: 5px;
 }
 
-.properties-settings::-webkit-scrollbar-button,
-.components-settings::-webkit-scrollbar-button {
+.properties::-webkit-scrollbar-button,
+.components::-webkit-scrollbar-button {
     display: none;
 }
 

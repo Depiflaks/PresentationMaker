@@ -3,7 +3,7 @@ import { toolBarIconsMap } from "~/store/icons/toolBar/toolBarIcons";
 import { ToolType } from "~/store/types/Presentation";
 
 type Props = {
-    currentType: ToolType;
+    currentTool: ToolType;
     type: ToolType;
     onToolChange: (newTool: ToolType) => void;
 };
@@ -13,10 +13,10 @@ function ucFirst(str: string): string {
     return str[0].toUpperCase() + str.slice(1);
 }
 
-export default function Tool({ currentType, onToolChange, type }: Props) {
+export default function Tool({ currentTool, onToolChange, type }: Props) {
     return (
         <button
-            className={`${currentType === type ? styles.selected : ``}
+            className={`${currentTool === type ? styles.selected : ``}
             ${styles.tool}`}
             onClick={() => {
                 onToolChange(type);
