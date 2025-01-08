@@ -21,7 +21,7 @@
     margin-right: 10px;
 }
 
-input {
+.title {
     background-color: #f0f0f0;
     border: none;
     border-radius: 5px;
@@ -31,7 +31,7 @@ input {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-input:focus {
+.title:focus {
     outline: none;
 }
 
@@ -62,6 +62,7 @@ span {
     display: flex;
     align-items: center;
     justify-content: flex-end;
+    position: relative;
 }
 
 .right button {
@@ -76,6 +77,7 @@ span {
     align-items: center;
     justify-content: center;
     transition: background-color 0.3s ease;
+    z-index: 1;
 }
 
 .right button img {

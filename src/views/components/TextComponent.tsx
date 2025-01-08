@@ -12,6 +12,7 @@ export default function TextComponent({element} : Props) {
             fontSize={element.fontSize}
             fontFamily={element.fontFamily}
             fill={element.color}
+            dominantBaseline="text-before-edge"
         >
             {element.content}
         </text>

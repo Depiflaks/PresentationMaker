@@ -3,6 +3,7 @@ import save from "~/views/assets/header/save.svg";
 import logout from "~/views/assets/header/logout.svg";
 import importImg from "~/views/assets/header/import.svg";
 import exportImg from "~/views/assets/header/export.svg";
+import alert from "~/views/assets/header/alert.svg";
 
 type headerIcons = {
     logo: string;
@@ -10,6 +11,7 @@ type headerIcons = {
     logout: string;
     import: string;
     export: string;
+    alert: string;
 };
 
 export const headerIconsMap: headerIcons = {
@@ -17,5 +19,6 @@ export const headerIconsMap: headerIcons = {
     save: save,
     logout: logout,
     import: importImg,
-    export: exportImg
+    export: exportImg,
+    alert: alert
 }

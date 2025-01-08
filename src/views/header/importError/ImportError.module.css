@@ -1,0 +1,39 @@
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #f0f0f0;
+    color: #333;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    top: 50%;
+    right: -100%;
+    transform: translateY(-50%);
+    z-index: 1000;
+    transition: right 0.3s ease-in-out;
+}
+
+.visible {
+    right: calc(100% + 10px);
+}
+
+.icon {
+    background-color: #FFE135;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    padding: 7px;
+}
+
+.icon img {
+    width: 30px;
+    height: 30px;
+}
+
+.message {
+    flex: 1;
+    padding: 0 10px;
+    letter-spacing: 0.5px;
+}
