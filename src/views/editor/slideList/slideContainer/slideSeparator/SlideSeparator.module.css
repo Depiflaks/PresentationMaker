@@ -1,4 +1,4 @@
-.slide-separator-container {
+.container {
     width: 100%;
     background-color: inherit;
     display: flex;
@@ -8,7 +8,7 @@
     padding: 10px 0;
 }
 
-.slide-separator {
+.separator {
     width: 80%; 
     height: 5px;
     background-color: rgba(0, 0, 0, 0.05);
@@ -21,21 +21,21 @@
     transition: width 0.3s ease, height 0.3s ease, background-color 0.3s ease;
 }
 
-.slide-separator:hover {
+.separator:hover {
     background-color: rgba(0, 0, 0, 0.2);
 }
 
-.selected-separator {
+.selected {
     background-color: #ddd;
 }
 
-.entered-separator {
+.entered {
     height: 30px;
     width: 30px;
     background-color: #ddd;
 }
 
-.slide-separator img {
+.separator img {
     height: 20px;
     width: 20px;
     display: block;

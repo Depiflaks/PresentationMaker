@@ -1,7 +1,7 @@
 import { Elements, ImageElement, TextElement } from "~/store/types/Presentation";
 import ImageComponent from "~/views/components/ImageComponent";
 import TextComponent from "~/views/components/TextComponent";
-import "./SlideThumbnail.css";
+import styles from "./SlideThumbnail.module.css";
 
 type Props = {
     elements: Elements;
@@ -10,18 +10,18 @@ type Props = {
 
 export default function SlideThumbnail({ elements, onClick }: Props) {
     return (
-        <div className="slide-thumbnail" onClick={() => {onClick()}}>
+        <div className={styles.thumbnail} onClick={() => {onClick()}}>
             <svg
-                className="thumbnail-svg"
+                className={styles.svg}
                 viewBox="0 0 1600 900"
                 xmlns="http://www.w3.org/2000/svg"
             >
                 {Object.values(elements).map((element, i) => {
                     if (element.type === 'text') {
-                        return <TextComponent key={i} element={element as TextElement} relative={{ x: 0, y: 0 }} scale={1} />;
+                        return <TextComponent key={i} element={element as TextElement} />;
                     }
                     if (element.type === 'image') {
-                        return <ImageComponent key={i} element={element as ImageElement} relative={{ x: 0, y: 0 }} scale={1} />;
+                        return <ImageComponent key={i} element={element as ImageElement} />;
                     }
                 })}
             </svg>

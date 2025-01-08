@@ -1,4 +1,4 @@
-import "./SlideList.css";
+import styles from "./SlideList.module.css";
 
 import { useState } from "react";
 import SlideContainer from "~/views/editor/slideList/slideContainer/SlideContainer";
@@ -23,7 +23,7 @@ export default function SlideList() {
     }
 
     return (
-        <div className="slide-list"
+        <div className={styles.list}
             onDragOver={(event) => {event.preventDefault()}}
             onDrop={() => {onDrop()}}
             onMouseLeave={() => {

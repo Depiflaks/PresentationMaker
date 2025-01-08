@@ -6,11 +6,11 @@
     margin-bottom: 10px;
 }
 
-.header-child {
+.child {
     width: 30%;
 }
 
-.header-left {
+.left {
     display: flex;
     align-items: center;
 }
@@ -21,7 +21,7 @@
     margin-right: 10px;
 }
 
-.title-input {
+input {
     background-color: #f0f0f0;
     border: none;
     border-radius: 5px;
@@ -31,11 +31,11 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.title-input:focus {
+input:focus {
     outline: none;
 }
 
-.header-center {
+.center {
     text-align: center;
     background-color: #fce181;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -43,7 +43,7 @@
     border-radius: 10px;
 }
 
-.header-center h1 {
+.center h1 {
     margin: 0;
     font-family: "Arial", cursive, sans-serif;
     font-size: 24px;
@@ -51,20 +51,20 @@
     text-transform: uppercase;
 }
 
-.maker-text {
+span {
     display: block;
     font-size: 18px;
     text-transform: none;
     color: #333;
 }
 
-.header-right {
+.right {
     display: flex;
     align-items: center;
     justify-content: flex-end;
 }
 
-.icon-button {
+.right button {
     background-color: #FFE135;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border: none;
@@ -78,12 +78,12 @@
     transition: background-color 0.3s ease;
 }
 
-.icon-button img {
+.right button img {
     height: 24px;
     width: 24px;
 }
 
-.icon-button:hover {
+.right button:hover {
     background-color: #b97c0b;
 }
 

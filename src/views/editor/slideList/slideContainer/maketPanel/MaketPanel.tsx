@@ -1,5 +1,5 @@
 import { CSSProperties, useEffect, useRef, useState } from "react";
-import "./MaketPanel.css";
+import styles from "./MaketPanel.module.css";
 import SlideThumbnail from "./slideThumbnail/SlideThumbnail";
 import { slidesModels } from "~/store/data/models/Models";
 
@@ -31,14 +31,16 @@ export default function MaketPanel({ onSelect, style, isVisible, onClose, panelR
             document.removeEventListener("mousedown", handleClickOutside);
         };
     }, [isVisible, onClose]);
+
     const handleAnimationEnd = () => {
         if (!isVisible) setIsAnimating(false);
     };
     const makets = slidesModels;
+
     return (
         <div
             ref={panelRef}
-            className={`maket-panel ${isAnimating ? "show" : "hide"}`}
+            className={`${styles.panel} ${isAnimating ? styles.show : styles.hide}`}
             style={style}
             onAnimationEnd={handleAnimationEnd}
         >

@@ -1,18 +1,20 @@
-import SlidePreview from "~/views/editor/slideList/slideContainer/slidePreview/SlidePreview";
-import add from "~/views/assets/slideList/add.svg"
-import SlideSeparator from "~/views/editor/slideList/slideContainer/slideSeparator/SlideSeparator";
-import MaketPanel from "~/views/editor/slideList/slideContainer/maketPanel/MaketPanel";
-import { createSlide } from "~/store/actions/slide/Slide";
 import { useRef, useState } from "react";
-import { useAppSelector } from "~/views/hooks/useAppSelector";
+
+import { createSlide } from "~/store/actions/slide/Slide";
 import { useAppActions } from "~/views/hooks/useAppActions";
+import { useAppSelector } from "~/views/hooks/useAppSelector";
+import MaketPanel from "~/views/editor/slideList/slideContainer/maketPanel/MaketPanel";
+import SlidePreview from "~/views/editor/slideList/slideContainer/slidePreview/SlidePreview";
+import SlideSeparator from "~/views/editor/slideList/slideContainer/slideSeparator/SlideSeparator";
+
+import styles from "./SlideContainer.module.css"
+import { endSlide } from "../const/CONST";
+import AddButton from "./addButton/AddButton";
 
 type Props = {
     dragEnterId: string;
     setDragEnterId: (dragId: string) => void;
 }
-
-const endSlide = "endSlide";
 
 export default function SlideContainer({dragEnterId, setDragEnterId}: Props) {
     const {order, current, slides} = useAppSelector((editor => editor.presentation));
@@ -65,7 +67,7 @@ export default function SlideContainer({dragEnterId, setDragEnterId}: Props) {
     };
 
     return (
-    <div className="slide-container">
+    <div className={styles.container}>
         {slideArray.map((slide, i) => (
             <div
                 key={i}
@@ -95,18 +97,11 @@ export default function SlideContainer({dragEnterId, setDragEnterId}: Props) {
                 onSeparatorClick={() => {onSeparatorClick(endSlide)}}
                 onDragEnter={() => {onDragEnter(endSlide)}}
             />
-            <div className="add-button"
-                onDragEnter={(event) => {
-                    event.preventDefault()
-                    onDragEnter(endSlide)
-                }}
-                onDragOver={(event) => {event.preventDefault()}}
-                draggable={false}
-                onClick={toggleMaketPanel}
-                ref={addButtonRef}
-            >
-                <img src={add} draggable={false}/>
-            </div>
+            <AddButton
+                buttonRef={addButtonRef}
+                onDragEnter={onDragEnter}
+                toggleMaketPanel={toggleMaketPanel}
+            />
         </div>
         
         {isMaketPanelVisible && <MaketPanel 

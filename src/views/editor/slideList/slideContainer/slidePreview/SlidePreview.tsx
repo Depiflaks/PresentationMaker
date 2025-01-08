@@ -2,7 +2,7 @@ import { useState } from "react";
 import { ImageElement, Slide, TextElement } from "~/store/types/Presentation";
 import ImageComponent from "~/views/components/ImageComponent";
 import TextComponent from "~/views/components/TextComponent";
-import "./SlidePreview.css";
+import styles from "./SlidePreview.module.css";
 
 import remove from "~/views/assets/slideList/remove.svg";
 
@@ -21,7 +21,7 @@ export default function SlidePreview({slide, isSelected, onSlideClick, onDragEnt
 
     return (
         <div 
-            className={`slide-preview ${isSelected && 'selected'}`} 
+            className={`${styles.preview} ${isSelected && styles.selected}`} 
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
             onMouseDown={() => {onSlideClick()}}
@@ -33,7 +33,7 @@ export default function SlidePreview({slide, isSelected, onSlideClick, onDragEnt
             onDragOver={(event) => {event.preventDefault()}}
         >
             <svg
-                className="slide-svg"
+                className={styles.svg}
                 viewBox="0 0 1600 900"
                 xmlns="http://www.w3.org/2000/svg"
             >
@@ -49,7 +49,7 @@ export default function SlidePreview({slide, isSelected, onSlideClick, onDragEnt
                 })}
             </svg>
             {isHovered && isSelected && (
-                <div className="delete-icon"
+                <div className={styles.delete}
                     onClick={() => {onDelete()}}
                 >
                     <img src={remove} />

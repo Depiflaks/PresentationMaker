@@ -1,4 +1,4 @@
-.maket-panel {
+.panel {
     position: fixed;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -6,18 +6,19 @@
     padding: 10px;
     background-color: #ffffff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    z-index: 9;
     border-radius: 8px;
     opacity: 0;
     transform: translateY(10px);
     transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-.maket-panel.show {
+.show {
     opacity: 1;
     transform: translateY(0);
 }
 
-.maket-panel.hide {
+.hide {
     opacity: 0;
     transform: translateY(10px);
 }
