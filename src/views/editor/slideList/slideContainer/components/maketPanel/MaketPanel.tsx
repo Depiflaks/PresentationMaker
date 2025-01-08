@@ -1,4 +1,4 @@
-import { CSSProperties, useEffect, useRef, useState } from "react";
+import { CSSProperties, useEffect, useState } from "react";
 import styles from "./MaketPanel.module.css";
 import SlideThumbnail from "./slideThumbnail/SlideThumbnail";
 import { slidesModels } from "~/store/data/models/Models";

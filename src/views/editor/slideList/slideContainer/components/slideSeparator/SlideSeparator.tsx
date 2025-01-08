@@ -10,7 +10,6 @@ type Props = {
 };
 
 export default function SlideSeparator({slideId, onSeparatorClick, isSelected, onDragEnter, isEntered}: Props) {
-
     return (
         <div className={styles.container}
             onClick={onSeparatorClick}

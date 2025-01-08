@@ -1,5 +1,5 @@
 import { RefObject } from "react";
-import { endSlide } from "../../const/CONST";
+import { endSlide } from "../../../const/CONST";
 import styles from "./AddButton.module.css";
 import add from "~/views/assets/slideList/add.svg"
 

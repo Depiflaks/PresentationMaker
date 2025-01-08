@@ -12,6 +12,10 @@
     background-color: #f1f1f1;
     border-radius: 10px;
     direction: rtl;
+
+    /* Для Firefox */
+    scrollbar-width: thin; /* Узкий скроллбар */
+    scrollbar-color: #ccc #f1f1f1; /* Цвет: thumb и track */
 }
 
 .container > * {

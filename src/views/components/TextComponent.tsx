@@ -1,4 +1,4 @@
-import { Position, TextElement } from "~/store/types/Presentation"
+import { TextElement } from "~/store/types/Presentation"
 
 type Props = {
     element: TextElement,

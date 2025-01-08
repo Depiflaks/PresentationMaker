@@ -3,13 +3,13 @@ import { useRef, useState } from "react";
 import { createSlide } from "~/store/actions/slide/Slide";
 import { useAppActions } from "~/views/hooks/useAppActions";
 import { useAppSelector } from "~/views/hooks/useAppSelector";
-import MaketPanel from "~/views/editor/slideList/slideContainer/maketPanel/MaketPanel";
-import SlidePreview from "~/views/editor/slideList/slideContainer/slidePreview/SlidePreview";
-import SlideSeparator from "~/views/editor/slideList/slideContainer/slideSeparator/SlideSeparator";
+import MaketPanel from "~/views/editor/slideList/slideContainer/components/maketPanel/MaketPanel";
+import SlidePreview from "~/views/editor/slideList/slideContainer/components/slidePreview/SlidePreview";
+import SlideSeparator from "~/views/editor/slideList/slideContainer/components/slideSeparator/SlideSeparator";
 
 import styles from "./SlideContainer.module.css"
 import { endSlide } from "../const/CONST";
-import AddButton from "./addButton/AddButton";
+import AddButton from "./components/addButton/AddButton";
 
 type Props = {
     dragEnterId: string;
