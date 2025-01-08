@@ -16,14 +16,11 @@
     /* Для Firefox */
     scrollbar-width: thin;
     scrollbar-color: #ccc #f1f1f1;
+    position: relative;
 }
 
-.container > * {
-    direction: ltr;
-}
-
+/* Закругление для Chrome и других браузеров */
 .container::-webkit-scrollbar {
-    direction: rtl;
     width: 5px;
 }
 

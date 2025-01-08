@@ -1,8 +1,4 @@
-import icon from "~/views/assets/logo.svg";
-import save from "~/views/assets/header/save.svg";
-import logout from "~/views/assets/header/logout.svg";
-import importImg from "~/views/assets/header/import.svg";
-import exportImg from "~/views/assets/header/export.svg";
+import { headerIconsMap } from "~/store/icons/header/headerIcons";
 import styles from "./Header.module.css";
 import { useRef } from "react";
 
@@ -16,7 +12,7 @@ export default function Header({title, onTitleChange}: Props) {
     return (
         <header className={styles.header}>
             <div className={`${styles.child} ${styles.left}`}>
-                <img src={icon} alt="Logo" className={styles.logo} />
+                <img src={headerIconsMap.logo} alt="Logo" className={styles.logo} />
                 <input
                     ref={inputRef}
                     type="text"
@@ -31,10 +27,10 @@ export default function Header({title, onTitleChange}: Props) {
             </div>
             <div className={`${styles.child} ${styles.right}`}>
                 <button title="Import">
-                    <img src={importImg} alt="Import" />
+                    <img src={headerIconsMap.import} alt="Import" />
                 </button>
                 <button title="Export">
-                    <img src={exportImg} alt="Export" />
+                    <img src={headerIconsMap.export} alt="Export" />
                 </button>
             </div>
         </header>

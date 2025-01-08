@@ -16,8 +16,8 @@ export enum ToolType {
     ZOOM = 'zoom',
     TEXT = 'text',
     IMAGE = 'image',
-    IMPORT = 'import',
-    EXPORT = 'export',
+    UNDO = 'undo',
+    REDO = 'redo',
     SETTINGS = 'settings',
     NONE = 'none'
 };

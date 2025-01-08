@@ -30,7 +30,16 @@ export default function PropertyEditor() {
             <Resizer onSeparatorChange={onSeparatorChange} propertiesRef={propertiesRef}/>
             <h3>Components</h3>
             <div className={styles.components} style={{height: `${conponentsHeight}px`}}>
-                
+            <p>The list of components is empty</p>
+            <p>The list of components is empty</p>
+            <p>The list of components is empty</p>
+            <p>The list of components is empty</p>
+            <p>The list of components is empty</p>
+            <p>The list of components is empty</p>
+            <p>The list of components is empty</p>
+            <p>The list of components is empty</p>
+            <p>The list of components is empty</p>
+            <p>The list of components is empty</p>
                 {true ? <p>The list of components is empty</p> : <></>}
             </div>
         </div>

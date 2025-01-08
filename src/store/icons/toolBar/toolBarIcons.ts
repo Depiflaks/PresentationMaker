@@ -4,8 +4,8 @@ import cursor from "~/views/assets/toolBar/cursor.svg";
 import text from "~/views/assets/toolBar/text.svg";
 import zoom from "~/views/assets/toolBar/zoom.svg";
 import settings from "~/views/assets/toolBar/settings/settings.svg";
-import importImg from "~/views/assets/toolBar/settings/import.svg";
-import exportImg from "~/views/assets/toolBar/settings/export.svg";
+import undo from "~/views/assets/toolBar/undo.svg";
+import redo from "~/views/assets/toolBar/redo.svg";
 
 import { ToolType } from "~/store/types/Presentation";
 
@@ -15,8 +15,8 @@ export const toolBarIconsMap: Record<ToolType, string> = {
     [ToolType.ZOOM]: zoom,
     [ToolType.TEXT]: text,
     [ToolType.IMAGE]: image,
-    [ToolType.SETTINGS]: settings,  
-    [ToolType.IMPORT]: importImg,
-    [ToolType.EXPORT]: exportImg,
-    [ToolType.NONE]: ""
+    [ToolType.SETTINGS]: settings,
+    [ToolType.UNDO]: undo,
+    [ToolType.REDO]: redo,
+    [ToolType.NONE]: "",
 };

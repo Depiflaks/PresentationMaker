@@ -1,6 +1,6 @@
-import { Elements } from "../../types/Presentation";
-import { caption } from "./components/Caption";
-import { testImage } from "./components/TestImage";
+import { Elements } from "~/store/types/Presentation"
+import { caption } from "./components/Caption"
+import { testImage } from "./components/TestImage"
 
 const model1: Elements = {
     [caption.id]: caption

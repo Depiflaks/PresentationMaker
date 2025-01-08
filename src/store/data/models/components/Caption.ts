@@ -1,5 +1,5 @@
-import { createId } from "../../../../utils/uuid";
-import { TextElement } from "../../../types/Presentation";
+import { TextElement } from "~/store/types/Presentation";
+import { createId } from "~/utils/uuid";
 
 
 export const caption: TextElement = {
@@ -10,8 +10,8 @@ export const caption: TextElement = {
     fontFamily: 'arial',
     color: '#333',
     position: {
-        x: 100, 
-        y: 300
+        x: 0, 
+        y: 0
     },
     size: {
         width: 300,

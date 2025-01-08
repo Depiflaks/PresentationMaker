@@ -5,6 +5,7 @@ import TextComponent from "~/views/components/TextComponent";
 import styles from "./SlidePreview.module.css";
 
 import remove from "~/views/assets/slideList/remove.svg";
+import { FIELD } from "~/store/const/CONST";
 
 type Props = {
     slide: Slide,
@@ -37,7 +38,7 @@ export default function SlidePreview({slide, isSelected, onSlideClick, onDragEnt
                 viewBox="0 0 1600 900"
                 xmlns="http://www.w3.org/2000/svg"
             >
-                <rect width="1600" height="900" fill={slide.background} />
+                <rect x={ 0 } y={ 0 } width={FIELD.width} height={FIELD.height} fill={slide.background} shapeRendering="crispEdges" />
 
                 {elements.map((element, i) => {
                     if (element.type === 'text') {
