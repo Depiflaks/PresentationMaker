@@ -1,5 +1,4 @@
 import Ajv from 'ajv';
-import { Editor } from '../types/Editor';
 
 const editorSchema = {
     type: "object",

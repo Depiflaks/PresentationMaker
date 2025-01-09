@@ -1,7 +1,7 @@
 .workspace {
     display: flex;
-    justify-content: center; /* Центрируем по горизонтали */
-    align-items: center;     /* Центрируем по вертикали */
+    justify-content: center;
+    align-items: center;
     box-sizing: border-box;
     overflow: hidden;
     width: 100%;
@@ -15,7 +15,7 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     max-width: 90vw;
     width: 100%;
-    aspect-ratio: 16 / 9;
+    /* aspect-ratio: 16 / 9; */
     border: 2px solid #e0e0e0;
     display: flex;
     justify-content: center;

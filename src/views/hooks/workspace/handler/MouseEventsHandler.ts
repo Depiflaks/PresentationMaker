@@ -1,27 +1,21 @@
-import { ActionCreatorsMapObject } from "redux";
 import { Editor } from "~/store/types/Editor";
 import { Position, Slide, ToolType } from "~/store/types/Presentation";
-import { PresentationService } from "./service/PresentationService";
+import { PresentationService } from "../service/PresentationService";
+import { MouseState } from "./type/MouseState";
+import { FIELD } from "~/store/const/CONST";
 
 type MouseEventsHandlerInput = {
     editor: React.RefObject<Editor>;
-    actions: ActionCreatorsMapObject;
+    presentationService: PresentationService;
     tool: ToolType;
-    element: HTMLDivElement;
-};
-
-type MouseState = {
-    isPressed: boolean;
-    start: Position;
-    end: Position;
-    current: Position;
+    canvas: DOMRect;
 };
 
 const emptyState: MouseState = {
     isPressed: false,
     start: {
         x: 0,
-        y: 0
+        y: 0,
     },
     end: {
         x: 0,
@@ -29,9 +23,9 @@ const emptyState: MouseState = {
     },
     current: {
         x: 0,
-        y: 0
-    }
-}
+        y: 0,
+    },
+};
 
 export class MouseEventsHandler {
     private editor: React.RefObject<Editor>;
@@ -40,44 +34,54 @@ export class MouseEventsHandler {
     private presentationService: PresentationService;
     private state: MouseState;
 
-    constructor({ editor, actions, element, tool }: MouseEventsHandlerInput) {
+    constructor({
+        editor,
+        presentationService,
+        canvas,
+        tool,
+    }: MouseEventsHandlerInput) {
         this.editor = editor;
-        this.canvas = element.getBoundingClientRect();
+        this.canvas = canvas;
         this.tool = tool;
-        this.presentationService = new PresentationService({
-            actions,
-            canvas: this.canvas,
-        });
+        this.presentationService = presentationService;
         this.state = emptyState;
     }
 
     handleMouseDown(event: MouseEvent): void {
         this.state.isPressed = true;
-        this.state.start = this.getMousePosition(event);
+        this.state.start = this.getRelative(event);
+
         switch (this.tool) {
-            case ToolType.HAND:
+            case ToolType.ZOOM:
+                if (event.buttons === 1) {
+                    
+                }
                 break;
         }
     }
 
     handleMouseUp(event: MouseEvent): void {
         this.state.isPressed = false;
-        this.state.end = this.getMousePosition(event);
-
+        this.state.end = this.getRelative(event);
     }
 
     handleMouseMove(event: MouseEvent): void {
-        this.state.current = this.getMousePosition(event);
+        const slide = this.getSlide();
+        if (!this.state.isPressed) return;
+        this.state.current = this.getRelative(event);
         switch (this.tool) {
             case ToolType.HAND:
+                this.presentationService.moveCanvas(slide, {
+                    x: this.state.current.x - this.state.start.x,
+                    y: this.state.current.y - this.state.start.y,
+                });
                 break;
         }
     }
 
     handleMouseWheel(event: WheelEvent): void {
         const slide = this.getSlide();
-        if (!slide) return;
-        const mouse = this.getMousePosition(event);
+        const mouse = this.getRelative(event);
         const deltaScale = event.deltaY > 0 ? 1 : -1;
 
         this.presentationService.calculateZoomOperation({
@@ -87,15 +91,32 @@ export class MouseEventsHandler {
         });
     }
 
-    private getMousePosition(event: MouseEvent|WheelEvent): Position {
-        return {
-            x: event.clientX - this.canvas.left,
-            y: event.clientY - this.canvas.top
-        }
+    private getRelative(event: MouseEvent): Position {
+        const slide = this.getSlide();
+        const result: Position = {
+            x: 0,
+            y: 0,
+        };
+        const mouse = this.getMousePosition(event);
+        const measure = FIELD.width / this.canvas.width;
+        const canvasHeight = (this.canvas.width * FIELD.height) / FIELD.width;
+        const deltaHeight = (this.canvas.height - canvasHeight) / 2;
+
+        result.x = mouse.x * measure * slide.scale + slide.relative.x;
+        result.y =
+            (mouse.y - deltaHeight) * measure * slide.scale + slide.relative.y;
+        return result;
     }
 
-    private getSlide(): Slide|null {
-        if (!this.editor.current) return null;
+    private getMousePosition(event: MouseEvent | WheelEvent): Position {
+        return {
+            x: event.clientX - this.canvas.left,
+            y: event.clientY - this.canvas.top,
+        };
+    }
+
+    private getSlide(): Slide {
+        if (!this.editor.current) throw new Error("Editor is not initialized.");
         const presentation = this.editor.current.presentation;
         return presentation.slides[presentation.current];
     }

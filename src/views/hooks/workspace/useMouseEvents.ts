@@ -3,6 +3,7 @@ import { ToolType } from "~/store/types/Presentation";
 import { useAppActions } from "../useAppActions";
 import { Editor } from "~/store/types/Editor";
 import { MouseEventsHandler } from "./handler/MouseEventsHandler";
+import { PresentationService } from "./service/PresentationService";
 
 interface UseMouseEventsProps {
     tool: ToolType;
@@ -17,10 +18,14 @@ export function useMouseEvents({ tool, workspaceRef, editorRef }: UseMouseEvents
         const element = workspaceRef.current;
         if (!element) return;
 
-        const handler = new MouseEventsHandler({
+        const presentationService = new PresentationService({
             actions: actions,
+        });
+
+        const handler = new MouseEventsHandler({
+            presentationService: presentationService,
             editor: editorRef,
-            element: element,
+            canvas: element.getBoundingClientRect(),
             tool: tool
         });
 

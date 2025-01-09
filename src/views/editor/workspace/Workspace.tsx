@@ -1,9 +1,9 @@
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 
 import TextComponent from "~/views/components/TextComponent";
 import ImageComponent from "~/views/components/ImageComponent";
-import { DELTA_SCALE, FIELD, START_POSITION, START_SCALE } from "~/store/const/CONST";
-import { DragType, ImageElement, Position, TextElement, ToolType } from "~/store/types/Presentation";
+import { FIELD } from "~/store/const/CONST";
+import { ImageElement, TextElement, ToolType } from "~/store/types/Presentation";
 
 import { useAppSelector } from "~/views/hooks/useAppSelector";
 
@@ -32,11 +32,6 @@ export default function Workspace({ tool }: Props) {
     useMouseEvents({workspaceRef: canvasRef, tool, editorRef});
 
     const slide = presentation.slides[presentation.current];
-    
-    const [isDrag, setIsDrag] = React.useState<boolean>(false);
-    const [dragStart, setDragStart] = React.useState<Position>({x: 0, y: 0});
-    const [dragEnd, setDragEnd] = React.useState<Position>({x: 0, y: 0});
-    const [dragType, setDragType] = React.useState<DragType>('none');
 
     const elements = Object.values(slide.elements);
     const roundedScale = Math.round(slide.scale * 100) / 100;
