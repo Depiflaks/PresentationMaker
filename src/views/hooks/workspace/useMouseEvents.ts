@@ -17,7 +17,6 @@ export function useMouseEvents({ tool, workspaceRef, editorRef }: UseMouseEvents
     useEffect(() => {
         const element = workspaceRef.current;
         if (!element) return;
-
         const presentationService = new PresentationService({
             actions: actions,
         });

@@ -19,7 +19,7 @@ export class PresentationService {
         this.actions = actions;
     }
 
-    calculateZoomOperation({mouse, slide, deltaScale}: ZoomOperationInput): void {
+    zoom({mouse, slide, deltaScale}: ZoomOperationInput): void {
         const { changeScale } = this.actions;
 
         const newScale = Math.max(

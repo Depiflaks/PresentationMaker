@@ -50,12 +50,16 @@ export class MouseEventsHandler {
     handleMouseDown(event: MouseEvent): void {
         this.state.isPressed = true;
         this.state.start = this.getRelative(event);
+        const slide = this.getSlide();
 
         switch (this.tool) {
             case ToolType.ZOOM:
-                if (event.buttons === 1) {
-                    
-                }
+                let deltaScale = 5;
+                this.presentationService.zoom({
+                    deltaScale: deltaScale * (event.buttons === 1 ? -1 : 1),
+                    mouse: this.state.start,
+                    slide: slide
+                });
                 break;
         }
     }
@@ -84,7 +88,7 @@ export class MouseEventsHandler {
         const mouse = this.getRelative(event);
         const deltaScale = event.deltaY > 0 ? 1 : -1;
 
-        this.presentationService.calculateZoomOperation({
+        this.presentationService.zoom({
             deltaScale,
             mouse: mouse,
             slide,

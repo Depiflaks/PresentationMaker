@@ -53,14 +53,9 @@ export type Selection = {
         position: Position;
         size: Size;
     }
-    elements: {
-        position: Position;
-        size: Size;
-        id: string
-    }[]
+    elements: string[],
+    
 }
-
-export type Selections = string[];
 
 export interface Slide {
     id: string;

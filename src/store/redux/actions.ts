@@ -10,6 +10,9 @@ export enum ActionType {
     REMOVE_SLIDE = "removeSlide",
     MOVE_SLIDE = "moveSlide",
 
+    SET_MAIN_SELECTION = "setMainSelection",
+    SET_SELECTED_ELEMENT_LIST = "setSelectedElementList",
+
     REMOVE_ELEMENT = "removeElement",
     CHANGE_RELATIVE = "changeRelative",
     CHANGE_SCALE = "changeScale",
@@ -48,6 +51,10 @@ export type MoveSlideAction = {
     type: ActionType.MOVE_SLIDE;
     payload: MoveSlideInput;
 };
+
+// Selection
+
+
 
 // Slide
 
