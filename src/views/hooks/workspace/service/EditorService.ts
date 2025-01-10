@@ -9,14 +9,14 @@ type ZoomOperationInput = {
     deltaScale: number;
 }
 
-type PresentationServiceInput = {
+type EditorServiceInput = {
     actions: ActionCreatorsMapObject;
 };
 
-export class PresentationService {
+export class EditorService {
     private actions: ActionCreatorsMapObject;
 
-    constructor({actions}: PresentationServiceInput) {
+    constructor({actions}: EditorServiceInput) {
         this.actions = actions;
     }
 

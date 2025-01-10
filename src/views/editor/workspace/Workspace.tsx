@@ -11,6 +11,7 @@ import { useMouseEvents } from "~/views/hooks/workspace/useMouseEvents";
 import { Editor } from "~/store/types/Editor";
 import { ToolType } from "~/store/types/Global";
 import { TextElement, ImageElement } from "~/store/types/slide/element/Element";
+import Selection from "./selection/Selection";
 
 type Props = {
     tool: ToolType;
@@ -18,16 +19,17 @@ type Props = {
 
 export default function Workspace({ tool }: Props) {
     const editor = useAppSelector((editor) => editor);
+    
     const canvasRef = useRef<HTMLDivElement>(null);
     const editorRef = useRef<Editor>(editor);
-
-    if (editor.current === "") return <div className={styles.workspace}></div>;
 
     useEffect(() => {
         editorRef.current = editor;
     }, [editor]);
 
     useMouseEvents({ workspaceRef: canvasRef, tool, editorRef });
+
+    if (editor.current === "") return <div className={styles.workspace}></div>;
 
     const slide = editor.slides[editor.current];
 
@@ -65,6 +67,7 @@ export default function Workspace({ tool }: Props) {
                         );
                     }
                 })}
+                <Selection slide={slide} />
             </svg>
         </div>
     );

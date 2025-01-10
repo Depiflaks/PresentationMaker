@@ -3,7 +3,7 @@ import { ToolType } from "~/store/types/Global";
 import { useAppActions } from "../useAppActions";
 import { Editor } from "~/store/types/Editor";
 import { MouseEventsHandler } from "./handler/MouseEventsHandler";
-import { PresentationService } from "./service/PresentationService";
+import { EditorService } from "./service/EditorService";
 
 interface UseMouseEventsProps {
     tool: ToolType;
@@ -14,10 +14,18 @@ interface UseMouseEventsProps {
 export function useMouseEvents({ tool, workspaceRef, editorRef }: UseMouseEventsProps) {
     const actions = useAppActions();
 
-    useEffect(() => {
+    const errorhandler = (callback: () => void) => {
+        try {
+            callback();
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const hookBody = () => {
         const element = workspaceRef.current;
         if (!element) return;
-        const presentationService = new PresentationService({
+        const presentationService = new EditorService({
             actions: actions,
         });
 
@@ -29,19 +37,19 @@ export function useMouseEvents({ tool, workspaceRef, editorRef }: UseMouseEvents
         });
 
         const handleMouseDown = (event: MouseEvent) => {
-            handler.handleMouseDown(event);
+            errorhandler(() => {handler.handleMouseDown(event)});
         };
 
         const handleMouseUp = (event: MouseEvent) => {
-            handler.handleMouseUp(event);
+            errorhandler(() => {handler.handleMouseUp(event)});
         };
 
         const handleMouseMove = (event: MouseEvent) => {
-            handler.handleMouseMove(event);
+            errorhandler(() => {handler.handleMouseMove(event)});
         };
 
         const handleMouseWheel = (event: WheelEvent) => {
-            handler.handleMouseWheel(event);
+            errorhandler(() => {handler.handleMouseWheel(event)});
         };
 
         element.addEventListener("mousedown", handleMouseDown);
@@ -55,5 +63,9 @@ export function useMouseEvents({ tool, workspaceRef, editorRef }: UseMouseEvents
             element.removeEventListener("mousemove", handleMouseMove);
             element.removeEventListener("wheel", handleMouseWheel);
         };
+    }
+
+    useEffect(() => {
+        hookBody();
     }, [tool]);
 }

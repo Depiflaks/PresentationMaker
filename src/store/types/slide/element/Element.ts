@@ -1,10 +1,8 @@
 import { Position, Size } from "../../Global";
 
-export interface BaseElement {
+export interface BaseElement extends Position, Size {
     type: string;
     id: string;
-    position: Position;
-    size: Size;
 }
 
 export interface TextElement extends BaseElement {

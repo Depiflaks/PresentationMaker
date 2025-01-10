@@ -22,7 +22,5 @@ export interface Selection {
     elements: string[];
 }
 
-export interface MainSelection {
-    start: Position;
-    size: Size;
+export interface MainSelection extends Size, Position {
 }

@@ -1,5 +1,5 @@
 import { Editor } from "~/store/types/Editor";
-import { PresentationService } from "../service/PresentationService";
+import { EditorService } from "../service/EditorService";
 import { MouseState } from "./type/MouseState";
 import { FIELD } from "~/store/const/CONST";
 import { ToolType, Position } from "~/store/types/Global";
@@ -7,7 +7,7 @@ import { Slide } from "~/store/types/slide/Slide";
 
 type MouseEventsHandlerInput = {
     editor: React.RefObject<Editor>;
-    presentationService: PresentationService;
+    presentationService: EditorService;
     tool: ToolType;
     canvas: DOMRect;
 };
@@ -32,7 +32,7 @@ export class MouseEventsHandler {
     private editor: React.RefObject<Editor>;
     private tool: ToolType;
     private canvas: DOMRect;
-    private presentationService: PresentationService;
+    private presentationService: EditorService;
     private state: MouseState;
 
     constructor({
@@ -123,6 +123,7 @@ export class MouseEventsHandler {
     private getSlide(): Slide {
         if (!this.editor.current) throw new Error("Editor is not initialized.");
         const editor = this.editor.current;
+        if (editor.current === "") throw new Error("Slide list is empty");
         return editor.slides[editor.current];
     }
 }
