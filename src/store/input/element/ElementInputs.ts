@@ -16,6 +16,7 @@ export type UpdateElementSizeInput = {
 interface ImageProp extends Rect {
     type: ElementType.IMAGE;
     src: string;
+    aspectRatio: boolean;
 };
 
 interface TextProp extends Rect {

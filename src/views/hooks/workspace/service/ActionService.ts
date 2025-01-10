@@ -1,7 +1,9 @@
 import { ActionCreatorsMapObject } from "redux";
 import { DELTA_SCALE } from "~/store/const/CONST";
-import { Position } from "~/store/types/Global";
+import { Position, Rect } from "~/store/types/Global";
 import { Slide } from "~/store/types/slide/Slide";
+import { MouseState } from "../handler/type/MouseState";
+import { SetMainSelectionInput } from "~/store/input/slide/SlideInputs";
 
 type ZoomOperationInput = {
     slide: Slide;
@@ -47,7 +49,7 @@ export class ActionService {
         this.moveCanvas(slide, {x: cursorDelta.x - relativeDelta.x, y: cursorDelta.y - relativeDelta.y});
     }
 
-    moveCanvas(slide: Slide, delta: Position) {
+    moveCanvas(slide: Slide, delta: Position): void {
         const relative = slide.view.relative;
         const { changeRelative } = this.actions;
         
@@ -58,5 +60,23 @@ export class ActionService {
                 y: relative.y - delta.y
             }
         });
+    }
+
+    setMainSelection(slide: Slide, mouseState: MouseState): void {
+        const { setMainSelection } = this.actions;
+        let start: Position = {...mouseState.start};
+        let end: Position = {...mouseState.current};
+        if (start.x > end.x) [start.x, end.x] = [end.x, start.x];
+        if (start.y > end.y) [start.y, end.y] = [end.y, start.y];
+        const input: SetMainSelectionInput = {
+            slideId: slide.id,
+            newMainSelection: {
+                x: start.x,
+                y: start.y,
+                width:  end.x - start.x,
+                height: end.y - start.y
+            }
+        }
+        setMainSelection(input);
     }
 }

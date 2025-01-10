@@ -33,7 +33,7 @@ export type SetMainSelectionInput = {
 
 export type SetSelectedListInput = {
     slideId: string;
-    newList: string[];
+    newIds: string[];
 }
 
 export type AppendToSelectedListInput = {

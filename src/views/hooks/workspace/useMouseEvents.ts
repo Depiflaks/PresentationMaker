@@ -11,9 +11,10 @@ interface UseMouseEventsProps {
     tool: ToolType;
     workspaceRef: React.RefObject<HTMLDivElement>;
     editorRef: React.RefObject<Editor>;
+    inputRef: React.RefObject<HTMLInputElement>;
 }
 
-export function useMouseEvents({ tool, workspaceRef, editorRef }: UseMouseEventsProps) {
+export function useMouseEvents({ tool, workspaceRef, editorRef, inputRef }: UseMouseEventsProps) {
     const actions = useAppActions();
 
     const errorhandler = (callback: () => void) => {

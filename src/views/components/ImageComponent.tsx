@@ -13,6 +13,7 @@ export default function ImageComponent({element}: Props) {
             y={element.y}
             width={element.width}
             height={element.height}
+            preserveAspectRatio={element.aspectRatio ? `xMinYMin meet` : `none`}
         />
     );
 };

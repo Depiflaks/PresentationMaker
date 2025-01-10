@@ -9,5 +9,6 @@ export const testImage: ImageElement = {
     y: 0,
     width: 1000,
     height: 500,
+    aspectRatio: true,
     zIndex: 1,
 };

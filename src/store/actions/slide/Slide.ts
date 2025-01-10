@@ -18,6 +18,7 @@ import {
     DeleteFromSelectedListInput,
 } from "~/store/input/slide/SlideInputs";
 import { Slide, Elements } from "~/store/types/slide/Slide";
+import { EditorService } from "~/views/hooks/workspace/service/EditorService";
 
 export function createSlide(model: number = 0): Slide {
     return {
@@ -151,14 +152,15 @@ export function setMainSelection(
 
 export function setSelectedList(
     editor: Editor,
-    { slideId, newList }: SetSelectedListInput,
+    { slideId, newIds }: SetSelectedListInput,
 ): Editor {
     const slide = editor.slides[slideId];
+    const newMain = EditorService.rectSelectedItems(slide.view.elements, newIds);
     const newSlide: Slide = {
         ...slide,
         selection: {
-            ...slide.selection,
-            elements: newList,
+            main: newMain,
+            elements: newIds,
         },
     };
     return {
@@ -177,7 +179,7 @@ export function appendToSelectedList(
     let elements = editor.slides[slideId].selection.elements;
     if (elements.indexOf(itemId) !== -1) return editor;
     elements = [...elements, itemId];
-    return setSelectedList(editor, { slideId, newList: elements });
+    return setSelectedList(editor, { slideId, newIds: elements });
 }
 
 export function deleteFromSelectedList(
@@ -187,5 +189,5 @@ export function deleteFromSelectedList(
     let elements = editor.slides[slideId].selection.elements;
     if ((elements.indexOf(itemId) === -1) || elements.length === 0) return editor;
     elements = elements.filter((item) => item !== itemId);
-    return setSelectedList(editor, { slideId, newList: elements });
+    return setSelectedList(editor, { slideId, newIds: elements });
 }
