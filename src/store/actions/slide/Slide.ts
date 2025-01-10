@@ -12,6 +12,10 @@ import {
     ChangeScaleInput,
     UpdateSlideBackgroundInput,
     StoreElementInput,
+    SetMainSelectionInput,
+    SetSelectedListInput,
+    AppendToSelectedListInput,
+    DeleteFromSelectedListInput,
 } from "~/store/input/slide/SlideInputs";
 import { Slide, Elements } from "~/store/types/slide/Slide";
 
@@ -122,4 +126,66 @@ export function storeElement(
             },
         },
     };
+}
+
+export function setMainSelection(
+    editor: Editor,
+    { slideId, newMainSelection }: SetMainSelectionInput,
+): Editor {
+    const slide = editor.slides[slideId];
+    const newSlide: Slide = {
+        ...slide,
+        selection: {
+            ...slide.selection,
+            main: newMainSelection,
+        },
+    };
+    return {
+        ...editor,
+        slides: {
+            ...editor.slides,
+            [slideId]: newSlide,
+        },
+    };
+}
+
+export function setSelectedList(
+    editor: Editor,
+    { slideId, newList }: SetSelectedListInput,
+): Editor {
+    const slide = editor.slides[slideId];
+    const newSlide: Slide = {
+        ...slide,
+        selection: {
+            ...slide.selection,
+            elements: newList,
+        },
+    };
+    return {
+        ...editor,
+        slides: {
+            ...editor.slides,
+            [slideId]: newSlide,
+        },
+    };
+}
+
+export function appendToSelectedList(
+    editor: Editor,
+    { slideId, itemId }: AppendToSelectedListInput,
+): Editor {
+    let elements = editor.slides[slideId].selection.elements;
+    if (itemId in elements) return editor;
+    elements = [...elements, itemId];
+    return setSelectedList(editor, { slideId, newList: elements });
+}
+
+export function deleteFromSelectedList(
+    editor: Editor,
+    { slideId, itemId }: DeleteFromSelectedListInput,
+): Editor {
+    let elements = editor.slides[slideId].selection.elements;
+    if (!(itemId in elements) || elements.length === 0) return editor;
+    elements = elements.filter((item) => item !== itemId);
+    return setSelectedList(editor, { slideId, newList: elements });
 }

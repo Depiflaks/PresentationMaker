@@ -16,6 +16,10 @@ import {
     ChangeScaleAction,
     UpdateSlideBackgroundAction,
     StoreElementAction,
+    SetMainSelectionAction,
+    SetSelectedListAction,
+    AppendToSelectedListAction,
+    DeleteFromSelectedListAction,
 } from "./actionTypes/Slide";
 
 export enum ActionType {
@@ -56,4 +60,8 @@ export type EditorAction =
     | StoreElementAction
     | UpdateElementPositionAction
     | UpdateElementSizeAction
-    | UpdateTextElementAction;
+    | UpdateTextElementAction
+    | SetMainSelectionAction
+    | SetSelectedListAction
+    | AppendToSelectedListAction
+    | DeleteFromSelectedListAction;

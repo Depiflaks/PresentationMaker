@@ -1,4 +1,4 @@
-import { ChangeRelativeInput, ChangeScaleInput, RemoveElementInput, StoreElementInput, UpdateSlideBackgroundInput } from "~/store/input/slide/SlideInputs";
+import { AppendToSelectedListInput, ChangeRelativeInput, ChangeScaleInput, DeleteFromSelectedListInput, RemoveElementInput, SetMainSelectionInput, SetSelectedListInput, StoreElementInput, UpdateSlideBackgroundInput } from "~/store/input/slide/SlideInputs";
 import { ActionType } from "../../actions";
 
 export function removeElement(input: RemoveElementInput) {
@@ -32,6 +32,34 @@ export function updateSlideBackground(input: UpdateSlideBackgroundInput) {
 export function storeElement(input: StoreElementInput) {
     return {
         type: ActionType.STORE_ELEMENT,
+        payload: input,
+    };
+}
+
+export function setMainSelection(input: SetMainSelectionInput) {
+    return {
+        type: ActionType.SET_MAIN_SELECTION,
+        payload: input,
+    };
+}
+
+export function setSelectedList(input: SetSelectedListInput) {
+    return {
+        type: ActionType.SET_SELECTED_LIST,
+        payload: input,
+    };
+}
+
+export function appendToSelectedList(input: AppendToSelectedListInput) {
+    return {
+        type: ActionType.APPEND_TO_SELECTED_LIST,
+        payload: input,
+    };
+}
+
+export function deleteFromSelectedList(input: DeleteFromSelectedListInput) {
+    return {
+        type: ActionType.DELETE_FROM_SELECTED_LIST,
         payload: input,
     };
 }

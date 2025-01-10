@@ -1,14 +1,15 @@
 import { Editor } from "~/store/types/Editor"
 import { ActionType, EditorAction } from "./actions"
 import { changeCurrentSlide, moveSlide, removeSlide, storeSlide, updatePresentationTitle } from "~/store/actions/editor/Editor"
-import { changeRelative, changeScale, removeElement, storeElement, updateSlideBackground } from "~/store/actions/slide/Slide";
+import { appendToSelectedList, changeRelative, changeScale, deleteFromSelectedList, removeElement, setMainSelection, setSelectedList, storeElement, updateSlideBackground } from "~/store/actions/slide/Slide";
 import { updateElementPosition, updateElementSize } from "~/store/actions/element/Element";
 import { updateTextElement } from "~/store/actions/element/text/Text";
 import { loadEditorFromStorage, saveEditorToStorage } from "../storage/localStorageHandler";
+import { TEMPORARY_PROCEDURES } from "../const/CONST";
 
 export function editorReducer(editor: Editor = loadEditorFromStorage(), action: EditorAction): Editor {
     const updatedEditor = updateReduser(editor, action);
-    saveEditorToStorage(updatedEditor);
+    if (!(action.type in TEMPORARY_PROCEDURES)) saveEditorToStorage(updatedEditor);
     return updatedEditor;
 }
 
@@ -32,6 +33,18 @@ function updateReduser(editor: Editor = loadEditorFromStorage(), action: EditorA
         case ActionType.REMOVE_ELEMENT:
             return removeElement(editor, action.payload);
 
+        case ActionType.SET_MAIN_SELECTION:
+            return setMainSelection(editor, action.payload);
+
+        case ActionType.SET_SELECTED_LIST:
+            return setSelectedList(editor, action.payload);
+        
+        case ActionType.APPEND_TO_SELECTED_LIST:
+            return appendToSelectedList(editor, action.payload);
+
+        case ActionType.DELETE_FROM_SELECTED_LIST:
+            return deleteFromSelectedList(editor, action.payload);
+        
         case ActionType.CHANGE_RELATIVE:
             return changeRelative(editor, action.payload);
 
