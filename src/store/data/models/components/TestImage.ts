@@ -4,7 +4,7 @@ import { createId } from "~/utils/uuid";
 export const testImage: ImageElement = {
     id: createId(),
     type: ElementType.IMAGE,
-    src: "./image.png",
+    href: "./image.png",
     x: 0,
     y: 0,
     width: 1000,

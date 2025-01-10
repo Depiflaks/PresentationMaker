@@ -1,17 +1,11 @@
 import { Editor } from "~/store/types/Editor";
 import { storeSlide } from "../editor/Editor";
-import { createId } from "../../../utils/uuid";
 import {
-    CreateElementInput,
     UpdateElementPositionInput,
     UpdateElementSizeInput,
 } from "~/store/input/element/ElementInputs";
 import { Element } from "~/store/types/slide/element/Element";
 import { Slide } from "~/store/types/slide/Slide";
-
-export function createElement(properties: CreateElementInput): Element {
-    return { ...properties, id: createId(), zIndex: 1 };
-}
 
 export function updateElementPosition(
     editor: Editor,

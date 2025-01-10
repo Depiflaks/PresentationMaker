@@ -8,6 +8,7 @@ import {
 import {
     UpdateElementPositionAction,
     UpdateElementSizeAction,
+    UpdateImageElementAction,
     UpdateTextElementAction,
 } from "./actionTypes/Element";
 import {
@@ -45,6 +46,7 @@ export enum ActionType {
     UPDATE_ELEMENT_SIZE = "updateElementSize",
 
     UPDATE_TEXT_ELEMENT = "updateTextElement",
+    UPDATE_IMAGE_ELEMENT = "updateImageElement",
 }
 
 export type EditorAction =
@@ -61,6 +63,7 @@ export type EditorAction =
     | UpdateElementPositionAction
     | UpdateElementSizeAction
     | UpdateTextElementAction
+    | UpdateImageElementAction
     | SetMainSelectionAction
     | SetSelectedListAction
     | AppendToSelectedListAction

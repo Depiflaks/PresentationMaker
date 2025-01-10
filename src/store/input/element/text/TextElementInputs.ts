@@ -1,3 +1,4 @@
+import { Rect } from "~/store/types/Global";
 import { ElementType } from "~/store/types/slide/element/Element";
 
 export type UpdateTextElementInput = {
@@ -9,4 +10,8 @@ export type UpdateTextElementInput = {
         fontFamily?: string;
         color?: string;
     };
+};
+
+export interface CreateTextElementInput extends Rect {
+    content: string;
 };

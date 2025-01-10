@@ -32,7 +32,7 @@ export default function Workspace({ tool }: Props) {
         editorRef.current = editor;
     }, [editor]);
 
-    useMouseEvents({ workspaceRef: canvasRef, tool, editorRef });
+    useMouseEvents({ workspaceRef: canvasRef, tool, editorRef, inputRef: imageInputRef });
 
     const onImport = async (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0];

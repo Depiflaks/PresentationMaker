@@ -6,6 +6,7 @@ import { updateElementPosition, updateElementSize } from "~/store/actions/elemen
 import { updateTextElement } from "~/store/actions/element/text/Text";
 import { loadEditorFromStorage, saveEditorToStorage } from "../storage/localStorageHandler";
 import { TEMPORARY_PROCEDURES } from "../const/CONST";
+import { updateImageElement } from "../actions/element/image/Image";
 
 export function editorReducer(editor: Editor = loadEditorFromStorage(), action: EditorAction): Editor {
     const updatedEditor = updateReduser(editor, action);
@@ -65,6 +66,9 @@ function updateReduser(editor: Editor = loadEditorFromStorage(), action: EditorA
 
         case ActionType.UPDATE_TEXT_ELEMENT:
             return updateTextElement(editor, action.payload);
+
+        case ActionType.UPDATE_IMAGE_ELEMENT:
+            return updateImageElement(editor, action.payload);
 
         default:
             return editor;

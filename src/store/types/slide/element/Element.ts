@@ -21,7 +21,7 @@ export interface TextElement extends BaseElement {
 
 export interface ImageElement extends BaseElement {
     type: ElementType.IMAGE;
-    src: string;
+    href: string;
     aspectRatio: boolean;
 }
 

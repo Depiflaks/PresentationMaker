@@ -3,6 +3,15 @@ import { storeSlide } from "../../editor/Editor";
 import { UpdateTextElementInput } from "~/store/input/element/text/TextElementInputs";
 import { ElementType, TextElement } from "~/store/types/slide/element/Element";
 import { Slide } from "~/store/types/slide/Slide";
+import { CreateTextElementInput } from "~/store/input/element/text/TextElementInputs";
+import { defaultTextElement } from "~/store/data/default";
+
+export function createTextElement(properties: CreateTextElementInput): TextElement {
+    return {
+        ...defaultTextElement,
+        ...properties
+    };
+}
 
 export function updateTextElement(editor: Editor, { parameters, elementId }: UpdateTextElementInput): Editor {
     const slide = editor.slides[editor.current];

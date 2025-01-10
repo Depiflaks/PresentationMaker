@@ -4,6 +4,7 @@ import { Position, Rect } from "~/store/types/Global";
 import { Slide } from "~/store/types/slide/Slide";
 import { MouseState } from "../handler/type/MouseState";
 import { SetMainSelectionInput } from "~/store/input/slide/SlideInputs";
+import { CreateElementInput } from "~/store/input/element/ElementInputs";
 
 type ZoomOperationInput = {
     slide: Slide;
@@ -78,5 +79,13 @@ export class ActionService {
             }
         }
         setMainSelection(input);
+    }
+
+    createImageElement(slide: Slide, rect: Rect, href: string): string {
+        const { createElement } = this.actions;
+        const input: CreateElementInput = {
+            
+        }
+        const element = createElement(input);
     }
 }

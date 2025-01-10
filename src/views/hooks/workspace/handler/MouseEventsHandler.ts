@@ -5,32 +5,32 @@ import { EditorService } from "../service/EditorService";
 import { CanvasService } from "../service/CanvasService";
 import { emptyState } from "./const/CONST";
 import { MouseAction } from "./type/MouseAction";
+import { InputService } from "../service/InputService";
 
 type MouseEventsHandlerInput = {
-    actionService: ActionService;
-    editorService: EditorService;
-    canvasService: CanvasService;
+    service: Service;
     tool: ToolType;
 };
 
+type Service = {
+    canvas: CanvasService;
+    action: ActionService;
+    editor: EditorService;
+    input: InputService;
+}
+
 export class MouseEventsHandler {
-    private canvasService: CanvasService;
-    private actionService: ActionService;
-    private editorService: EditorService;
+    private service: Service;
 
     private mouseState: MouseState;
     private actionType: MouseAction;
     private currentTool: ToolType;
 
     constructor({
-        actionService,
-        editorService,
-        canvasService,
+        service,
         tool,
     }: MouseEventsHandlerInput) {
-        this.canvasService = canvasService;
-        this.actionService = actionService;
-        this.editorService = editorService;
+        this.service = service;
 
         this.mouseState = {...emptyState};
         this.actionType = MouseAction.SELECT;
@@ -38,14 +38,14 @@ export class MouseEventsHandler {
     }
 
     handleMouseDown(event: MouseEvent): void {
-        const slide = this.editorService.getSlide();
+        const slide = this.service.editor.getSlide();
         this.mouseState.isPressed = true;
-        this.mouseState.start = this.canvasService.getRelative(slide, event);
+        this.mouseState.start = this.service.canvas.getRelative(slide, event);
 
         switch (this.currentTool) {
             case ToolType.ZOOM:
                 let deltaScale = 5;
-                this.actionService.zoom({
+                this.service.action.zoom({
                     deltaScale: deltaScale * (event.buttons === 1 ? -1 : 1),
                     mouse: this.mouseState.start,
                     slide: slide,
@@ -55,26 +55,29 @@ export class MouseEventsHandler {
                 //const itemId = this.editorService.getForegroundObjectId(this.mouseState.start);
                 this.actionType = MouseAction.SELECT;
                 break;
-            case ToolType.TEXT, ToolType.IMAGE:
+            case ToolType.TEXT:
+            case ToolType.IMAGE:
                 this.actionType = MouseAction.SELECT;
                 break;
         }
     }
 
     handleMouseMove(event: MouseEvent): void {
-        const slide = this.editorService.getSlide();
+        const slide = this.service.editor.getSlide();
         if (!this.mouseState.isPressed) return;
-        this.mouseState.current = this.canvasService.getRelative(slide, event);
+        this.mouseState.current = this.service.canvas.getRelative(slide, event);
         switch (this.currentTool) {
             case ToolType.HAND:
-                this.actionService.moveCanvas(slide, {
+                this.service.action.moveCanvas(slide, {
                     x: this.mouseState.current.x - this.mouseState.start.x,
                     y: this.mouseState.current.y - this.mouseState.start.y,
                 });
                 break;
-            case ToolType.SELECTION, ToolType.TEXT, ToolType.IMAGE:
+            case ToolType.TEXT:
+            case ToolType.IMAGE:
+            case ToolType.SELECTION:
                 if (this.actionType === MouseAction.SELECT) {
-                    this.actionService.setMainSelection(slide, this.mouseState);
+                    this.service.action.setMainSelection(slide, this.mouseState);
                 }
                 break;
         }
@@ -82,8 +85,8 @@ export class MouseEventsHandler {
 
     handleMouseUp(event: MouseEvent): void {
         this.mouseState.isPressed = false;
-        const slide = this.editorService.getSlide();
-        this.mouseState.end = this.canvasService.getRelative(slide, event);
+        const slide = this.service.editor.getSlide();
+        this.mouseState.end = this.service.canvas.getRelative(slide, event);
 
         switch (this.currentTool) {
             case ToolType.SELECTION:
@@ -92,16 +95,22 @@ export class MouseEventsHandler {
                 }
                 break;
             case ToolType.IMAGE:
-                
+                if (this.actionType === MouseAction.SELECT) {
+                    const fun = (value: string) => {console.log(value);}
+                    this.service.input.initInput(fun);
+                    this.clearSelection();
+                    
+                }
+                break;
         }
     }
 
     handleMouseWheel(event: WheelEvent): void {
-        const slide = this.editorService.getSlide();
-        const mouse = this.canvasService.getRelative(slide, event);
+        const slide = this.service.editor.getSlide();
+        const mouse = this.service.canvas.getRelative(slide, event);
         const deltaScale = event.deltaY > 0 ? 1 : -1;
 
-        this.actionService.zoom({
+        this.service.action.zoom({
             deltaScale,
             mouse: mouse,
             slide,
@@ -110,7 +119,7 @@ export class MouseEventsHandler {
 
     private clearSelection(): void {
         this.mouseState = {...emptyState};
-        const slide = this.editorService.getSlide();
-        this.actionService.setMainSelection(slide, this.mouseState);
+        const slide = this.service.editor.getSlide();
+        this.service.action.setMainSelection(slide, this.mouseState);
     }
 }

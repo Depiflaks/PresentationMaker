@@ -6,6 +6,7 @@ import { MouseEventsHandler } from "./handler/MouseEventsHandler";
 import { ActionService } from "./service/ActionService";
 import { EditorService } from "./service/EditorService";
 import { CanvasService } from "./service/CanvasService";
+import { InputService } from "./service/InputService";
 
 interface UseMouseEventsProps {
     tool: ToolType;
@@ -29,6 +30,8 @@ export function useMouseEvents({ tool, workspaceRef, editorRef, inputRef }: UseM
         const element = workspaceRef.current;
         if (!element) return;
 
+        const inputService = new InputService(inputRef);
+
         const canvasService = new CanvasService(
             element.getBoundingClientRect()
         );
@@ -42,9 +45,12 @@ export function useMouseEvents({ tool, workspaceRef, editorRef, inputRef }: UseM
         });
 
         const handler = new MouseEventsHandler({
-            actionService: actionService,
-            editorService: editorService,
-            canvasService: canvasService,
+            service: {
+                canvas: canvasService,
+                action: actionService,
+                editor: editorService,
+                input: inputService
+            },
             tool: tool
         });
 
