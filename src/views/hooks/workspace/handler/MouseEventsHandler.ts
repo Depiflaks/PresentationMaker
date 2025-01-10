@@ -1,63 +1,46 @@
-import { Editor } from "~/store/types/Editor";
-import { EditorService } from "../service/EditorService";
+import { ActionService } from "../service/ActionService";
 import { MouseState } from "./type/MouseState";
-import { FIELD } from "~/store/const/CONST";
-import { ToolType, Position } from "~/store/types/Global";
-import { Slide } from "~/store/types/slide/Slide";
-import React from "react";
+import { ToolType } from "~/store/types/Global";
+import { EditorService } from "../service/EditorService";
+import { CanvasService } from "../service/CanvasService";
+import { emptyState } from "./const/CONST";
 
 type MouseEventsHandlerInput = {
-    editor: React.RefObject<Editor>;
-    presentationService: EditorService;
+    actionService: ActionService;
+    editorService: EditorService;
+    canvasService: CanvasService;
     tool: ToolType;
-    canvas: DOMRect;
-};
-
-const emptyState: MouseState = {
-    isPressed: false,
-    start: {
-        x: 0,
-        y: 0,
-    },
-    end: {
-        x: 0,
-        y: 0,
-    },
-    current: {
-        x: 0,
-        y: 0,
-    },
 };
 
 export class MouseEventsHandler {
-    private editor: React.RefObject<Editor>;
-    private tool: ToolType;
-    private canvas: DOMRect;
-    private presentationService: EditorService;
+    private canvasService: CanvasService;
+    private actionService: ActionService;
+    private editorService: EditorService;
     private state: MouseState;
+    private currentTool: ToolType;
 
     constructor({
-        editor,
-        presentationService,
-        canvas,
+        actionService,
+        editorService,
+        canvasService,
         tool,
     }: MouseEventsHandlerInput) {
-        this.editor = editor;
-        this.canvas = canvas;
-        this.tool = tool;
-        this.presentationService = presentationService;
+        this.canvasService = canvasService;
+        this.actionService = actionService;
+        this.editorService = editorService;
         this.state = emptyState;
+        this.currentTool = tool;
     }
 
     handleMouseDown(event: MouseEvent): void {
+        const slide = this.editorService.getSlide();
         this.state.isPressed = true;
-        this.state.start = this.getRelative(event);
-        const slide = this.getSlide();
+        this.state.start = this.canvasService.getRelative(slide, event);
 
-        switch (this.tool) {
+        switch (this.currentTool) {
             case ToolType.ZOOM:
                 let deltaScale = 5;
-                this.presentationService.zoom({
+                this.actionService.zoom({
                     deltaScale: deltaScale * (event.buttons === 1 ? -1 : 1),
                     mouse: this.state.start,
                     slide: slide
@@ -68,16 +51,17 @@ export class MouseEventsHandler {
 
     handleMouseUp(event: MouseEvent): void {
         this.state.isPressed = false;
-        this.state.end = this.getRelative(event);
+        const slide = this.editorService.getSlide();
+        this.state.end = this.canvasService.getRelative(slide, event);
     }
 
     handleMouseMove(event: MouseEvent): void {
-        const slide = this.getSlide();
+        const slide = this.editorService.getSlide();
         if (!this.state.isPressed) return;
-        this.state.current = this.getRelative(event);
-        switch (this.tool) {
+        this.state.current = this.canvasService.getRelative(slide, event);
+        switch (this.currentTool) {
             case ToolType.HAND:
-                this.presentationService.moveCanvas(slide, {
+                this.actionService.moveCanvas(slide, {
                     x: this.state.current.x - this.state.start.x,
                     y: this.state.current.y - this.state.start.y,
                 });
@@ -86,45 +70,14 @@ export class MouseEventsHandler {
     }
 
     handleMouseWheel(event: WheelEvent): void {
-        const slide = this.getSlide();
-        const mouse = this.getRelative(event);
+        const slide = this.editorService.getSlide();
+        const mouse = this.canvasService.getRelative(slide, event);
         const deltaScale = event.deltaY > 0 ? 1 : -1;
 
-        this.presentationService.zoom({
+        this.actionService.zoom({
             deltaScale,
             mouse: mouse,
             slide,
         });
-    }
-
-    private getRelative(event: MouseEvent): Position {
-        const slide = this.getSlide();
-        const result: Position = {
-            x: 0,
-            y: 0,
-        };
-        const mouse = this.getMousePosition(event);
-        const measure = FIELD.width / this.canvas.width;
-        const canvasHeight = (this.canvas.width * FIELD.height) / FIELD.width;
-        const deltaHeight = (this.canvas.height - canvasHeight) / 2;
-
-        result.x = mouse.x * measure * slide.view.scale + slide.view.relative.x;
-        result.y =
-            (mouse.y - deltaHeight) * measure * slide.view.scale + slide.view.relative.y;
-        return result;
-    }
-
-    private getMousePosition(event: MouseEvent | WheelEvent): Position {
-        return {
-            x: event.clientX - this.canvas.left,
-            y: event.clientY - this.canvas.top,
-        };
-    }
-
-    getSlide(): Slide {
-        if (!this.editor.current) throw new Error("Editor is not initialized.");
-        const editor = this.editor.current;
-        if (editor.current === "") throw new Error("Slide list is empty");
-        return editor.slides[editor.current];
     }
 }

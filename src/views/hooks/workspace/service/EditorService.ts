@@ -1,62 +1,76 @@
-import { ActionCreatorsMapObject } from "redux";
-import { DELTA_SCALE } from "~/store/const/CONST";
-import { Position } from "~/store/types/Global";
-import { Slide } from "~/store/types/slide/Slide";
+import { Editor } from "~/store/types/Editor"
+import { Position, Rect } from "~/store/types/Global";
+import { Element } from "~/store/types/slide/element/Element";
+import { Elements, Slide } from "~/store/types/slide/Slide";
 
-type ZoomOperationInput = {
-    slide: Slide;
-    mouse: Position;
-    deltaScale: number;
+type SelectionServiceInput = {
+    editorRef: React.RefObject<Editor>;
+
 }
 
-type EditorServiceInput = {
-    actions: ActionCreatorsMapObject;
-};
-
 export class EditorService {
-    private actions: ActionCreatorsMapObject;
+    private editorRef: React.RefObject<Editor>;
 
-    constructor({actions}: EditorServiceInput) {
-        this.actions = actions;
+    constructor({ editorRef }: SelectionServiceInput) {
+        this.editorRef = editorRef;
     }
 
-    zoom({mouse, slide, deltaScale}: ZoomOperationInput): void {
-        const { changeScale } = this.actions;
+    getForegroundObjectId(point: Position): string | null {
+        const slide = this.getSlide();
 
-        const newScale = Math.max(
-            slide.view.scale + DELTA_SCALE * deltaScale,
-            0.1,
-        );
-        const newCursor: Position = {
-            x: mouse.x / slide.view.scale * newScale,
-            y: mouse.y / slide.view.scale * newScale
-        }
-        const newRelative: Position = {
-            x: slide.view.relative.x / slide.view.scale * newScale,
-            y: slide.view.relative.y / slide.view.scale * newScale,
-        }
-        const cursorDelta: Position = {
-            x: newCursor.x - mouse.x,
-            y: newCursor.y - mouse.y
-        }
-        const relativeDelta: Position = {
-            x: newRelative.x - slide.view.relative.x,
-            y: newRelative.y - slide.view.relative.y
-        }
-        changeScale({ slideId: slide.id, newScale: newScale });
-        this.moveCanvas(slide, {x: cursorDelta.x - relativeDelta.x, y: cursorDelta.y - relativeDelta.y});
-    }
-
-    moveCanvas(slide: Slide, delta: Position) {
-        const relative = slide.view.relative;
-        const { changeRelative } = this.actions;
-        
-        changeRelative({
-            slideId: slide.id,
-            newRelative: {
-                x: relative.x - delta.x,
-                y: relative.y - delta.y
+        const elements = slide.view.elements;
+        let topElement: Element|null = null;
+        for (const elementId in elements) {
+            const element = elements[elementId];
+            const intersects = EditorService.isIntersect(
+                point,
+                element,
+            );
+            if (intersects) {
+                if (!topElement || element.zIndex > topElement.zIndex) {
+                    topElement = element;
+                }
             }
+        }
+        return topElement ? topElement.id : null;
+    }
+
+    static mapElementsByZIndex(slide: Slide): Record<number, Elements> {
+        const result: Record<number, Elements> = {};
+    
+        Object.values(slide.view.elements).forEach((element) => {
+            const { zIndex } = element;
+            if (!result[zIndex]) {
+                result[zIndex] = {};
+            }
+            result[zIndex][element.id] = element;
         });
+    
+        return result;
+    }
+
+    static isIntersect(point: Position, rect: Rect): boolean {
+        const left = rect.x;
+        const right = rect.x + rect.width;
+        const top = rect.y;
+        const bottom = rect.y + rect.height;
+
+        return (
+            point.x >= left &&
+            point.x <= right &&
+            point.y >= top &&
+            point.y <= bottom
+        );
+    }
+
+    getEditor() {
+        if (!this.editorRef.current) throw new Error("Editor is not initialized.");
+        return this.editorRef.current;
+    }
+
+    getSlide(): Slide {
+        const editor = this.getEditor();
+        if (editor.current === "") throw new Error("Slide list is empty");
+        return editor.slides[editor.current];
     }
 }

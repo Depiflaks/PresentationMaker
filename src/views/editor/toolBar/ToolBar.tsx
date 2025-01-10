@@ -1,7 +1,7 @@
 import styles from "./ToolBar.module.css";
 import { ToolType } from "~/store/types/Global";
 import Tool from "./tool/Tool";
-import { useKeyboardShortcut } from "~/views/hooks/useKeyboardShortcut";
+import { useKeyboardShortcut } from "~/views/hooks/workspace/useKeyboardShortcut";
 import { TOOLBAR_TOOLS } from "./const/tools";
 
 type Props = {
