@@ -18,9 +18,11 @@ export interface View {
 export type Elements = Record<string, Element>;
 
 export interface Selection {
-    main: {
-        start: Position;
-        size: Size;
-    }
+    main: MainSelection;
     elements: string[];
+}
+
+export interface MainSelection {
+    start: Position;
+    size: Size;
 }
