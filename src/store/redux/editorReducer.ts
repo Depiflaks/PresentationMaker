@@ -9,7 +9,7 @@ import { TEMPORARY_PROCEDURES } from "../const/CONST";
 
 export function editorReducer(editor: Editor = loadEditorFromStorage(), action: EditorAction): Editor {
     const updatedEditor = updateReduser(editor, action);
-    if (!(action.type in TEMPORARY_PROCEDURES)) saveEditorToStorage(updatedEditor);
+    if (TEMPORARY_PROCEDURES.indexOf(action.type) === -1) saveEditorToStorage(updatedEditor);
     return updatedEditor;
 }
 

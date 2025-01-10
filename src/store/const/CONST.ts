@@ -7,7 +7,7 @@ export const FIELD: Size = {
     height: 900
 }
 
-export const START_SCALE: number = 1;
+export const START_SCALE: number = 1.1;
 
 export const DELTA_SCALE: number = 0.1;
 

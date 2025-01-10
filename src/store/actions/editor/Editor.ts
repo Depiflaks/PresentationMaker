@@ -26,7 +26,7 @@ export function storeSlide(editor: Editor, { slide }: StoreSlideInput): Editor {
     const order =
         slide.id in editor.slides ? editor.order : [...editor.order, slide.id];
 
-    return { ...editor, slides, order };
+    return { ...editor, slides, order, current: slide.id };
 }
 
 export function removeSlide(

@@ -175,7 +175,7 @@ export function appendToSelectedList(
     { slideId, itemId }: AppendToSelectedListInput,
 ): Editor {
     let elements = editor.slides[slideId].selection.elements;
-    if (itemId in elements) return editor;
+    if (elements.indexOf(itemId) !== -1) return editor;
     elements = [...elements, itemId];
     return setSelectedList(editor, { slideId, newList: elements });
 }
@@ -185,7 +185,7 @@ export function deleteFromSelectedList(
     { slideId, itemId }: DeleteFromSelectedListInput,
 ): Editor {
     let elements = editor.slides[slideId].selection.elements;
-    if (!(itemId in elements) || elements.length === 0) return editor;
+    if ((elements.indexOf(itemId) === -1) || elements.length === 0) return editor;
     elements = elements.filter((item) => item !== itemId);
     return setSelectedList(editor, { slideId, newList: elements });
 }

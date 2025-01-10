@@ -21,11 +21,11 @@ export default function Workspace({ tool }: Props) {
     const canvasRef = useRef<HTMLDivElement>(null);
     const editorRef = useRef<Editor>(editor);
 
+    if (editor.current === "") return <div className={styles.workspace}></div>;
+
     useEffect(() => {
         editorRef.current = editor;
     }, [editor]);
-
-    if (editor.current === "") return <div className="workspace"></div>;
 
     useMouseEvents({ workspaceRef: canvasRef, tool, editorRef });
 
