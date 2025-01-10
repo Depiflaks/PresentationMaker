@@ -1,4 +1,5 @@
-import { Position, Size } from "../../types/Global";
+import { ElementType } from "~/store/types/slide/element/Element";
+import { Position, Rect, Size } from "../../types/Global";
 
 export type CreateElementInput = ImageProp | TextProp;
 
@@ -12,17 +13,13 @@ export type UpdateElementSizeInput = {
     newSize: Size;
 };
 
-type ImageProp = {
-    type: "image";
-    position: Position;
-    size: Size;
+interface ImageProp extends Rect {
+    type: ElementType.IMAGE;
     src: string;
 };
 
-type TextProp = {
-    type: "text";
-    position: Position;
-    size: Size;
+interface TextProp extends Rect {
+    type: ElementType.TEXT;
     content: string;
     fontSize: number;
     fontFamily: string;

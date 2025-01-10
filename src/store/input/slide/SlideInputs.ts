@@ -1,6 +1,5 @@
-import { Position } from "~/store/types/Global";
+import { Position, Rect } from "~/store/types/Global";
 import { TextElement, ImageElement } from "~/store/types/slide/element/Element";
-import { MainSelection } from "~/store/types/slide/Slide";
 
 export type RemoveElementInput = {
     slideId: string;
@@ -29,7 +28,7 @@ export type StoreElementInput = {
 
 export type SetMainSelectionInput = {
     slideId: string;
-    newMainSelection: MainSelection;
+    newMainSelection: Rect;
 }
 
 export type SetSelectedListInput = {

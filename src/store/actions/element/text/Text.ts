@@ -1,13 +1,13 @@
 import { Editor } from "~/store/types/Editor";
 import { storeSlide } from "../../editor/Editor";
 import { UpdateTextElementInput } from "~/store/input/element/text/TextElementInputs";
-import { TextElement } from "~/store/types/slide/element/Element";
+import { ElementType, TextElement } from "~/store/types/slide/element/Element";
 import { Slide } from "~/store/types/slide/Slide";
 
 export function updateTextElement(editor: Editor, { parameters, elementId }: UpdateTextElementInput): Editor {
     const slide = editor.slides[editor.current];
     const element = slide.view.elements[elementId];
-    if (!element || element.type !== "text") return editor;
+    if (!element || element.type !== ElementType.TEXT) return editor;
 
     const updatedElement: TextElement = {
         ...element,

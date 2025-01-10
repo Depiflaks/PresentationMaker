@@ -1,4 +1,4 @@
-import { Elements } from "~/store/types/Global"
+import { Elements } from "~/store/types/slide/Slide"
 import { caption } from "./components/Caption"
 import { testImage } from "./components/TestImage"
 

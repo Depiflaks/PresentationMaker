@@ -10,7 +10,7 @@ import styles from "~/views/editor/workspace/Workspace.module.css";
 import { useMouseEvents } from "~/views/hooks/workspace/useMouseEvents";
 import { Editor } from "~/store/types/Editor";
 import { ToolType } from "~/store/types/Global";
-import { TextElement, ImageElement } from "~/store/types/slide/element/Element";
+import { TextElement, ImageElement, ElementType } from "~/store/types/slide/element/Element";
 import Selection from "./selection/Selection";
 
 type Props = {
@@ -50,7 +50,7 @@ export default function Workspace({ tool }: Props) {
                     shapeRendering="crispEdges"
                 />
                 {elements.map((element) => {
-                    if (element.type === "text") {
+                    if (element.type === ElementType.TEXT) {
                         return (
                             <TextComponent
                                 key={element.id}
@@ -58,7 +58,7 @@ export default function Workspace({ tool }: Props) {
                             />
                         );
                     }
-                    if (element.type === "image") {
+                    if (element.type === ElementType.IMAGE) {
                         return (
                             <ImageComponent
                                 key={element.id}

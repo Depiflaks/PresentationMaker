@@ -1,4 +1,4 @@
-import { Position, Size } from "../Global";
+import { Position, Rect } from "../Global";
 import { Element } from "./element/Element";
 
 
@@ -18,9 +18,6 @@ export interface View {
 export type Elements = Record<string, Element>;
 
 export interface Selection {
-    main: MainSelection;
+    main: Rect;
     elements: string[];
-}
-
-export interface MainSelection extends Size, Position {
 }

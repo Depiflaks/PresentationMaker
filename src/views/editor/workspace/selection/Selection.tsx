@@ -11,10 +11,10 @@ export default function Selection({ slide }: Props) {
     return (
         <>
             <rect
-                x={main.start.x}
-                y={main.start.y}
-                width={main.size.width}
-                height={main.size.height}
+                x={main.x}
+                y={main.y}
+                width={main.width}
+                height={main.height}
                 fill={"#fce181"}
                 fillOpacity={"0.5"}
                 stroke="#d38e10"
@@ -23,10 +23,10 @@ export default function Selection({ slide }: Props) {
             />
             {selectedElements.map((id: string) => {
                 <rect
-                    x={elements[id].position.x}
-                    y={elements[id].position.y}
-                    width={elements[id].size.width}
-                    height={elements[id].size.height}
+                    x={elements[id].x}
+                    y={elements[id].y}
+                    width={elements[id].width}
+                    height={elements[id].height}
                     fill={"none"}
                     stroke="#FFE135"
                     shapeRendering="crispEdges"

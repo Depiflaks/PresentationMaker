@@ -1,5 +1,5 @@
 import { Editor } from "~/store/types/Editor"
-import { Position, Size } from "~/store/types/Global";
+import { Position, Rect } from "~/store/types/Global";
 
 type SelectionServiceInput = {
     editorRef: React.RefObject<Editor>;
@@ -7,11 +7,8 @@ type SelectionServiceInput = {
 }
 
 type IsIntersectInput = {
-    position: Position;
-    object: {
-        start: Position;
-        size: Size;
-    }
+    point: Position;
+    object: Rect
 }
 
 export class SelectionService {
@@ -29,14 +26,21 @@ export class SelectionService {
         });
     }
 
-    isIntersectObject(): boolean {
+    static isIntersect({ point, object }: IsIntersectInput): boolean {
+        const left = object.x;
+        const right = object.x + object.width;
+        const top = object.y;
+        const bottom = object.y + object.height;
 
+        return (
+            point.x >= left &&
+            point.x <= right &&
+            point.y >= top &&
+            point.y <= bottom
+        );
     }
 
-    isIntersect({ object, position }: IsIntersectInput): boolean {
-
-    }
-
+    
 
     private getEditor() {
         if (!this.editorRef.current) throw new Error("Editor is not initialized.");

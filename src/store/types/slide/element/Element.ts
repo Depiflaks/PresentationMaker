@@ -1,12 +1,18 @@
-import { Position, Size } from "../../Global";
+import { Rect } from "../../Global";
 
-export interface BaseElement extends Position, Size {
+export enum ElementType {
+    TEXT = "text",
+    IMAGE = "image"
+}
+
+export interface BaseElement extends Rect {
     type: string;
     id: string;
+    zIndex: number;
 }
 
 export interface TextElement extends BaseElement {
-    type: "text";
+    type: ElementType.TEXT;
     content: string;
     fontSize: number;
     fontFamily: string;
@@ -14,7 +20,7 @@ export interface TextElement extends BaseElement {
 }
 
 export interface ImageElement extends BaseElement {
-    type: "image";
+    type: ElementType.IMAGE;
     src: string;
 }
 

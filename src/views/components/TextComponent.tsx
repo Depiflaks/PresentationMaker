@@ -7,8 +7,10 @@ type Props = {
 export default function TextComponent({element} : Props) {
     return (
         <text
-            x={element.position.x}
-            y={element.position.y}
+            x={element.x}
+            y={element.y}
+            width={element.width}
+            height={element.height}
             fontSize={element.fontSize}
             fontFamily={element.fontFamily}
             fill={element.color}

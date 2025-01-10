@@ -1,10 +1,13 @@
-import { ImageElement } from "~/store/types/Global";
+import { ElementType, ImageElement } from "~/store/types/slide/element/Element";
 import { createId } from "~/utils/uuid";
 
 export const testImage: ImageElement = {
     id: createId(),
-    type: "image",
+    type: ElementType.IMAGE,
     src: "./image.png",
-    position: { x: 0, y: 0 },
-    size: { width: 1000, height: 500 },
+    x: 0,
+    y: 0,
+    width: 1000,
+    height: 500,
+    zIndex: 1,
 };

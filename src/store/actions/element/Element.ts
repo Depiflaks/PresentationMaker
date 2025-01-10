@@ -10,7 +10,7 @@ import { Element } from "~/store/types/slide/element/Element";
 import { Slide } from "~/store/types/slide/Slide";
 
 export function createElement(properties: CreateElementInput): Element {
-    return { ...properties, id: createId() };
+    return { ...properties, id: createId(), zIndex: 1 };
 }
 
 export function updateElementPosition(
@@ -21,7 +21,7 @@ export function updateElementPosition(
     const element = slide.view.elements[elementId];
     if (!element) return editor;
 
-    const updatedElement = { ...element, position: newPosition };
+    const updatedElement: Element = { ...element, ...newPosition };
 
     const updatedSlide: Slide = {
         ...slide,
@@ -44,7 +44,7 @@ export function updateElementSize(
     const element = slide.view.elements[elementId];
     if (!element) return editor;
 
-    const updatedElement = { ...element, size: newSize };
+    const updatedElement: Element = { ...element, ...newSize };
     const updatedSlide: Slide = {
         ...slide,
         view: {
