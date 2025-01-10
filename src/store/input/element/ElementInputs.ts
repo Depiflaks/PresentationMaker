@@ -1,4 +1,4 @@
-import { Position, Size } from "../../types/Presentation";
+import { Position, Size } from "../../types/Global";
 
 export type CreateElementInput = ImageProp | TextProp;
 

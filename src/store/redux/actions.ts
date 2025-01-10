@@ -10,12 +10,15 @@ export enum ActionType {
     REMOVE_SLIDE = "removeSlide",
     MOVE_SLIDE = "moveSlide",
 
-    SET_MAIN_SELECTION = "setMainSelection",
-    SET_SELECTED_ELEMENT_LIST = "setSelectedElementList",
-
-    REMOVE_ELEMENT = "removeElement",
     CHANGE_RELATIVE = "changeRelative",
     CHANGE_SCALE = "changeScale",
+
+    SET_MAIN_SELECTION = "setMainSelection",
+    SET_SELECTED_LIST = "setSelectedList",
+    APPEND_TO_SELECTED_LIST = "appendToSelectedList",
+    DELETE_FROM_SELECTED_LIST = "deleteFromSelectedList",
+
+    REMOVE_ELEMENT = "removeElement",
     UPDATE_SLIDE_BACKGROUND = "updateSlideBackground",
     STORE_ELEMENT = "storeElement",
 
@@ -52,16 +55,7 @@ export type MoveSlideAction = {
     payload: MoveSlideInput;
 };
 
-// Selection
-
-
-
-// Slide
-
-export type RemoveElementAction = {
-    type: ActionType.REMOVE_ELEMENT;
-    payload: RemoveElementInput;
-};
+// State
 
 export type ChangeRelativeAction = {
     type: ActionType.CHANGE_RELATIVE;
@@ -71,6 +65,13 @@ export type ChangeRelativeAction = {
 export type ChangeScaleAction = {
     type: ActionType.CHANGE_SCALE;
     payload: ChangeScaleInput;
+};
+
+// Slide
+
+export type RemoveElementAction = {
+    type: ActionType.REMOVE_ELEMENT;
+    payload: RemoveElementInput;
 };
 
 export type UpdateSlideBackgroundAction = {

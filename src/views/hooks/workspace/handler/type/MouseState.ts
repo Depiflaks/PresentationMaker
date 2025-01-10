@@ -1,4 +1,4 @@
-import { Position } from "~/store/types/Presentation";
+import { Position } from "~/store/types/Global";
 
 export type MouseState = {
     isPressed: boolean;

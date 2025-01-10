@@ -1,6 +1,6 @@
 import { ActionCreatorsMapObject } from "redux";
 import { DELTA_SCALE, FIELD } from "~/store/const/CONST";
-import { Position, Slide } from "~/store/types/Presentation";
+import { Position, Slide } from "~/store/types/Global";
 
 type ZoomOperationInput = {
     slide: Slide;

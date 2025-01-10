@@ -1,5 +1,5 @@
 import { Editor } from "~/store/types/Editor";
-import { Position, Slide, ToolType } from "~/store/types/Presentation";
+import { Position, Slide, ToolType } from "~/store/types/Global";
 import { PresentationService } from "../service/PresentationService";
 import { MouseState } from "./type/MouseState";
 import { FIELD } from "~/store/const/CONST";

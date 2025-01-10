@@ -1,4 +1,4 @@
-import { ImageElement } from "~/store/types/Presentation";
+import { ImageElement } from "~/store/types/Global";
 
 import image from "~/views/assets/elements/image.png"
 

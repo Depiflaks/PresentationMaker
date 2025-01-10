@@ -1,6 +1,6 @@
 import { Editor } from "~/store/types/Editor";
-import { TextElement } from "~/store/types/Presentation";
-import { storeSlide } from "../../presentation/Presentation";
+import { TextElement } from "~/store/types/Global";
+import { storeSlide } from "../../editor/Editor";
 import { UpdateTextElementInput } from "~/store/input/element/text/TextElementInputs";
 
 export function updateTextElement(editor: Editor, { parameters, elementId }: UpdateTextElementInput): Editor {

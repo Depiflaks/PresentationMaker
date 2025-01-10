@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { ToolType } from "~/store/types/Presentation";
+import { ToolType } from "~/store/types/Global";
 
 export function useKeyboardShortcut(onToolChange: (newTool: ToolType) => void) {
     useEffect(() => {

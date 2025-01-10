@@ -1,4 +1,4 @@
-import { TextElement } from "~/store/types/Presentation";
+import { TextElement } from "~/store/types/Global";
 import { createId } from "~/utils/uuid";
 
 

@@ -3,7 +3,7 @@ import { useEffect, useRef } from "react";
 import TextComponent from "~/views/components/TextComponent";
 import ImageComponent from "~/views/components/ImageComponent";
 import { FIELD } from "~/store/const/CONST";
-import { ImageElement, TextElement, ToolType } from "~/store/types/Presentation";
+import { ImageElement, TextElement, ToolType } from "~/store/types/Global";
 
 import { useAppSelector } from "~/views/hooks/useAppSelector";
 

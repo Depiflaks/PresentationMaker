@@ -1,6 +1,6 @@
 import { Editor } from "~/store/types/Editor"
 import { ActionType, EditorAction } from "./actions"
-import { changeCurrentSlide, moveSlide, removeSlide, storeSlide, updatePresentationTitle } from "~/store/actions/presentation/Presentation"
+import { changeCurrentSlide, moveSlide, removeSlide, storeSlide, updatePresentationTitle } from "~/store/actions/editor/Editor"
 import { changeRelative, changeScale, removeElement, storeElement, updateSlideBackground } from "~/store/actions/slide/Slide";
 import { updateElementPosition, updateElementSize } from "~/store/actions/element/Element";
 import { updateTextElement } from "~/store/actions/element/text/Text";

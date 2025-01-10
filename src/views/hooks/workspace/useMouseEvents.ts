@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { ToolType } from "~/store/types/Presentation";
+import { ToolType } from "~/store/types/Global";
 import { useAppActions } from "../useAppActions";
 import { Editor } from "~/store/types/Editor";
 import { MouseEventsHandler } from "./handler/MouseEventsHandler";

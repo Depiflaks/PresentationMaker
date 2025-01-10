@@ -1,6 +1,6 @@
 import styles from "./ToolPopup.module.css";
 import Tool from "../tool/Tool";
-import { ToolType } from "~/store/types/Presentation";
+import { ToolType } from "~/store/types/Global";
 import { POPUP_TOOLS } from "../const/tools";
 
 type Props = {

@@ -2,7 +2,7 @@ import React from "react";
 
 import Header from "~/views/header/Header";
 import ToolBar from "~/views/editor/toolBar/ToolBar";
-import { ToolType } from "~/store/types/Presentation";
+import { ToolType } from "~/store/types/Global";
 
 import Editor from "./editor/Editor";
 

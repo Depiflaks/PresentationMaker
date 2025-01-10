@@ -1,4 +1,4 @@
-import { ImageElement } from "~/store/types/Presentation";
+import { ImageElement } from "~/store/types/Global";
 import { createId } from "~/utils/uuid";
 
 export const testImage: ImageElement = {

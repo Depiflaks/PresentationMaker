@@ -1,4 +1,4 @@
-import { Position, TextElement, ImageElement } from "~/store/types/Presentation";
+import { Position, TextElement, ImageElement } from "~/store/types/Global";
 
 export type RemoveElementInput = {
     slideId: string;

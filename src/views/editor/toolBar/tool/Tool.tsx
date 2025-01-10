@@ -1,6 +1,6 @@
 import styles from "./Tool.module.css";
 import { toolBarIconsMap } from "~/store/icons/toolBar/toolBarIcons";
-import { ToolType } from "~/store/types/Presentation";
+import { ToolType } from "~/store/types/Global";
 
 type Props = {
     currentTool: ToolType;

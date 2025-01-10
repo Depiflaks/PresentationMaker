@@ -1,4 +1,4 @@
-import { ToolType } from "~/store/types/Presentation";
+import { ToolType } from "~/store/types/Global";
 import PropertyEditor from "./propertyEditor/PropertyEditor";
 import SlideList from "./slideList/SlideList";
 import Workspace from "./workspace/Workspace";

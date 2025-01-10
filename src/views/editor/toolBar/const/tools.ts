@@ -1,4 +1,4 @@
-import { ToolType } from "~/store/types/Presentation";
+import { ToolType } from "~/store/types/Global";
 
 export const TOOLBAR_TOOLS: ToolType[] = [
     ToolType.UNDO,

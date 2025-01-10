@@ -1,8 +1,8 @@
 import { Editor } from "~/store/types/Editor";
-import { storeSlide } from "../presentation/Presentation";
+import { storeSlide } from "../editor/Editor";
 import { createId } from "../../../utils/uuid";
 import { CreateElementInput, UpdateElementPositionInput, UpdateElementSizeInput } from "~/store/input/element/ElementInputs";
-import { Element } from "~/store/types/Presentation";
+import { Element } from "~/store/types/Global";
 
 
 export function createElement(properties: CreateElementInput): Element {
