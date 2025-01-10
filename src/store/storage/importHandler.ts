@@ -3,121 +3,112 @@ import Ajv from 'ajv';
 const editorSchema = {
     type: "object",
     properties: {
-        presentation: {
+        id: { type: "string" },
+        title: { type: "string" },
+        author: { type: "string" },
+        order: {
+            type: "array",
+            items: { type: "string" }
+        },
+        slides: {
             type: "object",
-            properties: {
-                id: { type: "string" },
-                title: { type: "string" },
-                author: { type: "string" },
-                order: { type: "array", items: { type: "string" } },
-                slides: {
+            patternProperties: {
+                ".*": {
                     type: "object",
-                    additionalProperties: {
-                        type: "object",
-                        properties: {
-                            id: { type: "string" },
-                            background: { type: "string" },
-                            elements: {
-                                type: "object",
-                                additionalProperties: {
+                    properties: {
+                        id: { type: "string" },
+                        view: {
+                            type: "object",
+                            properties: {
+                                background: { type: "string" },
+                                elements: {
+                                    type: "object",
+                                    patternProperties: {
+                                        ".*": {
+                                            type: "object",
+                                            properties: {
+                                                type: { type: "string", enum: ["text", "image"] },
+                                                id: { type: "string" },
+                                                position: {
+                                                    type: "object",
+                                                    properties: {
+                                                        x: { type: "number" },
+                                                        y: { type: "number" }
+                                                    },
+                                                    required: ["x", "y"]
+                                                },
+                                                size: {
+                                                    type: "object",
+                                                    properties: {
+                                                        width: { type: "number" },
+                                                        height: { type: "number" }
+                                                    },
+                                                    required: ["width", "height"]
+                                                },
+                                                content: { type: "string", nullable: true },
+                                                fontSize: { type: "number", nullable: true },
+                                                fontFamily: { type: "string", nullable: true },
+                                                color: { type: "string", nullable: true },
+                                                src: { type: "string", nullable: true }
+                                            },
+                                            required: ["type", "id", "position", "size"]
+                                        }
+                                    }
+                                },
+                                relative: {
                                     type: "object",
                                     properties: {
-                                        type: { type: "string" },
-                                        id: { type: "string" },
-                                        position: {
+                                        x: { type: "number" },
+                                        y: { type: "number" }
+                                    },
+                                    required: ["x", "y"]
+                                },
+                                scale: { type: "number" }
+                            },
+                            required: ["background", "elements", "relative", "scale"]
+                        },
+                        selection: {
+                            type: "object",
+                            properties: {
+                                main: {
+                                    type: "object",
+                                    properties: {
+                                        start: {
                                             type: "object",
                                             properties: {
                                                 x: { type: "number" },
-                                                y: { type: "number" },
+                                                y: { type: "number" }
                                             },
-                                            required: ["x", "y"],
+                                            required: ["x", "y"]
                                         },
                                         size: {
                                             type: "object",
                                             properties: {
                                                 width: { type: "number" },
-                                                height: { type: "number" },
+                                                height: { type: "number" }
                                             },
-                                            required: ["width", "height"],
-                                        },
+                                            required: ["width", "height"]
+                                        }
                                     },
-                                    required: ["type", "id", "position", "size"],
+                                    required: ["start", "size"]
                                 },
+                                elements: {
+                                    type: "array",
+                                    items: { type: "string" }
+                                }
                             },
-                            scale: { type: "number" },
-                            relative: {
-                                type: "object",
-                                properties: {
-                                    x: { type: "number" },
-                                    y: { type: "number" },
-                                },
-                                required: ["x", "y"],
-                            },
-                        },
-                        required: ["id", "background", "elements", "scale", "relative"],
+                            required: ["main", "elements"]
+                        }
                     },
-                },
-                current: { type: "string" },
-            },
-            required: ["id", "title", "author", "order", "slides", "current"],
+                    required: ["id", "view", "selection"]
+                }
+            }
         },
-        selection: {
-            type: "object",
-            properties: {
-                main: {
-                    type: "object",
-                    properties: {
-                        position: {
-                            type: "object",
-                            properties: {
-                                x: { type: "number" },
-                                y: { type: "number" },
-                            },
-                            required: ["x", "y"],
-                        },
-                        size: {
-                            type: "object",
-                            properties: {
-                                width: { type: "number" },
-                                height: { type: "number" },
-                            },
-                            required: ["width", "height"],
-                        },
-                    },
-                    required: ["position", "size"],
-                },
-                elements: {
-                    type: "array",
-                    items: {
-                        type: "object",
-                        properties: {
-                            position: {
-                                type: "object",
-                                properties: {
-                                    x: { type: "number" },
-                                    y: { type: "number" },
-                                },
-                                required: ["x", "y"],
-                            },
-                            size: {
-                                type: "object",
-                                properties: {
-                                    width: { type: "number" },
-                                    height: { type: "number" },
-                                },
-                                required: ["width", "height"],
-                            },
-                            id: { type: "string" },
-                        },
-                        required: ["position", "size", "id"],
-                    },
-                },
-            },
-            required: ["main", "elements"],
-        },
+        current: { type: "string" }
     },
-    required: ["presentation", "selection"],
+    required: ["id", "title", "author", "order", "slides", "current"]
 };
+
 
 export function validateEditor(editor: Object) {
     const ajv = new Ajv();

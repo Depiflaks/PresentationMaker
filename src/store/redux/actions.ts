@@ -1,6 +1,6 @@
 import { UpdateElementPositionInput, UpdateElementSizeInput } from "../input/element/ElementInputs";
 import { UpdateTextElementInput } from "../input/element/text/TextElementInputs";
-import { ChangeCurrentSlideInput, MoveSlideInput, RemoveSlideInput, StoreSlideInput, UpdatePresentationTitleInput } from "../input/presentation/PresentationInputs";
+import { ChangeCurrentSlideInput, MoveSlideInput, RemoveSlideInput, StoreSlideInput, UpdatePresentationTitleInput } from "../input/editor/EditorInputs";
 import { ChangeRelativeInput, ChangeScaleInput, RemoveElementInput, StoreElementInput, UpdateSlideBackgroundInput } from "../input/slide/SlideInputs";
 
 export enum ActionType {
@@ -55,7 +55,7 @@ export type MoveSlideAction = {
     payload: MoveSlideInput;
 };
 
-// State
+// Slide
 
 export type ChangeRelativeAction = {
     type: ActionType.CHANGE_RELATIVE;
@@ -66,8 +66,6 @@ export type ChangeScaleAction = {
     type: ActionType.CHANGE_SCALE;
     payload: ChangeScaleInput;
 };
-
-// Slide
 
 export type RemoveElementAction = {
     type: ActionType.REMOVE_ELEMENT;

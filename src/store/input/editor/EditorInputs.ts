@@ -1,4 +1,4 @@
-import { Slide } from "../../types/Global";
+import { Slide } from "~/store/types/slide/Slide";
 
 export type UpdatePresentationTitleInput = {
     newTitle: string;

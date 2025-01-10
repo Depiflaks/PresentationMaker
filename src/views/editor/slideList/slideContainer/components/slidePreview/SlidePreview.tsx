@@ -1,11 +1,12 @@
 import { useState } from "react";
-import { ImageElement, Slide, TextElement } from "~/store/types/Global";
 import ImageComponent from "~/views/components/ImageComponent";
 import TextComponent from "~/views/components/TextComponent";
 import styles from "./SlidePreview.module.css";
 
 import remove from "~/views/assets/slideList/remove.svg";
 import { FIELD } from "~/store/const/CONST";
+import { Slide } from "~/store/types/slide/Slide";
+import { TextElement, ImageElement } from "~/store/types/slide/element/Element";
 
 type Props = {
     slide: Slide,
@@ -16,7 +17,7 @@ type Props = {
 }
 
 export default function SlidePreview({slide, isSelected, onSlideClick, onDragEnter, onDelete}: Props) {
-    const elements = Object.values(slide.elements);
+    const elements = Object.values(slide.view.elements);
 
     const [isHovered, setIsHovered] = useState<boolean>(false);
 
@@ -38,7 +39,7 @@ export default function SlidePreview({slide, isSelected, onSlideClick, onDragEnt
                 viewBox="0 0 1600 900"
                 xmlns="http://www.w3.org/2000/svg"
             >
-                <rect x={ 0 } y={ 0 } width={FIELD.width} height={FIELD.height} fill={slide.background} shapeRendering="crispEdges" />
+                <rect x={ 0 } y={ 0 } width={FIELD.width} height={FIELD.height} fill={slide.view.background} shapeRendering="crispEdges" />
 
                 {elements.map((element, i) => {
                     if (element.type === 'text') {

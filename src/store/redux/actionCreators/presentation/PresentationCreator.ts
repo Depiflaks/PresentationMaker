@@ -1,4 +1,4 @@
-import { ChangeCurrentSlideInput, MoveSlideInput, RemoveSlideInput, StoreSlideInput, UpdatePresentationTitleInput } from "~/store/input/presentation/PresentationInputs";
+import { ChangeCurrentSlideInput, MoveSlideInput, RemoveSlideInput, StoreSlideInput, UpdatePresentationTitleInput } from "~/store/input/editor/EditorInputs";
 import { ActionType } from "../../actions";
 
 export function updatePresentationTitle(input: UpdatePresentationTitleInput) {

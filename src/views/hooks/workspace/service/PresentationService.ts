@@ -1,6 +1,7 @@
 import { ActionCreatorsMapObject } from "redux";
-import { DELTA_SCALE, FIELD } from "~/store/const/CONST";
-import { Position, Slide } from "~/store/types/Global";
+import { DELTA_SCALE } from "~/store/const/CONST";
+import { Position } from "~/store/types/Global";
+import { Slide } from "~/store/types/slide/Slide";
 
 type ZoomOperationInput = {
     slide: Slide;
@@ -23,31 +24,31 @@ export class PresentationService {
         const { changeScale } = this.actions;
 
         const newScale = Math.max(
-            slide.scale + DELTA_SCALE * deltaScale,
+            slide.view.scale + DELTA_SCALE * deltaScale,
             0.1,
         );
         const newCursor: Position = {
-            x: mouse.x / slide.scale * newScale,
-            y: mouse.y / slide.scale * newScale
+            x: mouse.x / slide.view.scale * newScale,
+            y: mouse.y / slide.view.scale * newScale
         }
         const newRelative: Position = {
-            x: slide.relative.x / slide.scale * newScale,
-            y: slide.relative.y / slide.scale * newScale,
+            x: slide.view.relative.x / slide.view.scale * newScale,
+            y: slide.view.relative.y / slide.view.scale * newScale,
         }
         const cursorDelta: Position = {
             x: newCursor.x - mouse.x,
             y: newCursor.y - mouse.y
         }
         const relativeDelta: Position = {
-            x: newRelative.x - slide.relative.x,
-            y: newRelative.y - slide.relative.y
+            x: newRelative.x - slide.view.relative.x,
+            y: newRelative.y - slide.view.relative.y
         }
         changeScale({ slideId: slide.id, newScale: newScale });
         this.moveCanvas(slide, {x: cursorDelta.x - relativeDelta.x, y: cursorDelta.y - relativeDelta.y});
     }
 
     moveCanvas(slide: Slide, delta: Position) {
-        const relative = slide.relative;
+        const relative = slide.view.relative;
         const { changeRelative } = this.actions;
         
         changeRelative({

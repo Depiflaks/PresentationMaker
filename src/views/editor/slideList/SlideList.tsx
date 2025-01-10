@@ -8,7 +8,7 @@ import { useAppActions } from "~/views/hooks/useAppActions";
 const endSlide = "endSlide"
 
 export default function SlideList() {
-    const {order, current} = useAppSelector((editor => editor.presentation));
+    const {order, current} = useAppSelector((editor => editor));
     const { moveSlide } = useAppActions();
 
     const [dragEnterId, setDragEnterId] = useState<string>('');

@@ -17,7 +17,7 @@ type Props = {
 }
 
 export default function SlideContainer({dragEnterId, setDragEnterId}: Props) {
-    const {order, current, slides} = useAppSelector((editor => editor.presentation));
+    const {order, current, slides} = useAppSelector((editor => editor));
     const { changeCurrentSlide, removeSlide, storeSlide } = useAppActions();
     
     const slideArray = order.map((id) => slides[id]);

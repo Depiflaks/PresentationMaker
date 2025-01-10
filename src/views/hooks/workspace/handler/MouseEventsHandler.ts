@@ -1,8 +1,9 @@
 import { Editor } from "~/store/types/Editor";
-import { Position, Slide, ToolType } from "~/store/types/Global";
 import { PresentationService } from "../service/PresentationService";
 import { MouseState } from "./type/MouseState";
 import { FIELD } from "~/store/const/CONST";
+import { ToolType, Position } from "~/store/types/Global";
+import { Slide } from "~/store/types/slide/Slide";
 
 type MouseEventsHandlerInput = {
     editor: React.RefObject<Editor>;
@@ -106,9 +107,9 @@ export class MouseEventsHandler {
         const canvasHeight = (this.canvas.width * FIELD.height) / FIELD.width;
         const deltaHeight = (this.canvas.height - canvasHeight) / 2;
 
-        result.x = mouse.x * measure * slide.scale + slide.relative.x;
+        result.x = mouse.x * measure * slide.view.scale + slide.view.relative.x;
         result.y =
-            (mouse.y - deltaHeight) * measure * slide.scale + slide.relative.y;
+            (mouse.y - deltaHeight) * measure * slide.view.scale + slide.view.relative.y;
         return result;
     }
 
@@ -121,7 +122,7 @@ export class MouseEventsHandler {
 
     private getSlide(): Slide {
         if (!this.editor.current) throw new Error("Editor is not initialized.");
-        const presentation = this.editor.current.presentation;
-        return presentation.slides[presentation.current];
+        const editor = this.editor.current;
+        return editor.slides[editor.current];
     }
 }

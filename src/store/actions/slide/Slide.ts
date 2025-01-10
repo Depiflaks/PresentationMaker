@@ -18,7 +18,7 @@ import { Slide, Elements } from "~/store/types/slide/Slide";
 export function createSlide(model: number = 0): Slide {
     return {
         id: createId(),
-        viewport: {
+        view: {
             background: "white",
             elements: slidesModels[model],
             relative: { ...START_POSITION },
@@ -33,9 +33,9 @@ export function removeElement(
     { slideId, elementId }: RemoveElementInput,
 ): Editor {
     const slides = editor.slides;
-    const newColl: Elements = { ...slides[slideId].viewport.elements };
+    const newColl: Elements = { ...slides[slideId].view.elements };
     delete newColl[elementId];
-    slides[slideId].viewport.elements = newColl;
+    slides[slideId].view.elements = newColl;
     return {
         ...editor,
         slides: slides,
@@ -47,7 +47,7 @@ export function changeRelative(
     { slideId, newRelative }: ChangeRelativeInput,
 ): Editor {
     const slides = editor.slides;
-    slides[slideId].viewport.relative = { ...newRelative };
+    slides[slideId].view.relative = { ...newRelative };
     return {
         ...editor,
         slides,
@@ -62,8 +62,8 @@ export function changeScale(
 
     const updatedSlide: Slide = {
         ...currentSlide,
-        viewport: {
-            ...currentSlide.viewport,
+        view: {
+            ...currentSlide.view,
             scale: newScale,
         },
     };
@@ -86,8 +86,8 @@ export function updateSlideBackground(
     const slide = editor.slides[slideId];
     const newSlide: Slide = {
         ...slide,
-        viewport: {
-            ...slide.viewport,
+        view: {
+            ...slide.view,
             background: newBackground,
         },
     };
@@ -106,7 +106,7 @@ export function storeElement(
 ): Editor {
     const slide = editor.slides[slideId];
     const newElements: Elements = {
-        ...slide.viewport.elements,
+        ...slide.view.elements,
         [element.id]: element,
     };
     return {
@@ -115,8 +115,8 @@ export function storeElement(
             ...editor.slides,
             [slideId]: {
                 ...slide,
-                viewport: {
-                    ...slide.viewport,
+                view: {
+                    ...slide.view,
                     elements: newElements,
                 },
             },

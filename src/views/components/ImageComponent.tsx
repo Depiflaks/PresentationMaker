@@ -1,5 +1,4 @@
-import { ImageElement } from "~/store/types/Global";
-
+import { ImageElement } from "~/store/types/slide/element/Element";
 import image from "~/views/assets/elements/image.png"
 
 interface Props {

@@ -4,11 +4,11 @@ import { Element } from "./element/Element";
 
 export interface Slide {
     id: string;
-    viewport: Viewport;
+    view: View;
     selection: Selection;
 }
 
-export interface Viewport {
+export interface View {
     background: string;
     elements: Elements;
     relative: Position;

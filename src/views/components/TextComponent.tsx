@@ -1,4 +1,4 @@
-import { TextElement } from "~/store/types/Global"
+import { TextElement } from "~/store/types/slide/element/Element"
 
 type Props = {
     element: TextElement,

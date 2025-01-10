@@ -4,7 +4,7 @@ import {
     RemoveSlideInput,
     StoreSlideInput,
     UpdatePresentationTitleInput,
-} from "~/store/input/presentation/PresentationInputs";
+} from "~/store/input/editor/EditorInputs";
 import { Editor } from "~/store/types/Editor";
 
 export function updatePresentationTitle(

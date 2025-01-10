@@ -11,7 +11,7 @@ import { validateEditor } from "~/store/storage/importHandler";
 import ImportError from "./importError/ImportError";
 
 export default function Header() {
-    const title = useAppSelector((editor) => editor.presentation.title);
+    const title = useAppSelector((editor) => editor.title);
     const titleInputRef = useRef<HTMLInputElement>(null);
     const importInputRef = useRef<HTMLInputElement>(null);
     const exportLinkRef = useRef<HTMLAnchorElement>(null);
