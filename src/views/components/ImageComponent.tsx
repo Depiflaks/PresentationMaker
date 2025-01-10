@@ -1,5 +1,4 @@
 import { ImageElement } from "~/store/types/slide/element/Element";
-import image from "~/views/assets/elements/image.png"
 
 interface Props {
     element: ImageElement;
@@ -8,7 +7,7 @@ interface Props {
 export default function ImageComponent({element}: Props) {
     return (
         <image
-            xlinkHref={image}
+            href={element.href}
             x={element.x}
             y={element.y}
             width={element.width}

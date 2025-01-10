@@ -3,8 +3,12 @@ import { DELTA_SCALE } from "~/store/const/CONST";
 import { Position, Rect } from "~/store/types/Global";
 import { Slide } from "~/store/types/slide/Slide";
 import { MouseState } from "../handler/type/MouseState";
-import { SetMainSelectionInput } from "~/store/input/slide/SlideInputs";
-import { CreateElementInput } from "~/store/input/element/ElementInputs";
+import { SetMainSelectionInput, StoreElementInput } from "~/store/input/slide/SlideInputs";
+import { CreateImageElementInput } from "~/store/input/element/image/ImageElementInputs";
+import { Element, ImageElement, TextElement } from "~/store/types/slide/element/Element";
+import { createImageElement } from "~/store/actions/element/image/Image";
+import { CreateTextElementInput } from "~/store/input/element/text/TextElementInputs";
+import { createTextElement } from "~/store/actions/element/text/Text";
 
 type ZoomOperationInput = {
     slide: Slide;
@@ -63,29 +67,52 @@ export class ActionService {
         });
     }
 
-    setMainSelection(slide: Slide, mouseState: MouseState): void {
+    setMainSelection(slideId: string, mouseState: MouseState): void {
         const { setMainSelection } = this.actions;
         let start: Position = {...mouseState.start};
         let end: Position = {...mouseState.current};
         if (start.x > end.x) [start.x, end.x] = [end.x, start.x];
         if (start.y > end.y) [start.y, end.y] = [end.y, start.y];
         const input: SetMainSelectionInput = {
-            slideId: slide.id,
-            newMainSelection: {
-                x: start.x,
-                y: start.y,
-                width:  end.x - start.x,
-                height: end.y - start.y
-            }
+            slideId: slideId,
+            newMainSelection: ActionService.calculateRect(start, end)
         }
         setMainSelection(input);
     }
 
-    createImageElement(slide: Slide, rect: Rect, href: string): string {
-        const { createElement } = this.actions;
-        const input: CreateElementInput = {
-            
+    createImageElement(mouseState: MouseState, href: string = ""): ImageElement {
+        const rect = ActionService.calculateRect(mouseState.start, mouseState.end);
+        const input: CreateImageElementInput = {
+            href: href,
+            ...rect
         }
-        const element = createElement(input);
+        return createImageElement(input);
+    }
+
+    createTextElement(mouseState: MouseState): TextElement {
+        const rect = ActionService.calculateRect(mouseState.start, mouseState.end);
+        const input: CreateTextElementInput = {
+            ...rect
+        }
+        return createTextElement(input);
+    }
+
+    storeElement(slideId: string, element: Element): void {
+        console.log(element);
+        const { storeElement } = this.actions;
+        const input: StoreElementInput = {
+            slideId: slideId,
+            element: element
+        }
+        storeElement(input);
+    }
+
+    static calculateRect(start: Position, end: Position): Rect {
+        return {
+            x: start.x,
+            y: start.y,
+            width:  end.x - start.x,
+            height: end.y - start.y
+        }
     }
 }

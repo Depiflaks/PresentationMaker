@@ -77,7 +77,7 @@ export class MouseEventsHandler {
             case ToolType.IMAGE:
             case ToolType.SELECTION:
                 if (this.actionType === MouseAction.SELECT) {
-                    this.service.action.setMainSelection(slide, this.mouseState);
+                    this.service.action.setMainSelection(slide.id, this.mouseState);
                 }
                 break;
         }
@@ -91,18 +91,26 @@ export class MouseEventsHandler {
         switch (this.currentTool) {
             case ToolType.SELECTION:
                 if (this.actionType === MouseAction.SELECT) {
-                    this.clearSelection();
                 }
                 break;
             case ToolType.IMAGE:
                 if (this.actionType === MouseAction.SELECT) {
-                    const fun = (value: string) => {console.log(value);}
-                    this.service.input.initInput(fun);
-                    this.clearSelection();
-                    
+                    const element = this.service.action.createImageElement(this.mouseState)
+                    const callback = (value: string) => {
+                        element.href = value;
+                        this.service.action.storeElement(slide.id, element);
+                    }
+                    this.service.input.initInput(callback);
+                }
+                break;
+            case ToolType.TEXT:
+                if (this.actionType === MouseAction.SELECT) {
+                    const element = this.service.action.createTextElement(this.mouseState)
+                    this.service.action.storeElement(slide.id, element);
                 }
                 break;
         }
+        this.clearSelection();
     }
 
     handleMouseWheel(event: WheelEvent): void {
@@ -120,6 +128,6 @@ export class MouseEventsHandler {
     private clearSelection(): void {
         this.mouseState = {...emptyState};
         const slide = this.service.editor.getSlide();
-        this.service.action.setMainSelection(slide, this.mouseState);
+        this.service.action.setMainSelection(slide.id, this.mouseState);
     }
 }

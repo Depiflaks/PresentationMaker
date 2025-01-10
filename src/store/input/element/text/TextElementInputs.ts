@@ -13,5 +13,4 @@ export type UpdateTextElementInput = {
 };
 
 export interface CreateTextElementInput extends Rect {
-    content: string;
 };
