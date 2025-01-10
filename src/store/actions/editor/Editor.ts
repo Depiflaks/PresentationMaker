@@ -26,8 +26,7 @@ export function storeSlide(editor: Editor, { slide }: StoreSlideInput): Editor {
     const order =
         slide.id in editor.slides ? editor.order : [...editor.order, slide.id];
 
-    const presentation = { ...editor, slides, order };
-    return { ...editor, presentation };
+    return { ...editor, slides, order };
 }
 
 export function removeSlide(
@@ -46,8 +45,7 @@ export function removeSlide(
             ? order[slideInd - (slideInd === order.length ? 1 : 0)]
             : "";
 
-    const presentation = { ...editor, slides, order, current };
-    return { ...editor, presentation };
+    return { ...editor, slides, order, current };
 }
 
 export function moveSlide(
@@ -63,6 +61,5 @@ export function moveSlide(
     const [movedSlide] = order.splice(slideIndex, 1);
     order.splice(newIndex - (slideIndex < newIndex ? 1 : 0), 0, movedSlide);
 
-    const presentation = { ...editor, order };
-    return { ...editor, presentation };
+    return { ...editor, order };
 }
