@@ -4,6 +4,7 @@ import { MouseState } from "./type/MouseState";
 import { FIELD } from "~/store/const/CONST";
 import { ToolType, Position } from "~/store/types/Global";
 import { Slide } from "~/store/types/slide/Slide";
+import React from "react";
 
 type MouseEventsHandlerInput = {
     editor: React.RefObject<Editor>;
@@ -120,7 +121,7 @@ export class MouseEventsHandler {
         };
     }
 
-    private getSlide(): Slide {
+    getSlide(): Slide {
         if (!this.editor.current) throw new Error("Editor is not initialized.");
         const editor = this.editor.current;
         if (editor.current === "") throw new Error("Slide list is empty");

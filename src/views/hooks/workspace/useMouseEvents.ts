@@ -25,12 +25,12 @@ export function useMouseEvents({ tool, workspaceRef, editorRef }: UseMouseEvents
     const hookBody = () => {
         const element = workspaceRef.current;
         if (!element) return;
-        const presentationService = new EditorService({
+        const editorService = new EditorService({
             actions: actions,
         });
 
         const handler = new MouseEventsHandler({
-            presentationService: presentationService,
+            presentationService: editorService,
             editor: editorRef,
             canvas: element.getBoundingClientRect(),
             tool: tool
@@ -65,7 +65,5 @@ export function useMouseEvents({ tool, workspaceRef, editorRef }: UseMouseEvents
         };
     }
 
-    useEffect(() => {
-        hookBody();
-    }, [tool]);
+    useEffect(() => hookBody(), [tool]);
 }

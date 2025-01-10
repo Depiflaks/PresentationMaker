@@ -6,7 +6,7 @@ export enum ElementType {
 }
 
 export interface BaseElement extends Rect {
-    type: string;
+    type: ElementType;
     id: string;
     zIndex: number;
 }
