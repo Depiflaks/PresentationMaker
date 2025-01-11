@@ -2,8 +2,8 @@
     order: 3;
     z-index: 2;
     background-color: #f7f7f7; /* Светлый фон */
-    padding: 20px 30px;
-    width: 20%; /* Ширина редактора */
+    padding: 20px 20px;
+    width: 25%; /* Ширина редактора */
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Тень */
     max-height: 100vh; /* Не превышать высоту экрана */

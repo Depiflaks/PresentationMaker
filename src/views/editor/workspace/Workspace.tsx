@@ -34,11 +34,6 @@ export default function Workspace({ tool }: Props) {
 
     useMouseEvents({ workspaceRef: canvasRef, tool, editorRef, inputRef: imageInputRef });
 
-    const onImport = async (event: React.ChangeEvent<HTMLInputElement>) => {
-        const file = event.target.files?.[0];
-        
-    };
-
     if (editor.current === "") return <div className={styles.workspace}></div>;
 
     const slide = editor.slides[editor.current];
@@ -83,7 +78,6 @@ export default function Workspace({ tool }: Props) {
                 ref={imageInputRef}
                 type="file"
                 style={{ display: "none" }}
-                onChange={onImport}
                 accept=".json"
             />
         </div>

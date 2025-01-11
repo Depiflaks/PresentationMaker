@@ -52,8 +52,20 @@ export class MouseEventsHandler {
                 });
                 break;
             case ToolType.SELECTION:
-                //const itemId = this.editorService.getForegroundObjectId(this.mouseState.start);
-                this.actionType = MouseAction.SELECT;
+                console.log(slide);
+                if (EditorService.checkCurrentSelectionIntersection(this.mouseState.start, slide)) {
+                    console.log(333);
+                    this.actionType = MouseAction.MOVE;
+                    break;
+                }
+                const itemId = this.service.editor.getForegroundObjectId(this.mouseState.start);
+                if (!itemId) {
+                    this.clearSelection();
+                    this.actionType = MouseAction.SELECT;
+                    break;
+                }
+                this.service.action.setSelectedList(slide.id, [itemId]);
+                this.actionType = MouseAction.MOVE;
                 break;
             case ToolType.TEXT:
             case ToolType.IMAGE:
@@ -73,9 +85,18 @@ export class MouseEventsHandler {
                     y: this.mouseState.current.y - this.mouseState.start.y,
                 });
                 break;
+            case ToolType.SELECTION:
+                console.log(this.actionType);
+                if (this.actionType === MouseAction.SELECT) {
+                    this.service.action.setMainSelection(slide.id, this.mouseState);
+                    break;
+                }
+                if (this.actionType === MouseAction.MOVE) {
+                    break;
+                }
+                break;
             case ToolType.TEXT:
             case ToolType.IMAGE:
-            case ToolType.SELECTION:
                 if (this.actionType === MouseAction.SELECT) {
                     this.service.action.setMainSelection(slide.id, this.mouseState);
                 }
@@ -91,6 +112,7 @@ export class MouseEventsHandler {
         switch (this.currentTool) {
             case ToolType.SELECTION:
                 if (this.actionType === MouseAction.SELECT) {
+                    this.clearSelection();
                 }
                 break;
             case ToolType.IMAGE:
@@ -102,15 +124,17 @@ export class MouseEventsHandler {
                     }
                     this.service.input.initInput(callback);
                 }
+                this.clearSelection();
                 break;
             case ToolType.TEXT:
                 if (this.actionType === MouseAction.SELECT) {
-                    const element = this.service.action.createTextElement(this.mouseState)
+                    const element = this.service.action.createTextElement(this.mouseState);
+                    element.fontSize = element.height;
                     this.service.action.storeElement(slide.id, element);
                 }
+                this.clearSelection();
                 break;
         }
-        this.clearSelection();
     }
 
     handleMouseWheel(event: WheelEvent): void {
@@ -129,5 +153,6 @@ export class MouseEventsHandler {
         this.mouseState = {...emptyState};
         const slide = this.service.editor.getSlide();
         this.service.action.setMainSelection(slide.id, this.mouseState);
+        this.service.action.setSelectedList(slide.id, []);
     }
 }

@@ -4,11 +4,13 @@ import { Editor } from "~/store/types/Editor";
 import { ElementType, ImageElement } from "~/store/types/slide/element/Element";
 import { Slide } from "~/store/types/slide/Slide";
 import { storeSlide } from "../../editor/Editor";
+import { createId } from "~/utils/uuid";
 
 export function createImageElement(properties: CreateImageElementInput): ImageElement {
     return {
         ...defaultImageElement,
-        ...properties
+        ...properties,
+        id: createId(),
     };
 }
 

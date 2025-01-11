@@ -5,11 +5,13 @@ import { ElementType, TextElement } from "~/store/types/slide/element/Element";
 import { Slide } from "~/store/types/slide/Slide";
 import { CreateTextElementInput } from "~/store/input/element/text/TextElementInputs";
 import { defaultTextElement } from "~/store/data/default";
+import { createId } from "~/utils/uuid";
 
 export function createTextElement(properties: CreateTextElementInput): TextElement {
     return {
         ...defaultTextElement,
-        ...properties
+        ...properties,
+        id: createId(),
     };
 }
 

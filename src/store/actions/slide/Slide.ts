@@ -155,6 +155,7 @@ export function setSelectedList(
     { slideId, newIds }: SetSelectedListInput,
 ): Editor {
     const slide = editor.slides[slideId];
+    console.log(slide.view.elements, newIds);
     const newMain = EditorService.rectSelectedItems(slide.view.elements, newIds);
     const newSlide: Slide = {
         ...slide,

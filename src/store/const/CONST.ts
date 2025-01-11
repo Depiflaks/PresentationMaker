@@ -27,14 +27,10 @@ export const START_POSITION: Position = {
 
 export const EMPTY_SELECTION: Selection = {
     main: {
-        start: {
-            x: 0,
-            y: 0
-        },
-        size: {
-            width: 0,
-            height: 0
-        }
+        x: 0,
+        y: 0,
+        width: 0,
+        height: 0
     },
     elements: []
 }

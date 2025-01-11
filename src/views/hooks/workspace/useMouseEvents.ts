@@ -22,7 +22,7 @@ export function useMouseEvents({ tool, workspaceRef, editorRef, inputRef }: UseM
         try {
             callback();
         } catch (error) {
-            console.log(error);
+            //console.log(error);
         }
     }
 

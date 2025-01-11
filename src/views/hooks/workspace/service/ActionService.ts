@@ -3,7 +3,7 @@ import { DELTA_SCALE } from "~/store/const/CONST";
 import { Position, Rect } from "~/store/types/Global";
 import { Slide } from "~/store/types/slide/Slide";
 import { MouseState } from "../handler/type/MouseState";
-import { SetMainSelectionInput, StoreElementInput } from "~/store/input/slide/SlideInputs";
+import { AppendToSelectedListInput, SetMainSelectionInput, SetSelectedListInput, StoreElementInput } from "~/store/input/slide/SlideInputs";
 import { CreateImageElementInput } from "~/store/input/element/image/ImageElementInputs";
 import { Element, ImageElement, TextElement } from "~/store/types/slide/element/Element";
 import { createImageElement } from "~/store/actions/element/image/Image";
@@ -78,6 +78,24 @@ export class ActionService {
             newMainSelection: ActionService.calculateRect(start, end)
         }
         setMainSelection(input);
+    }
+
+    setSelectedList(slideId: string, itemIdList: string[]): void {
+        const { setSelectedList } = this.actions;
+        const input: SetSelectedListInput = {
+            slideId: slideId,
+            newIds: itemIdList
+        }
+        setSelectedList(input);
+    }
+
+    appendSelectedItem(slideId: string, itemId: string): void {
+        const { appendToSelectedList } = this.actions;
+        const input: AppendToSelectedListInput = {
+            slideId: slideId,
+            itemId: itemId
+        }
+        appendToSelectedList(input);
     }
 
     createImageElement(mouseState: MouseState, href: string = ""): ImageElement {
