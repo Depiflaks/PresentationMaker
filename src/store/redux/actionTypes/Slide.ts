@@ -1,4 +1,4 @@
-import { AppendToSelectedListInput, ChangeRelativeInput, ChangeScaleInput, DeleteFromSelectedListInput, RemoveElementInput, SetMainSelectionInput, SetSelectedListInput, StoreElementInput, UpdateSlideBackgroundInput } from "~/store/input/slide/SlideInputs";
+import { AppendToSelectedListInput, ChangeRelativeInput, ChangeScaleInput, DeleteFromSelectedListInput, RemoveElementInput, SetSelectionAreaInput, SetSelectedListInput, StoreElementInput, UpdateSlideBackgroundInput } from "~/store/input/slide/SlideInputs";
 import { ActionType } from "../actions";
 
 export type ChangeRelativeAction = {
@@ -26,9 +26,9 @@ export type StoreElementAction = {
     payload: StoreElementInput;
 };
 
-export type SetMainSelectionAction = {
-    type: ActionType.SET_MAIN_SELECTION;
-    payload: SetMainSelectionInput;
+export type SetSelectionAreaAction = {
+    type: ActionType.SET_SELECTION_AREA;
+    payload: SetSelectionAreaInput;
 }
 
 export type SetSelectedListAction = {

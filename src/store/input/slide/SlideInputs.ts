@@ -26,9 +26,9 @@ export type StoreElementInput = {
     element: TextElement | ImageElement;
 };
 
-export type SetMainSelectionInput = {
+export type SetSelectionAreaInput = {
     slideId: string;
-    newMainSelection: Rect;
+    newArea: Rect;
 }
 
 export type SetSelectedListInput = {

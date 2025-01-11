@@ -1,4 +1,4 @@
-import { MouseState } from "../type/MouseState";
+import { MouseState } from "../type/types";
 
 export const emptyState: MouseState = {
     isPressed: false,

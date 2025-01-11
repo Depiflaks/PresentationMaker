@@ -14,7 +14,7 @@ export const DELTA_SCALE: number = 0.1;
 export const TEMPORARY_PROCEDURES: ActionType[] = [
     ActionType.CHANGE_RELATIVE,
     ActionType.CHANGE_SCALE,
-    ActionType.SET_MAIN_SELECTION,
+    ActionType.SET_SELECTION_AREA,
     ActionType.SET_SELECTED_LIST,
     ActionType.APPEND_TO_SELECTED_LIST,
     ActionType.DELETE_FROM_SELECTED_LIST,
@@ -26,7 +26,7 @@ export const START_POSITION: Position = {
 }
 
 export const EMPTY_SELECTION: Selection = {
-    main: {
+    area: {
         x: 0,
         y: 0,
         width: 0,

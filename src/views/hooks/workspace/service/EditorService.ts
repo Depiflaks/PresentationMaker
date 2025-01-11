@@ -2,6 +2,7 @@ import { Editor } from "~/store/types/Editor";
 import { Position, Rect } from "~/store/types/Global";
 import { Element } from "~/store/types/slide/element/Element";
 import { Elements, Slide } from "~/store/types/slide/Slide";
+import { CursorDelta } from "../handler/type/types";
 
 type SelectionServiceInput = {
     editorRef: React.RefObject<Editor>;
@@ -98,6 +99,19 @@ export class EditorService {
             width: end.x - start.x,
             height: end.y - start.y,
         };
+    }
+
+    static calculateCursorDelta(slide: Slide, point: Position): CursorDelta {
+        const elements = slide.view.elements;
+        const elementIds = slide.selection.elements;
+        const result: CursorDelta = {};
+        for (let id of elementIds) {
+            result[id] = {
+                x: elements[id].x - point.x,
+                y: elements[id].y - point.y,
+            }
+        }
+        return result
     }
 
     getEditor() {

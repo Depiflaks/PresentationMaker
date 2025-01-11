@@ -2,14 +2,14 @@ import { ActionCreatorsMapObject } from "redux";
 import { DELTA_SCALE } from "~/store/const/CONST";
 import { Position, Rect } from "~/store/types/Global";
 import { Slide } from "~/store/types/slide/Slide";
-import { MouseState } from "../handler/type/MouseState";
-import { AppendToSelectedListInput, SetMainSelectionInput, SetSelectedListInput, StoreElementInput } from "~/store/input/slide/SlideInputs";
+import { CursorDelta, MouseState, MoveItemsInput } from "../handler/type/types";
+import { AppendToSelectedListInput, SetSelectionAreaInput, SetSelectedListInput, StoreElementInput } from "~/store/input/slide/SlideInputs";
 import { CreateImageElementInput } from "~/store/input/element/image/ImageElementInputs";
 import { Element, ImageElement, TextElement } from "~/store/types/slide/element/Element";
 import { createImageElement } from "~/store/actions/element/image/Image";
 import { CreateTextElementInput } from "~/store/input/element/text/TextElementInputs";
 import { createTextElement } from "~/store/actions/element/text/Text";
-import { UpdateElementsPositionInput } from "~/store/input/element/ElementInputs";
+import { UpdateElementsRectInput } from "~/store/input/element/ElementInputs";
 
 type ZoomOperationInput = {
     slide: Slide;
@@ -68,27 +68,30 @@ export class ActionService {
         });
     }
 
-    moveItems(itemIds: string[], mouseState: MouseState, cursorDelta: Position): void {
-        const { updateElementsPosition } = this.actions;
-        
-        const input: UpdateElementsPositionInput = {
-            elementIds: itemIds,
-            positionDelta: undefined
+    moveItems({ mouseState, cursorDelta, slide }: MoveItemsInput): void {
+        const { updateElementRect } = this.actions;
+        const point = mouseState.current;
+        const input: UpdateElementsRectInput = {
+            rectMap: {}
         }
-        updateElementsPosition(input);
+        for (const id in cursorDelta) {
+            input.rectMap[id] = {
+                ...slide.view.elements[id],
+                x: point.x + cursorDelta[id].x,
+                y: point.y + cursorDelta[id].y,
+            }
+        }
+        updateElementRect(input);
     }
 
-    setMainSelection(slideId: string, mouseState: MouseState): void {
-        const { setMainSelection } = this.actions;
-        let start: Position = {...mouseState.start};
-        let end: Position = {...mouseState.current};
-        if (start.x > end.x) [start.x, end.x] = [end.x, start.x];
-        if (start.y > end.y) [start.y, end.y] = [end.y, start.y];
-        const input: SetMainSelectionInput = {
+    setSelectionArea(slideId: string, newArea: Rect): void {
+        const { setSelectionArea } = this.actions;
+        
+        const input: SetSelectionAreaInput = {
             slideId: slideId,
-            newMainSelection: ActionService.calculateRect(start, end)
+            newArea: newArea
         }
-        setMainSelection(input);
+        setSelectionArea(input);
     }
 
     setSelectedList(slideId: string, itemIdList: string[]): void {
@@ -133,6 +136,14 @@ export class ActionService {
             element: element
         }
         storeElement(input);
+    }
+
+    static calculateSelectionRect(mouseState: MouseState): Rect {
+        let start: Position = {...mouseState.start};
+        let end: Position = {...mouseState.current};
+        if (start.x > end.x) [start.x, end.x] = [end.x, start.x];
+        if (start.y > end.y) [start.y, end.y] = [end.y, start.y];
+        return ActionService.calculateRect(start, end);
     }
 
     static calculateRect(start: Position, end: Position): Rect {

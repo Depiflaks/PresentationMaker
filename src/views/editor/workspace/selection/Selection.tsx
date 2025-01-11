@@ -5,7 +5,7 @@ type Props = {
 };
 
 export default function Selection({ slide }: Props) {
-    const main = slide.selection.main;
+    const main = slide.selection.area;
     const selectedElements = slide.selection.elements;
     const elements = slide.view.elements;
     return (

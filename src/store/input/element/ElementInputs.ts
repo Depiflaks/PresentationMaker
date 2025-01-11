@@ -1,11 +1,7 @@
-import { Position, Size } from "../../types/Global";
+import { Rect } from "../../types/Global";
 
-export type UpdateElementsPositionInput = {
-    elementIds: string[];
-    positionDelta: Position;
+export type UpdateElementsRectInput = {
+    rectMap: ElementRects;
 };
 
-export type UpdateElementSizeInput = {
-    elementId: string;
-    newSize: Size;
-};
+export type ElementRects = Record<string, Rect>;

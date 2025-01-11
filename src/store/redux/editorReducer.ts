@@ -1,8 +1,8 @@
 import { Editor } from "~/store/types/Editor"
 import { ActionType, EditorAction } from "./actions"
 import { changeCurrentSlide, moveSlide, removeSlide, storeSlide, updatePresentationTitle } from "~/store/actions/editor/Editor"
-import { appendToSelectedList, changeRelative, changeScale, deleteFromSelectedList, removeElement, setMainSelection, setSelectedList, storeElement, updateSlideBackground } from "~/store/actions/slide/Slide";
-import { updateElementPosition, updateElementSize } from "~/store/actions/element/Element";
+import { appendToSelectedList, changeRelative, changeScale, deleteFromSelectedList, removeElement, setSelectionArea, setSelectedList, storeElement, updateSlideBackground } from "~/store/actions/slide/Slide";
+import { updateElementRect } from "~/store/actions/element/Element";
 import { updateTextElement } from "~/store/actions/element/text/Text";
 import { loadEditorFromStorage, saveEditorToStorage } from "../storage/localStorageHandler";
 import { TEMPORARY_PROCEDURES } from "../const/CONST";
@@ -34,8 +34,8 @@ function updateReduser(editor: Editor = loadEditorFromStorage(), action: EditorA
         case ActionType.REMOVE_ELEMENT:
             return removeElement(editor, action.payload);
 
-        case ActionType.SET_MAIN_SELECTION:
-            return setMainSelection(editor, action.payload);
+        case ActionType.SET_SELECTION_AREA:
+            return setSelectionArea(editor, action.payload);
 
         case ActionType.SET_SELECTED_LIST:
             return setSelectedList(editor, action.payload);
@@ -58,11 +58,8 @@ function updateReduser(editor: Editor = loadEditorFromStorage(), action: EditorA
         case ActionType.STORE_ELEMENT:
             return storeElement(editor, action.payload);
 
-        case ActionType.UPDATE_ELEMENT_POSITION:
-            return updateElementPosition(editor, action.payload);
-
-        case ActionType.UPDATE_ELEMENT_SIZE:
-            return updateElementSize(editor, action.payload);
+        case ActionType.UPDATE_ELEMENT_RECT:
+            return updateElementRect(editor, action.payload);
 
         case ActionType.UPDATE_TEXT_ELEMENT:
             return updateTextElement(editor, action.payload);

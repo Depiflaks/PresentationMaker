@@ -18,6 +18,6 @@ export interface View {
 export type Elements = Record<string, Element>;
 
 export interface Selection {
-    main: Rect;
+    area: Rect;
     elements: string[];
 }

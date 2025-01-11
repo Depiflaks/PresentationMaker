@@ -1,16 +1,9 @@
-import { UpdateElementsPositionInput } from "~/store/input/element/ElementInputs";
+import { UpdateElementsRectInput } from "~/store/input/element/ElementInputs";
 import { ActionType } from "../../actions";
 
-export function updateElementPosition(input: UpdateElementsPositionInput) {
+export function updateElementRect(input: UpdateElementsRectInput) {
     return {
-        type: ActionType.UPDATE_ELEMENT_POSITION,
-        payload: input,
-    };
-}
-
-export function updateElementSize(input: UpdateElementsPositionInput) {
-    return {
-        type: ActionType.UPDATE_ELEMENT_SIZE,
+        type: ActionType.UPDATE_ELEMENT_RECT,
         payload: input,
     };
 }

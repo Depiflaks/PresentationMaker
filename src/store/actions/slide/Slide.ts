@@ -12,7 +12,7 @@ import {
     ChangeScaleInput,
     UpdateSlideBackgroundInput,
     StoreElementInput,
-    SetMainSelectionInput,
+    SetSelectionAreaInput,
     SetSelectedListInput,
     AppendToSelectedListInput,
     DeleteFromSelectedListInput,
@@ -129,16 +129,16 @@ export function storeElement(
     };
 }
 
-export function setMainSelection(
+export function setSelectionArea(
     editor: Editor,
-    { slideId, newMainSelection }: SetMainSelectionInput,
+    { slideId, newArea }: SetSelectionAreaInput,
 ): Editor {
     const slide = editor.slides[slideId];
     const newSlide: Slide = {
         ...slide,
         selection: {
             ...slide.selection,
-            main: newMainSelection,
+            area: newArea,
         },
     };
     return {
@@ -159,7 +159,7 @@ export function setSelectedList(
     const newSlide: Slide = {
         ...slide,
         selection: {
-            main: newMain,
+            area: newMain,
             elements: newIds,
         },
     };

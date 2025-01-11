@@ -6,8 +6,7 @@ import {
     MoveSlideAction,
 } from "./actionTypes/Editor";
 import {
-    UpdateElementPositionAction,
-    UpdateElementSizeAction,
+    UpdateElementRectAction,
     UpdateImageElementAction,
     UpdateTextElementAction,
 } from "./actionTypes/Element";
@@ -17,7 +16,7 @@ import {
     ChangeScaleAction,
     UpdateSlideBackgroundAction,
     StoreElementAction,
-    SetMainSelectionAction,
+    SetSelectionAreaAction,
     SetSelectedListAction,
     AppendToSelectedListAction,
     DeleteFromSelectedListAction,
@@ -33,7 +32,7 @@ export enum ActionType {
     CHANGE_RELATIVE = "changeRelative",
     CHANGE_SCALE = "changeScale",
 
-    SET_MAIN_SELECTION = "setMainSelection",
+    SET_SELECTION_AREA = "setSelectionArea",
     SET_SELECTED_LIST = "setSelectedList",
     APPEND_TO_SELECTED_LIST = "appendToSelectedList",
     DELETE_FROM_SELECTED_LIST = "deleteFromSelectedList",
@@ -42,8 +41,7 @@ export enum ActionType {
     UPDATE_SLIDE_BACKGROUND = "updateSlideBackground",
     STORE_ELEMENT = "storeElement",
 
-    UPDATE_ELEMENT_POSITION = "updateElementPosition",
-    UPDATE_ELEMENT_SIZE = "updateElementSize",
+    UPDATE_ELEMENT_RECT = "updateElementRect",
 
     UPDATE_TEXT_ELEMENT = "updateTextElement",
     UPDATE_IMAGE_ELEMENT = "updateImageElement",
@@ -60,11 +58,10 @@ export type EditorAction =
     | ChangeScaleAction
     | UpdateSlideBackgroundAction
     | StoreElementAction
-    | UpdateElementPositionAction
-    | UpdateElementSizeAction
+    | UpdateElementRectAction
     | UpdateTextElementAction
     | UpdateImageElementAction
-    | SetMainSelectionAction
+    | SetSelectionAreaAction
     | SetSelectedListAction
     | AppendToSelectedListAction
     | DeleteFromSelectedListAction;
