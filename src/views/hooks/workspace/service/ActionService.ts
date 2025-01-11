@@ -9,6 +9,7 @@ import { Element, ImageElement, TextElement } from "~/store/types/slide/element/
 import { createImageElement } from "~/store/actions/element/image/Image";
 import { CreateTextElementInput } from "~/store/input/element/text/TextElementInputs";
 import { createTextElement } from "~/store/actions/element/text/Text";
+import { UpdateElementsPositionInput } from "~/store/input/element/ElementInputs";
 
 type ZoomOperationInput = {
     slide: Slide;
@@ -65,6 +66,16 @@ export class ActionService {
                 y: relative.y - delta.y
             }
         });
+    }
+
+    moveItems(itemIds: string[], mouseState: MouseState, cursorDelta: Position): void {
+        const { updateElementsPosition } = this.actions;
+        
+        const input: UpdateElementsPositionInput = {
+            elementIds: itemIds,
+            positionDelta: undefined
+        }
+        updateElementsPosition(input);
     }
 
     setMainSelection(slideId: string, mouseState: MouseState): void {

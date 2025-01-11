@@ -1,6 +1,6 @@
 import { ActionService } from "../service/ActionService";
 import { MouseState } from "./type/MouseState";
-import { ToolType } from "~/store/types/Global";
+import { Position, ToolType } from "~/store/types/Global";
 import { EditorService } from "../service/EditorService";
 import { CanvasService } from "../service/CanvasService";
 import { emptyState } from "./const/CONST";
@@ -25,6 +25,7 @@ export class MouseEventsHandler {
     private mouseState: MouseState;
     private actionType: MouseAction;
     private currentTool: ToolType;
+    private cursorDelta: Position;
 
     constructor({
         service,
@@ -35,13 +36,14 @@ export class MouseEventsHandler {
         this.mouseState = {...emptyState};
         this.actionType = MouseAction.SELECT;
         this.currentTool = tool;
+        this.cursorDelta = {x: 0, y: 0};
     }
 
     handleMouseDown(event: MouseEvent): void {
         const slide = this.service.editor.getSlide();
+        const mouse = this.service.canvas.getRelative(slide, event);
         this.mouseState.isPressed = true;
-        this.mouseState.start = this.service.canvas.getRelative(slide, event);
-
+        this.mouseState.start = mouse;
         switch (this.currentTool) {
             case ToolType.ZOOM:
                 let deltaScale = 5;
@@ -52,15 +54,23 @@ export class MouseEventsHandler {
                 });
                 break;
             case ToolType.SELECTION:
-                // if (EditorService.checkCurrentSelectionIntersection(this.mouseState.start, slide)) {
-                //     this.actionType = MouseAction.MOVE;
-                //     break;
-                // }
+                if (EditorService.checkCurrentSelectionIntersection(mouse, slide)) {
+                    this.cursorDelta = {
+                        x: slide.selection.main.x - mouse.x,
+                        y: slide.selection.main.y - mouse.y
+                    }
+                    this.actionType = MouseAction.MOVE;
+                    break;
+                }
                 const itemId = this.service.editor.getForegroundObjectId(this.mouseState.start);
                 if (!itemId) {
                     this.service.action.setSelectedList(slide.id, []);
                     this.actionType = MouseAction.SELECT;
                 } else {
+                    this.cursorDelta = {
+                        x: slide.selection.main.x - mouse.x,
+                        y: slide.selection.main.y - mouse.y
+                    }
                     this.service.action.setSelectedList(slide.id, [itemId]);
                     this.actionType = MouseAction.MOVE;
                 }
@@ -89,6 +99,7 @@ export class MouseEventsHandler {
                     break;
                 }
                 if (this.actionType === MouseAction.MOVE) {
+
                     break;
                 }
                 break;

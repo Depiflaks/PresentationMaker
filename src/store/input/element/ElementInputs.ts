@@ -1,8 +1,8 @@
 import { Position, Size } from "../../types/Global";
 
-export type UpdateElementPositionInput = {
-    elementId: string;
-    newPosition: Position;
+export type UpdateElementsPositionInput = {
+    elementIds: string[];
+    positionDelta: Position;
 };
 
 export type UpdateElementSizeInput = {

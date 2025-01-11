@@ -60,8 +60,7 @@ export class EditorService {
     }
 
     static checkCurrentSelectionIntersection(point: Position, slide: Slide): boolean {
-        
-        for (const id in slide.selection.elements) {
+        for (let id of slide.selection.elements) {
             if (EditorService.isIntersect(point, slide.view.elements[id])) {
                 return true;
             }
@@ -70,9 +69,15 @@ export class EditorService {
     }
 
     static rectSelectedItems(elements: Elements, selectedIds: string[]): Rect {
-        let start: Position = {
+        if (selectedIds.length === 0) return {
             x: 0,
             y: 0,
+            width: 0,
+            height: 0
+        }
+        let start: Position = {
+            x: 10000,
+            y: 10000,
         };
         let end: Position = {
             x: 0,

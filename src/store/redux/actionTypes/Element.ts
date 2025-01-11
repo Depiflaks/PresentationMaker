@@ -1,11 +1,11 @@
-import { UpdateElementPositionInput, UpdateElementSizeInput } from "~/store/input/element/ElementInputs";
+import { UpdateElementsPositionInput, UpdateElementSizeInput } from "~/store/input/element/ElementInputs";
 import { ActionType } from "../actions";
 import { UpdateTextElementInput } from "~/store/input/element/text/TextElementInputs";
 import { UpdateImageElementInput } from "~/store/input/element/image/ImageElementInputs";
 
 export type UpdateElementPositionAction = {
     type: ActionType.UPDATE_ELEMENT_POSITION;
-    payload: UpdateElementPositionInput;
+    payload: UpdateElementsPositionInput;
 };
 
 export type UpdateElementSizeAction = {

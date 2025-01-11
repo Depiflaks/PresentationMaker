@@ -1,29 +1,36 @@
 import { Editor } from "~/store/types/Editor";
 import { storeSlide } from "../editor/Editor";
 import {
-    UpdateElementPositionInput,
+    UpdateElementsPositionInput,
     UpdateElementSizeInput,
 } from "~/store/input/element/ElementInputs";
 import { Element } from "~/store/types/slide/element/Element";
-import { Slide } from "~/store/types/slide/Slide";
+import { Elements, Slide } from "~/store/types/slide/Slide";
 
 export function updateElementPosition(
     editor: Editor,
-    { elementId, newPosition }: UpdateElementPositionInput,
+    { elementIds, positionDelta }: UpdateElementsPositionInput,
 ): Editor {
     const slide = editor.slides[editor.current];
-    const element = slide.view.elements[elementId];
-    if (!element) return editor;
+    const elements = slide.view.elements;
 
-    const updatedElement: Element = { ...element, ...newPosition };
+    const newElements: Elements = {};
 
+    for (let id of elementIds) {
+        if (!elements[id]) continue;
+        newElements[id] = {
+            ...elements[id],
+            x: elements[id].x - positionDelta.x,
+            y: elements[id].y - positionDelta.y,
+        }
+    }
     const updatedSlide: Slide = {
         ...slide,
         view: {
             ...slide.view,
             elements: {
                 ...slide.view.elements,
-                [elementId]: updatedElement,
+                ...newElements
             },
         },
     };
