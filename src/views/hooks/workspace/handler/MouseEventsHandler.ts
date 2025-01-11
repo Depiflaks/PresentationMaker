@@ -52,20 +52,18 @@ export class MouseEventsHandler {
                 });
                 break;
             case ToolType.SELECTION:
-                console.log(slide);
-                if (EditorService.checkCurrentSelectionIntersection(this.mouseState.start, slide)) {
-                    console.log(333);
-                    this.actionType = MouseAction.MOVE;
-                    break;
-                }
+                // if (EditorService.checkCurrentSelectionIntersection(this.mouseState.start, slide)) {
+                //     this.actionType = MouseAction.MOVE;
+                //     break;
+                // }
                 const itemId = this.service.editor.getForegroundObjectId(this.mouseState.start);
                 if (!itemId) {
-                    this.clearSelection();
+                    this.service.action.setSelectedList(slide.id, []);
                     this.actionType = MouseAction.SELECT;
-                    break;
+                } else {
+                    this.service.action.setSelectedList(slide.id, [itemId]);
+                    this.actionType = MouseAction.MOVE;
                 }
-                this.service.action.setSelectedList(slide.id, [itemId]);
-                this.actionType = MouseAction.MOVE;
                 break;
             case ToolType.TEXT:
             case ToolType.IMAGE:
@@ -86,7 +84,6 @@ export class MouseEventsHandler {
                 });
                 break;
             case ToolType.SELECTION:
-                console.log(this.actionType);
                 if (this.actionType === MouseAction.SELECT) {
                     this.service.action.setMainSelection(slide.id, this.mouseState);
                     break;
@@ -150,7 +147,7 @@ export class MouseEventsHandler {
     }
 
     private clearSelection(): void {
-        this.mouseState = {...emptyState};
+        this.mouseState = {...emptyState, isPressed: this.mouseState.isPressed};
         const slide = this.service.editor.getSlide();
         this.service.action.setMainSelection(slide.id, this.mouseState);
         this.service.action.setSelectedList(slide.id, []);

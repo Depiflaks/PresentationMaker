@@ -63,11 +63,9 @@ export class EditorService {
         
         for (const id in slide.selection.elements) {
             if (EditorService.isIntersect(point, slide.view.elements[id])) {
-                console.log('find');
                 return true;
             }
         }
-        console.log('f1');
         return false;
     }
 

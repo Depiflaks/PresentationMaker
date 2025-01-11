@@ -116,7 +116,6 @@ export class ActionService {
     }
 
     storeElement(slideId: string, element: Element): void {
-        console.log(element);
         const { storeElement } = this.actions;
         const input: StoreElementInput = {
             slideId: slideId,
