@@ -1,0 +1,108 @@
+.properties {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.doubleContainer {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+}
+
+.colorContainer {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.header {
+    font-size: 14px;
+    color: #575757;
+    font-weight: bold;
+    font-family: "Arial", "Helvetica", sans-serif;
+}
+
+
+.inputField {
+    width: 100%;
+    background-color: #fff;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
+    border: none;
+    border-radius: 10px;
+    padding: 6px;
+    font-size: 14px;
+    color: #333;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+    appearance: none;
+    -moz-appearance: textfield;
+}
+
+.inputField:focus {
+    outline: 3px solid #fce181;
+    border: none;
+}
+
+.checkboxContainer {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.checkbox {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    background-color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.checkbox:checked {
+    background-color: #fce181;
+    border-color: #f9d761;
+}
+
+.labelText {
+    font-size: 14px;
+    color: #555;
+    font-style: italic;
+    font-family: "Georgia", "Times New Roman", serif;
+}
+
+.textareaField {
+    resize: vertical;
+    height: 100px;
+    width: 100%;
+    background-color: #fff;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
+    border: none;
+    border-radius: 10px;
+    padding: 6px;
+    font-size: 14px;
+    color: #333;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+}
+
+.textareaField:focus {
+    outline: 3px solid #fce181;
+    border: none;
+}
+
+.colorInput {
+    height: 36px;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
