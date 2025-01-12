@@ -13,34 +13,36 @@ type MouseEventsHandlerInput = {
 };
 
 type Service = {
-    canvas: CanvasService;
     action: ActionService;
-    editor: EditorService;
     input: InputService;
+};
+
+type SelectionState = {
+    state: MouseState;
+    type: MouseAction;
+    tool: ToolType;
+    delta: CursorDelta;
 };
 
 export class MouseEventsHandler {
     private service: Service;
 
-    private mouseState: MouseState;
-    private actionType: MouseAction;
-    private currentTool: ToolType;
-    private cursorDelta: CursorDelta;
-
+    private selection: SelectionState;
 
     constructor({ service, tool }: MouseEventsHandlerInput) {
         this.service = service;
-
-        this.mouseState = { ...emptyState };
-        this.actionType = MouseAction.SELECT;
-        this.currentTool = tool;
-        this.cursorDelta = {};
+        this.selection = {
+            state: { ...emptyState },
+            type: MouseAction.SELECT,
+            tool: tool,
+            delta: {},
+        };
     }
 
     handleMouseDown(event: MouseEvent): void {
-        this.mouseState.start = this.service.canvas.getRelative(event);
-        this.mouseState.isPressed = true;
-        switch (this.currentTool) {
+        this.selection.state.start = CanvasService.getRelative(event);
+        this.selection.state.isPressed = true;
+        switch (this.selection.tool) {
             case ToolType.ZOOM:
                 this.zoomToolAction(event);
                 break;
@@ -49,25 +51,25 @@ export class MouseEventsHandler {
                 break;
             case ToolType.TEXT:
             case ToolType.IMAGE:
-                this.actionType = MouseAction.SELECT;
+                this.selection.type = MouseAction.SELECT;
                 break;
         }
     }
 
     private handleSelectionClick() {
-        const mouse = this.mouseState.start;
+        const mouse = this.selection.state.start;
         const itemId = this.getForegroundObjectId();
         if (EditorService.checkCurrentSelectionIntersection(mouse)) {
-            this.cursorDelta = EditorService.calculateCursorDelta(mouse);
-            this.actionType = MouseAction.MOVE;
+            this.selection.delta = EditorService.calculateCursorDelta(mouse);
+            this.selection.type = MouseAction.MOVE;
             return;
         } else if (itemId) {
             this.setSelectedList([itemId]);
-            this.cursorDelta = EditorService.calculateCursorDelta(mouse);
-            this.actionType = MouseAction.MOVE;
+            this.selection.delta = EditorService.calculateCursorDelta(mouse);
+            this.selection.type = MouseAction.MOVE;
         } else {
             this.setSelectedList([]);
-            this.actionType = MouseAction.SELECT;
+            this.selection.type = MouseAction.SELECT;
         }
     }
 
@@ -75,7 +77,7 @@ export class MouseEventsHandler {
         let deltaScale = 5;
         this.service.action.zoom({
             deltaScale: deltaScale * (event.buttons === 1 ? -1 : 1),
-            mouse: this.mouseState.start,
+            mouse: this.selection.state.start,
         });
     }
 
@@ -85,7 +87,7 @@ export class MouseEventsHandler {
 
     private setSelectionAreaByMouseState(): void {
         this.service.action.setSelectionArea(
-            ActionService.calculateSelectionRect(this.mouseState),
+            ActionService.calculateSelectionRect(this.selection.state),
         );
     }
 
@@ -100,22 +102,22 @@ export class MouseEventsHandler {
     }
 
     private getForegroundObjectId(): string | null {
-        return EditorService.getForegroundObjectId(this.mouseState.start);
+        return EditorService.getForegroundObjectId(this.selection.state.start);
     }
 
     handleMouseMove(event: MouseEvent): void {
-        if (!this.mouseState.isPressed) return;
-        this.mouseState.current = this.service.canvas.getRelative(event);
-        switch (this.currentTool) {
+        if (!this.selection.state.isPressed) return;
+        this.selection.state.current = CanvasService.getRelative(event);
+        switch (this.selection.tool) {
             case ToolType.HAND:
                 this.moveCanvas();
                 break;
             case ToolType.SELECTION:
-                if (this.actionType === MouseAction.SELECT) {
+                if (this.selection.type === MouseAction.SELECT) {
                     this.setSelectionAreaByMouseState();
                     break;
                 }
-                if (this.actionType === MouseAction.MOVE) {
+                if (this.selection.type === MouseAction.MOVE) {
                     this.moveItems();
                     this.setSelectionAreaBySelectedItems();
                     break;
@@ -123,7 +125,7 @@ export class MouseEventsHandler {
                 break;
             case ToolType.TEXT:
             case ToolType.IMAGE:
-                if (this.actionType === MouseAction.SELECT) {
+                if (this.selection.type === MouseAction.SELECT) {
                     this.setSelectionAreaByMouseState();
                 }
                 break;
@@ -132,32 +134,32 @@ export class MouseEventsHandler {
 
     private moveCanvas(): void {
         this.service.action.moveCanvas({
-            x: this.mouseState.current.x - this.mouseState.start.x,
-            y: this.mouseState.current.y - this.mouseState.start.y,
+            x: this.selection.state.current.x - this.selection.state.start.x,
+            y: this.selection.state.current.y - this.selection.state.start.y,
         });
     }
 
     private moveItems(): void {
         this.service.action.moveItems({
-            cursorDelta: this.cursorDelta,
-            mouseState: this.mouseState,
+            cursorDelta: this.selection.delta,
+            mouseState: this.selection.state,
         });
     }
 
     handleMouseUp(event: MouseEvent): void {
-        this.mouseState.isPressed = false;
-        this.mouseState.end = this.service.canvas.getRelative(event);
+        this.selection.state.isPressed = false;
+        this.selection.state.end = CanvasService.getRelative(event);
 
-        switch (this.currentTool) {
+        switch (this.selection.tool) {
             case ToolType.SELECTION:
-                if (this.actionType === MouseAction.SELECT) {
+                if (this.selection.type === MouseAction.SELECT) {
                     this.clearSelection();
                 }
                 break;
             case ToolType.IMAGE:
-                if (this.actionType === MouseAction.SELECT) {
+                if (this.selection.type === MouseAction.SELECT) {
                     const element = this.service.action.createImageElement(
-                        this.mouseState,
+                        this.selection.state,
                     );
                     const callback = (value: string) => {
                         element.href = value;
@@ -168,9 +170,9 @@ export class MouseEventsHandler {
                 this.clearSelection();
                 break;
             case ToolType.TEXT:
-                if (this.actionType === MouseAction.SELECT) {
+                if (this.selection.type === MouseAction.SELECT) {
                     const element = this.service.action.createTextElement(
-                        this.mouseState,
+                        this.selection.state,
                     );
                     element.fontSize = element.height;
                     this.service.action.storeElement(element);
@@ -181,7 +183,7 @@ export class MouseEventsHandler {
     }
 
     handleMouseWheel(event: WheelEvent): void {
-        const mouse = this.service.canvas.getRelative(event);
+        const mouse = CanvasService.getRelative(event);
         const deltaScale = event.deltaY > 0 ? 1 : -1;
 
         this.service.action.zoom({
@@ -191,12 +193,12 @@ export class MouseEventsHandler {
     }
 
     private clearSelection(): void {
-        this.mouseState = {
+        this.selection.state = {
             ...emptyState,
-            isPressed: this.mouseState.isPressed,
+            isPressed: this.selection.state.isPressed,
         };
         this.service.action.setSelectionArea(
-            ActionService.calculateSelectionRect(this.mouseState),
+            ActionService.calculateSelectionRect(this.selection.state),
         );
         this.service.action.setSelectedList([]);
     }

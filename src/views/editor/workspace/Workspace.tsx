@@ -29,14 +29,14 @@ export default function Workspace({ tool }: Props) {
 
     useMouseEvents({ workspaceRef: canvasRef, tool, inputRef: imageInputRef });
 
-    if (editor.current === "") return <div className={styles.workspace}></div>;
+    if (editor.current === "") return <div className={styles.workspace} id="workspace"></div>;
 
     const slide = editor.slides[editor.current];
 
     const elements = Object.values(slide.view.elements);
     const roundedScale = Math.round(slide.view.scale * 100) / 100;
     return (
-        <div className={styles.workspace} ref={canvasRef}>
+        <div className={styles.workspace} ref={canvasRef} id="workspace">
             <svg
                 className={styles.svg}
                 viewBox={`${Math.round(slide.view.relative.x)} ${Math.round(slide.view.relative.y)} ${Math.round(FIELD.width * roundedScale)} ${Math.round(FIELD.height * roundedScale)}`}

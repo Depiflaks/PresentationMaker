@@ -1,7 +1,5 @@
-import { ActionCreatorsMapObject } from "redux";
 import { DELTA_SCALE } from "~/store/const/CONST";
 import { Position, Rect } from "~/store/types/Global";
-import { Slide } from "~/store/types/slide/Slide";
 import { MouseState, MoveItemsInput } from "../handler/type/types";
 import { AppendToSelectedListInput, SetSelectionAreaInput, SetSelectedListInput, StoreElementInput } from "~/store/input/slide/SlideInputs";
 import { CreateImageElementInput } from "~/store/input/element/image/ImageElementInputs";
@@ -11,6 +9,10 @@ import { CreateTextElementInput } from "~/store/input/element/text/TextElementIn
 import { createTextElement } from "~/store/actions/element/text/Text";
 import { UpdateElementsRectInput } from "~/store/input/element/ElementInputs";
 import { EditorService } from "./EditorService";
+import { useAppActions } from "../../useAppActions";
+import { useDispatch } from "react-redux";
+import { bindActionCreators } from "redux";
+import actionCreators from "~/store/redux/actionCreators/actionCreators";
 
 type ZoomOperationInput = {
     mouse: Position;
@@ -18,14 +20,19 @@ type ZoomOperationInput = {
 }
 
 type EditorServiceInput = {
-    actions: ActionCreatorsMapObject;
+    actions: ReturnType<typeof useAppActions>;
 };
 
 export class ActionService {
-    private actions: ActionCreatorsMapObject;
+    private actions: ReturnType<typeof useAppActions>;
 
     constructor({actions}: EditorServiceInput) {
         this.actions = actions;
+    }
+
+    static getActions(): ReturnType<typeof useAppActions> {
+        const dispatch = useDispatch();
+        return bindActionCreators(actionCreators, dispatch);
     }
 
     zoom({mouse, deltaScale}: ZoomOperationInput): void {
