@@ -1,6 +1,6 @@
 import { ActionService } from "../service/ActionService";
 import { CursorDelta, MouseState } from "./type/types";
-import { ToolType } from "~/store/types/Global";
+import { Position, ToolType } from "~/store/types/Global";
 import { EditorService } from "../service/EditorService";
 import { CanvasService } from "../service/CanvasService";
 import { emptyState } from "./const/CONST";
@@ -41,7 +41,9 @@ export class MouseEventsHandler {
     }
 
     handleMouseDown(event: MouseEvent): void {
-        this.selection.state.start = CanvasService.getRelative(event);
+        const mouse = CanvasService.getRelative(event)
+        this.selection.state.start = mouse;
+        this.selection.state.current = mouse;
         this.selection.state.isPressed = true;
         switch (this.selection.tool) {
             case ToolType.ZOOM:
@@ -70,7 +72,7 @@ export class MouseEventsHandler {
         const itemId = this.getForegroundObjectId();
         if (EditorService.checkCurrentSelectionIntersection(mouse)) {
             this.selection.delta = EditorService.calculateCursorDelta(mouse);
-            this.setSelectionAreaType(AreaType.NONE_FILL);
+            this.setSelectionAreaType(AreaType.TRANSPARENT_FILL);
             this.selection.type = MouseAction.MOVE;
             return;
         } else if (itemId) {
@@ -138,8 +140,7 @@ export class MouseEventsHandler {
                 this.setSelectionAreaByMouseState();
                 break;
             case MouseAction.MOVE:
-                this.moveItems();
-                this.setSelectionAreaBySelectedItems();
+                this.moveSelection();
                 break;
         }
     }
@@ -149,6 +150,25 @@ export class MouseEventsHandler {
             x: this.selection.state.current.x - this.selection.state.start.x,
             y: this.selection.state.current.y - this.selection.state.start.y,
         });
+    }
+
+    private moveSelection(): void {
+        const slide = EditorService.getSlide();
+        const selectionRect = EditorService.rectSelectedItems(
+            slide.view.elements,
+            slide.selection.elements,
+        );
+        const delta: Position = {
+            x: selectionRect.x - this.selection.state.start.x,
+            y: selectionRect.y - this.selection.state.start.y
+        }
+        this.service.action.setSelectionArea(
+            {
+                ...slide.selection.area,
+                x: this.selection.state.current.x + delta.x,
+                y: this.selection.state.current.y + delta.y
+            }
+        );
     }
 
     private moveItems(): void {
@@ -180,6 +200,10 @@ export class MouseEventsHandler {
             this.setSelectionAreaType(AreaType.NONE_FILL);
             const newSelection = EditorService.listIntersectedElements();
             this.setSelectedList(newSelection);
+        } else if (this.selection.type === MouseAction.MOVE) {
+            this.moveItems();
+            this.setSelectionAreaBySelectedItems();
+            this.setSelectionAreaType(AreaType.NONE_FILL);
         }
     }
 
