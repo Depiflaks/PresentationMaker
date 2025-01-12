@@ -10,9 +10,9 @@ import { createImageElement } from "~/store/actions/element/image/Image";
 import { CreateTextElementInput } from "~/store/input/element/text/TextElementInputs";
 import { createTextElement } from "~/store/actions/element/text/Text";
 import { UpdateElementsRectInput } from "~/store/input/element/ElementInputs";
+import { EditorService } from "./EditorService";
 
 type ZoomOperationInput = {
-    slide: Slide;
     mouse: Position;
     deltaScale: number;
 }
@@ -28,7 +28,8 @@ export class ActionService {
         this.actions = actions;
     }
 
-    zoom({mouse, slide, deltaScale}: ZoomOperationInput): void {
+    zoom({mouse, deltaScale}: ZoomOperationInput): void {
+        const slide = EditorService.getSlide();
         const { changeScale } = this.actions;
 
         const newScale = Math.max(
@@ -52,10 +53,11 @@ export class ActionService {
             y: newRelative.y - slide.view.relative.y
         }
         changeScale({ slideId: slide.id, newScale: newScale });
-        this.moveCanvas(slide, {x: cursorDelta.x - relativeDelta.x, y: cursorDelta.y - relativeDelta.y});
+        this.moveCanvas({x: cursorDelta.x - relativeDelta.x, y: cursorDelta.y - relativeDelta.y});
     }
 
-    moveCanvas(slide: Slide, delta: Position): void {
+    moveCanvas(delta: Position): void {
+        const slide = EditorService.getSlide();
         const relative = slide.view.relative;
         const { changeRelative } = this.actions;
         
@@ -68,7 +70,8 @@ export class ActionService {
         });
     }
 
-    moveItems({ mouseState, cursorDelta, slide }: MoveItemsInput): void {
+    moveItems({ mouseState, cursorDelta }: MoveItemsInput): void {
+        const slide = EditorService.getSlide();
         const { updateElementRect } = this.actions;
         const point = mouseState.current;
         const input: UpdateElementsRectInput = {
@@ -84,29 +87,32 @@ export class ActionService {
         updateElementRect(input);
     }
 
-    setSelectionArea(slideId: string, newArea: Rect): void {
+    setSelectionArea(newArea: Rect): void {
+        const slide = EditorService.getSlide();
         const { setSelectionArea } = this.actions;
         
         const input: SetSelectionAreaInput = {
-            slideId: slideId,
+            slideId: slide.id,
             newArea: newArea
         }
         setSelectionArea(input);
     }
 
-    setSelectedList(slideId: string, itemIdList: string[]): void {
+    setSelectedList(itemIdList: string[]): void {
+        const { current } = EditorService.getEditor();
         const { setSelectedList } = this.actions;
         const input: SetSelectedListInput = {
-            slideId: slideId,
+            slideId: current,
             newIds: itemIdList
         }
         setSelectedList(input);
     }
 
-    appendSelectedItem(slideId: string, itemId: string): void {
+    appendSelectedItem(itemId: string): void {
+        const { current } = EditorService.getEditor();
         const { appendToSelectedList } = this.actions;
         const input: AppendToSelectedListInput = {
-            slideId: slideId,
+            slideId: current,
             itemId: itemId
         }
         appendToSelectedList(input);
@@ -129,10 +135,11 @@ export class ActionService {
         return createTextElement(input);
     }
 
-    storeElement(slideId: string, element: Element): void {
+    storeElement(element: Element): void {
+        const { current } = EditorService.getEditor();
         const { storeElement } = this.actions;
         const input: StoreElementInput = {
-            slideId: slideId,
+            slideId: current,
             element: element
         }
         storeElement(input);

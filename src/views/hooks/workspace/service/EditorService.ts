@@ -62,7 +62,8 @@ export class EditorService {
         );
     }
 
-    static checkCurrentSelectionIntersection(point: Position, slide: Slide): boolean {
+    static checkCurrentSelectionIntersection(point: Position): boolean {
+        const slide = EditorService.getSlide()
         for (let id of slide.selection.elements) {
             if (EditorService.isPointIntersect(point, slide.view.elements[id])) {
                 return true;
@@ -103,7 +104,8 @@ export class EditorService {
         };
     }
 
-    static calculateCursorDelta(slide: Slide, point: Position): CursorDelta {
+    static calculateCursorDelta(point: Position): CursorDelta {
+        const slide = EditorService.getSlide();
         const elements = slide.view.elements;
         const elementIds = slide.selection.elements;
         const result: CursorDelta = {};

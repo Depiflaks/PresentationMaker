@@ -1,6 +1,6 @@
 import { FIELD } from "~/store/const/CONST";
 import { Position } from "~/store/types/Global";
-import { Slide } from "~/store/types/slide/Slide";
+import { EditorService } from "./EditorService";
 
 export class CanvasService {
     private canvas: DOMRect;
@@ -9,7 +9,8 @@ export class CanvasService {
         this.canvas = canvas;
     }
 
-    getRelative(slide: Slide, event: MouseEvent): Position {
+    getRelative(event: MouseEvent): Position {
+        const slide = EditorService.getSlide();
         const mouse = this.getMousePosition(event);
         const result: Position = {
             x: 0,
