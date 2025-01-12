@@ -1,5 +1,5 @@
 import { Position, Size } from "~/store/types/Global";
-import { Selection } from "../types/slide/Slide";
+import { AreaType, Selection } from "../types/slide/Slide";
 import { ActionType } from "../redux/actions";
 
 export const FIELD: Size = {
@@ -32,5 +32,6 @@ export const EMPTY_SELECTION: Selection = {
         width: 0,
         height: 0
     },
-    elements: []
+    elements: [],
+    areaType: AreaType.TRANSPARENT_FILL
 }

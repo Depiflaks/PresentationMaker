@@ -1,21 +1,14 @@
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 
-import TextComponent from "~/views/components/TextComponent";
-import ImageComponent from "~/views/components/ImageComponent";
 import { FIELD } from "~/store/const/CONST";
 
 import { useAppSelector } from "~/views/hooks/useAppSelector";
 
 import styles from "~/views/editor/workspace/Workspace.module.css";
 import { useMouseEvents } from "~/views/hooks/workspace/useMouseEvents";
-import { Editor } from "~/store/types/Editor";
 import { ToolType } from "~/store/types/Global";
-import {
-    TextElement,
-    ImageElement,
-    ElementType,
-} from "~/store/types/slide/element/Element";
-import Selection from "./selection/Selection";
+import Selection from "../../components/selection/Selection";
+import Elements from "~/views/components/elements/Elements";
 
 type Props = {
     tool: ToolType;
@@ -29,7 +22,8 @@ export default function Workspace({ tool }: Props) {
 
     useMouseEvents({ workspaceRef: canvasRef, tool, inputRef: imageInputRef });
 
-    if (editor.current === "") return <div className={styles.workspace} id="workspace"></div>;
+    if (editor.current === "")
+        return <div className={styles.workspace} id="workspace"></div>;
 
     const slide = editor.slides[editor.current];
 
@@ -49,31 +43,13 @@ export default function Workspace({ tool }: Props) {
                     fill={slide.view.background}
                     shapeRendering="crispEdges"
                 />
-                {elements.map((element) => {
-                    if (element.type === ElementType.TEXT) {
-                        return (
-                            <TextComponent
-                                key={element.id}
-                                element={element as TextElement}
-                            />
-                        );
-                    }
-                    if (element.type === ElementType.IMAGE) {
-                        return (
-                            <ImageComponent
-                                key={element.id}
-                                element={element as ImageElement}
-                            />
-                        );
-                    }
-                })}
+                <Elements elements={elements} />
                 <Selection slide={slide} />
             </svg>
             <input
                 ref={imageInputRef}
                 type="file"
                 style={{ display: "none" }}
-                accept=".json"
             />
         </div>
     );

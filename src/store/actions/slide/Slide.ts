@@ -16,6 +16,7 @@ import {
     SetSelectedListInput,
     AppendToSelectedListInput,
     DeleteFromSelectedListInput,
+    SetSelectionAreaTypeInput,
 } from "~/store/input/slide/SlideInputs";
 import { Slide, Elements } from "~/store/types/slide/Slide";
 import { EditorService } from "~/views/hooks/workspace/service/EditorService";
@@ -150,6 +151,27 @@ export function setSelectionArea(
     };
 }
 
+export function setSelectionAreaType(
+    editor: Editor,
+    { slideId, areaType }: SetSelectionAreaTypeInput,
+): Editor {
+    const slide = editor.slides[slideId];
+    const newSlide: Slide = {
+        ...slide,
+        selection: {
+            ...slide.selection,
+            areaType: areaType,
+        },
+    };
+    return {
+        ...editor,
+        slides: {
+            ...editor.slides,
+            [slideId]: newSlide,
+        },
+    };
+}
+
 export function setSelectedList(
     editor: Editor,
     { slideId, newIds }: SetSelectedListInput,
@@ -159,6 +181,7 @@ export function setSelectedList(
     const newSlide: Slide = {
         ...slide,
         selection: {
+            ...slide.selection,
             area: newArea,
             elements: newIds,
         },

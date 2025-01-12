@@ -3,7 +3,6 @@ import { ToolType } from "~/store/types/Global";
 import { useAppActions } from "../useAppActions";
 import { MouseEventsHandler } from "./handler/MouseEventsHandler";
 import { ActionService } from "./service/ActionService";
-import { CanvasService } from "./service/CanvasService";
 import { InputService } from "./service/InputService";
 
 interface UseMouseEventsProps {

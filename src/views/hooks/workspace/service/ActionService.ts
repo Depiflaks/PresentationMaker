@@ -1,7 +1,7 @@
 import { DELTA_SCALE } from "~/store/const/CONST";
 import { Position, Rect } from "~/store/types/Global";
 import { MouseState, MoveItemsInput } from "../handler/type/types";
-import { AppendToSelectedListInput, SetSelectionAreaInput, SetSelectedListInput, StoreElementInput } from "~/store/input/slide/SlideInputs";
+import { AppendToSelectedListInput, SetSelectionAreaInput, SetSelectedListInput, StoreElementInput, SetSelectionAreaTypeInput } from "~/store/input/slide/SlideInputs";
 import { CreateImageElementInput } from "~/store/input/element/image/ImageElementInputs";
 import { Element, ImageElement, TextElement } from "~/store/types/slide/element/Element";
 import { createImageElement } from "~/store/actions/element/image/Image";
@@ -13,6 +13,7 @@ import { useAppActions } from "../../useAppActions";
 import { useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 import actionCreators from "~/store/redux/actionCreators/actionCreators";
+import { AreaType } from "~/store/types/slide/Slide";
 
 type ZoomOperationInput = {
     mouse: Position;
@@ -100,9 +101,20 @@ export class ActionService {
         
         const input: SetSelectionAreaInput = {
             slideId: slide.id,
-            newArea: newArea
+            newArea: newArea,
         }
         setSelectionArea(input);
+    }
+
+    setSelectionAreaType(newType: AreaType): void {
+        const slide = EditorService.getSlide();
+        const { setSelectionAreaType } = this.actions;
+        
+        const input: SetSelectionAreaTypeInput = {
+            slideId: slide.id,
+            areaType: newType,
+        }
+        setSelectionAreaType(input);
     }
 
     setSelectedList(itemIdList: string[]): void {

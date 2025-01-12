@@ -6,6 +6,7 @@ import { CanvasService } from "../service/CanvasService";
 import { emptyState } from "./const/CONST";
 import { MouseAction } from "./type/MouseAction";
 import { InputService } from "../service/InputService";
+import { AreaType } from "~/store/types/slide/Slide";
 
 type MouseEventsHandlerInput = {
     service: Service;
@@ -69,13 +70,16 @@ export class MouseEventsHandler {
         const itemId = this.getForegroundObjectId();
         if (EditorService.checkCurrentSelectionIntersection(mouse)) {
             this.selection.delta = EditorService.calculateCursorDelta(mouse);
+            this.setSelectionAreaType(AreaType.NONE_FILL);
             this.selection.type = MouseAction.MOVE;
             return;
         } else if (itemId) {
+            this.setSelectionAreaType(AreaType.NONE_FILL);
             this.setSelectedList([itemId]);
             this.selection.delta = EditorService.calculateCursorDelta(mouse);
             this.selection.type = MouseAction.MOVE;
         } else {
+            this.setSelectionAreaType(AreaType.TRANSPARENT_FILL);
             this.setSelectedList([]);
             this.selection.type = MouseAction.SELECT;
         }
@@ -99,6 +103,10 @@ export class MouseEventsHandler {
                 slide.selection.elements,
             ),
         );
+    }
+
+    private setSelectionAreaType(newType: AreaType): void {
+        this.service.action.setSelectionAreaType(newType);
     }
 
     private getForegroundObjectId(): string | null {
@@ -169,6 +177,7 @@ export class MouseEventsHandler {
 
     private handleSelectionUp(): void {
         if (this.selection.type === MouseAction.SELECT) {
+            this.setSelectionAreaType(AreaType.NONE_FILL);
             const newSelection = EditorService.listIntersectedElements();
             this.setSelectedList(newSelection);
         }

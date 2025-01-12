@@ -20,6 +20,7 @@ import {
     SetSelectedListAction,
     AppendToSelectedListAction,
     DeleteFromSelectedListAction,
+    SetSelectionAreaTypeAction,
 } from "./actionTypes/Slide";
 
 export enum ActionType {
@@ -33,6 +34,7 @@ export enum ActionType {
     CHANGE_SCALE = "changeScale",
 
     SET_SELECTION_AREA = "setSelectionArea",
+    SET_SELECTION_AREA_TYPE = "setSelectionAreaType",
     SET_SELECTED_LIST = "setSelectedList",
     APPEND_TO_SELECTED_LIST = "appendToSelectedList",
     DELETE_FROM_SELECTED_LIST = "deleteFromSelectedList",
@@ -62,6 +64,7 @@ export type EditorAction =
     | UpdateTextElementAction
     | UpdateImageElementAction
     | SetSelectionAreaAction
+    | SetSelectionAreaTypeAction
     | SetSelectedListAction
     | AppendToSelectedListAction
     | DeleteFromSelectedListAction;
