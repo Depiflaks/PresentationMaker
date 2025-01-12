@@ -38,6 +38,16 @@ export class EditorService {
         return result;
     }
 
+    static listIntersectedElements(): string[] {
+        const slide = EditorService.getSlide();
+        const elements = slide.view.elements;
+        let result: string[] = [];
+        for (const id in elements) {
+            if (!EditorService.isRectInside(elements[id], slide.selection.area)) continue;
+            result.push(id);
+        }
+        return result
+    }
 
     static isRectInside(innerRect: Rect, outerRect: Rect): boolean {
         const isLeftInside = innerRect.x >= outerRect.x;

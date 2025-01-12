@@ -44,10 +44,10 @@ export class MouseEventsHandler {
         this.selection.state.isPressed = true;
         switch (this.selection.tool) {
             case ToolType.ZOOM:
-                this.zoomToolAction(event);
+                this.handleZoomDown(event);
                 break;
             case ToolType.SELECTION:
-                this.handleSelectionClick();
+                this.handleSelectionDown();
                 break;
             case ToolType.TEXT:
             case ToolType.IMAGE:
@@ -56,7 +56,15 @@ export class MouseEventsHandler {
         }
     }
 
-    private handleSelectionClick() {
+    private handleZoomDown(event: MouseEvent): void {
+        let deltaScale = 5;
+        this.service.action.zoom({
+            deltaScale: deltaScale * (event.buttons === 1 ? -1 : 1),
+            mouse: this.selection.state.start,
+        });
+    }
+
+    private handleSelectionDown() {
         const mouse = this.selection.state.start;
         const itemId = this.getForegroundObjectId();
         if (EditorService.checkCurrentSelectionIntersection(mouse)) {
@@ -71,14 +79,6 @@ export class MouseEventsHandler {
             this.setSelectedList([]);
             this.selection.type = MouseAction.SELECT;
         }
-    }
-
-    private zoomToolAction(event: MouseEvent): void {
-        let deltaScale = 5;
-        this.service.action.zoom({
-            deltaScale: deltaScale * (event.buttons === 1 ? -1 : 1),
-            mouse: this.selection.state.start,
-        });
     }
 
     private setSelectedList(itemIdList: string[]): void {
@@ -113,21 +113,25 @@ export class MouseEventsHandler {
                 this.moveCanvas();
                 break;
             case ToolType.SELECTION:
-                if (this.selection.type === MouseAction.SELECT) {
-                    this.setSelectionAreaByMouseState();
-                    break;
-                }
-                if (this.selection.type === MouseAction.MOVE) {
-                    this.moveItems();
-                    this.setSelectionAreaBySelectedItems();
-                    break;
-                }
+                this.handleSelectionMove();
                 break;
             case ToolType.TEXT:
             case ToolType.IMAGE:
                 if (this.selection.type === MouseAction.SELECT) {
                     this.setSelectionAreaByMouseState();
                 }
+                break;
+        }
+    }
+
+    private handleSelectionMove(): void {
+        switch (this.selection.type) {
+            case MouseAction.SELECT:
+                this.setSelectionAreaByMouseState();
+                break;
+            case MouseAction.MOVE:
+                this.moveItems();
+                this.setSelectionAreaBySelectedItems();
                 break;
         }
     }
@@ -152,34 +156,47 @@ export class MouseEventsHandler {
 
         switch (this.selection.tool) {
             case ToolType.SELECTION:
-                if (this.selection.type === MouseAction.SELECT) {
-                    this.clearSelection();
-                }
+                this.handleSelectionUp();
                 break;
             case ToolType.IMAGE:
-                if (this.selection.type === MouseAction.SELECT) {
-                    const element = this.service.action.createImageElement(
-                        this.selection.state,
-                    );
-                    const callback = (value: string) => {
-                        element.href = value;
-                        this.service.action.storeElement(element);
-                    };
-                    this.service.input.initInput(callback);
-                }
-                this.clearSelection();
+                this.handleImageUp();
                 break;
             case ToolType.TEXT:
-                if (this.selection.type === MouseAction.SELECT) {
-                    const element = this.service.action.createTextElement(
-                        this.selection.state,
-                    );
-                    element.fontSize = element.height;
-                    this.service.action.storeElement(element);
-                }
-                this.clearSelection();
+                this.handleTextUp();
                 break;
         }
+    }
+
+    private handleSelectionUp(): void {
+        if (this.selection.type === MouseAction.SELECT) {
+            const newSelection = EditorService.listIntersectedElements();
+            this.setSelectedList(newSelection);
+        }
+    }
+
+    private handleImageUp(): void {
+        if (this.selection.type === MouseAction.SELECT) {
+            const element = this.service.action.createImageElement(
+                this.selection.state,
+            );
+            const callback = (value: string) => {
+                element.href = value;
+                this.service.action.storeElement(element);
+            };
+            this.service.input.initInput(callback);
+        }
+        this.clearSelection();
+    }
+
+    private handleTextUp(): void {
+        if (this.selection.type === MouseAction.SELECT) {
+            const element = this.service.action.createTextElement(
+                this.selection.state,
+            );
+            element.fontSize = element.height;
+            this.service.action.storeElement(element);
+        }
+        this.clearSelection();
     }
 
     handleMouseWheel(event: WheelEvent): void {
