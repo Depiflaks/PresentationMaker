@@ -6,6 +6,12 @@ import {
     MoveSlideInput,
 } from "~/store/input/editor/EditorInputs";
 import { ActionType } from "../actions";
+import { Editor } from "~/store/types/Editor";
+
+export type SetEditorAction = {
+    type: ActionType.SET_EDITOR,
+    payload: Editor,
+}
 
 export type UpdatePresentationTitleAction = {
     type: ActionType.UPDATE_PRESENTATION_TITLE;

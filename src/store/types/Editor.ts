@@ -7,6 +7,7 @@ export interface Editor {
     order: string[];
     slides: SlideCollection;
     current: string;
+    shouldSave: boolean;
 }
 
 export type SlideCollection = Record<string, Slide>;

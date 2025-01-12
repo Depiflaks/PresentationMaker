@@ -22,13 +22,15 @@ export default function Color({ caption, color, onChange }: ColorProps) {
                     className={styles.colorInput}
                     type="color"
                     value={color}
-                    onChange={(e) => onChange(e.target.value)}
+                    onChange={(e) => {
+                        onChange(e.target.value);
+                    }}
                 />
                 <input
                     className={styles.inputField}
                     type="text"
-                    value={color}
-                    onChange={handleTextChange}
+                    defaultValue={color}
+                    onBlur={handleTextChange}
                 />
             </div>
         </div>

@@ -201,9 +201,9 @@ export class MouseEventsHandler {
             const newSelection = EditorService.listIntersectedElements();
             this.setSelectedList(newSelection);
         } else if (this.selection.type === MouseAction.MOVE) {
-            this.moveItems();
-            this.setSelectionAreaBySelectedItems();
             this.setSelectionAreaType(AreaType.NONE_FILL);
+            this.setSelectionAreaBySelectedItems();
+            this.moveItems();
         }
     }
 

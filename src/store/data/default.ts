@@ -14,6 +14,7 @@ export const defaultEditor: Editor = {
     slides: {
         [slide.id]: slide
     },
+    shouldSave: true,
 }
 
 export const defaultTextElement: TextElement = {

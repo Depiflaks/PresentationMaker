@@ -12,7 +12,7 @@ export default function TextArea({ content, onChange, value }: Props) {
             <h4 className={styles.header}>{content}</h4>
             <textarea
                 className={styles.textareaField}
-                value={value}
+                defaultValue={value}
                 onChange={(e) => onChange(e.target.value)}
             />
         </div>

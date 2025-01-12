@@ -1,12 +1,12 @@
-import { defaultEditor } from "../data/default";
 import { Editor } from "../types/Editor";
+import { defaultEditor } from "../data/default";
 
 export function loadEditorFromStorage(): Editor {
     const savedState = localStorage.getItem("editorState");
     if (savedState !== null) {
         return JSON.parse(savedState)
     } else {
-        return defaultEditor 
+        return defaultEditor
     }
 }
 

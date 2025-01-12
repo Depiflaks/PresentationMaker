@@ -3,8 +3,8 @@ import styles from "../Properties.module.css";
 interface Props {
     caption: string;
     type: string;
-    value: number | string;
-    onBlur: (value: number | string) => void;
+    value: string;
+    onBlur: (value: string) => void;
 }
 
 export default function SingleInput({ value, caption, onBlur, type }: Props) {
@@ -14,8 +14,8 @@ export default function SingleInput({ value, caption, onBlur, type }: Props) {
             <input
                 className={styles.inputField}
                 type={type}
-                value={value}
-                onBlur={(e) => onBlur(e.target.value)}
+                defaultValue={value}
+                onChange={(e) => onBlur(e.target.value)}
             />
         </div>
     );

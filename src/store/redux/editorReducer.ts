@@ -2,7 +2,7 @@ import { Editor } from "~/store/types/Editor"
 import { ActionType, EditorAction } from "./actions"
 import { changeCurrentSlide, moveSlide, removeSlide, storeSlide, updatePresentationTitle } from "~/store/actions/editor/Editor"
 import { appendToSelectedList, changeRelative, changeScale, deleteFromSelectedList, removeElement, setSelectionArea, setSelectedList, storeElement, updateSlideBackground, setSelectionAreaType } from "~/store/actions/slide/Slide";
-import { updateElementRect } from "~/store/actions/element/Element";
+import { updateElementsRect } from "~/store/actions/element/Element";
 import { updateTextElement } from "~/store/actions/element/text/Text";
 import { loadEditorFromStorage, saveEditorToStorage } from "../storage/localStorageHandler";
 import { TEMPORARY_PROCEDURES } from "../const/CONST";
@@ -10,14 +10,21 @@ import { updateImageElement } from "../actions/element/image/Image";
 
 export function editorReducer(editor: Editor = loadEditorFromStorage(), action: EditorAction): Editor {
     const updatedEditor = updateReduser(editor, action);
-    if (TEMPORARY_PROCEDURES.indexOf(action.type) === -1) {
+    if (shouldSaveToHistory(action.type)) {
         saveEditorToStorage(updatedEditor);
     }
     return updatedEditor;
 }
 
+export function shouldSaveToHistory(actionType: ActionType): boolean {
+    return !TEMPORARY_PROCEDURES.includes(actionType);
+}
+
 function updateReduser(editor: Editor = loadEditorFromStorage(), action: EditorAction): Editor {
     switch (action.type) {
+        case ActionType.SET_EDITOR:
+            return {...action.payload};
+
         case ActionType.UPDATE_PRESENTATION_TITLE:
             return updatePresentationTitle(editor, action.payload);
 
@@ -64,7 +71,7 @@ function updateReduser(editor: Editor = loadEditorFromStorage(), action: EditorA
             return storeElement(editor, action.payload);
 
         case ActionType.UPDATE_ELEMENT_RECT:
-            return updateElementRect(editor, action.payload);
+            return updateElementsRect(editor, action.payload);
 
         case ActionType.UPDATE_TEXT_ELEMENT:
             return updateTextElement(editor, action.payload);

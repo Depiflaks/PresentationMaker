@@ -5,7 +5,6 @@ import { Elements, Slide } from "~/store/types/slide/Slide";
 import { CursorDelta } from "../handler/type/types";
 import { store } from "~/store/redux/store";
 
-
 export class EditorService {
     static getForegroundObjectId(point: Position): string | null {
         const slide = EditorService.getSlide();
@@ -43,18 +42,21 @@ export class EditorService {
         const elements = slide.view.elements;
         let result: string[] = [];
         for (const id in elements) {
-            if (!EditorService.isRectInside(elements[id], slide.selection.area)) continue;
+            if (!EditorService.isRectInside(elements[id], slide.selection.area))
+                continue;
             result.push(id);
         }
-        return result
+        return result;
     }
 
     static isRectInside(innerRect: Rect, outerRect: Rect): boolean {
         const isLeftInside = innerRect.x >= outerRect.x;
-        const isRightInside = innerRect.x + innerRect.width <= outerRect.x + outerRect.width;
+        const isRightInside =
+            innerRect.x + innerRect.width <= outerRect.x + outerRect.width;
         const isTopInside = innerRect.y >= outerRect.y;
-        const isBottomInside = innerRect.y + innerRect.height <= outerRect.y + outerRect.height;
-    
+        const isBottomInside =
+            innerRect.y + innerRect.height <= outerRect.y + outerRect.height;
+
         return isLeftInside && isRightInside && isTopInside && isBottomInside;
     }
 
@@ -73,9 +75,11 @@ export class EditorService {
     }
 
     static checkCurrentSelectionIntersection(point: Position): boolean {
-        const slide = EditorService.getSlide()
+        const slide = EditorService.getSlide();
         for (let id of slide.selection.elements) {
-            if (EditorService.isPointIntersect(point, slide.view.elements[id])) {
+            if (
+                EditorService.isPointIntersect(point, slide.view.elements[id])
+            ) {
                 return true;
             }
         }
@@ -83,19 +87,20 @@ export class EditorService {
     }
 
     static rectSelectedItems(elements: Elements, selectedIds: string[]): Rect {
-        if (selectedIds.length === 0) return {
-            x: 0,
-            y: 0,
-            width: 0,
-            height: 0
-        }
+        if (selectedIds.length === 0)
+            return {
+                x: 0,
+                y: 0,
+                width: 0,
+                height: 0,
+            };
         let start: Position = {
             x: 10000,
             y: 10000,
         };
         let end: Position = {
-            x: 0,
-            y: 0,
+            x: -10000,
+            y: -10000,
         };
         for (let id of selectedIds) {
             start = {
@@ -123,13 +128,22 @@ export class EditorService {
             result[id] = {
                 x: elements[id].x - point.x,
                 y: elements[id].y - point.y,
-            }
+            };
         }
-        return result
+        return result;
     }
 
     static getEditor(): Editor {
         return store.getState();
+    }
+
+    static roundRect(rect: Rect): Rect {
+        return {
+            x: Math.round(rect.x),
+            y: Math.round(rect.y),
+            width: Math.round(rect.width),
+            height: Math.round(rect.height),
+        };
     }
 
     static getSlide(): Slide {

@@ -15,7 +15,7 @@ export default function CheckBox({ value, onChange, caption, subCaption }: Props
                 <input
                     className={styles.checkbox}
                     type="checkbox"
-                    checked={false}
+                    checked={value}
                     onChange={(e) => onChange(e.target.checked)}
                 />
                 <span className={styles.labelText}>{subCaption}</span>

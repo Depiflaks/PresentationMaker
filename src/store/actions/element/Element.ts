@@ -3,9 +3,10 @@ import { storeSlide } from "../editor/Editor";
 import {
     UpdateElementsRectInput,
 } from "~/store/input/element/ElementInputs";
-import { Elements, Slide } from "~/store/types/slide/Slide";
+import { AreaType, Elements, Slide } from "~/store/types/slide/Slide";
+import { EditorService } from "~/views/hooks/workspace/service/EditorService";
 
-export function updateElementRect(
+export function updateElementsRect(
     editor: Editor,
     { rectMap }: UpdateElementsRectInput,
 ): Editor {
@@ -21,6 +22,7 @@ export function updateElementRect(
             ...rectMap[id]
         }
     }
+    const newSelection = EditorService.rectSelectedItems(newElements, Object.keys(newElements));
     const updatedSlide: Slide = {
         ...slide,
         view: {
@@ -30,6 +32,11 @@ export function updateElementRect(
                 ...newElements
             },
         },
+        selection: {
+            ...slide.selection,
+            area: newSelection,
+            areaType: AreaType.NONE_FILL
+        }
     };
     return storeSlide(editor, { slide: updatedSlide });
 }

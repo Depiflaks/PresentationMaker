@@ -1,5 +1,13 @@
 import { ChangeCurrentSlideInput, MoveSlideInput, RemoveSlideInput, StoreSlideInput, UpdatePresentationTitleInput } from "~/store/input/editor/EditorInputs";
 import { ActionType } from "../../actions";
+import { Editor } from "~/store/types/Editor";
+
+export function setEditor(newEditor: Editor) {
+    return {
+        type: ActionType.SET_EDITOR,
+        payload: newEditor,
+    }
+}
 
 export function updatePresentationTitle(input: UpdatePresentationTitleInput) {
     return {

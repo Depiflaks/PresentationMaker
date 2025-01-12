@@ -45,6 +45,7 @@ export function removeElement(
     return {
         ...editor,
         slides: slides,
+        shouldSave: true
     };
 }
 
@@ -57,6 +58,7 @@ export function changeRelative(
     return {
         ...editor,
         slides,
+        shouldSave: false,
     };
 }
 
@@ -82,6 +84,7 @@ export function changeScale(
     return {
         ...editor,
         slides: updatedSlides,
+        shouldSave: false
     };
 }
 
@@ -103,6 +106,7 @@ export function updateSlideBackground(
             ...editor.slides,
             [slideId]: newSlide,
         },
+        shouldSave: true
     };
 }
 
@@ -127,6 +131,7 @@ export function storeElement(
                 },
             },
         },
+        shouldSave: true
     };
 }
 
@@ -148,6 +153,7 @@ export function setSelectionArea(
             ...editor.slides,
             [slideId]: newSlide,
         },
+        shouldSave: false
     };
 }
 
@@ -169,6 +175,7 @@ export function setSelectionAreaType(
             ...editor.slides,
             [slideId]: newSlide,
         },
+        shouldSave: false
     };
 }
 
@@ -192,6 +199,7 @@ export function setSelectedList(
             ...editor.slides,
             [slideId]: newSlide,
         },
+        shouldSave: false
     };
 }
 

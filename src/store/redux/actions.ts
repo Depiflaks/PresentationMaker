@@ -1,9 +1,11 @@
+import { Editor } from "../types/Editor";
 import {
     UpdatePresentationTitleAction,
     ChangeCurrentSlideAction,
     StoreSlideAction,
     RemoveSlideAction,
     MoveSlideAction,
+    SetEditorAction,
 } from "./actionTypes/Editor";
 import {
     UpdateElementRectAction,
@@ -24,6 +26,7 @@ import {
 } from "./actionTypes/Slide";
 
 export enum ActionType {
+    SET_EDITOR = "setEditor",
     UPDATE_PRESENTATION_TITLE = "updatePresentationTitle",
     CHANGE_CURRENT_SLIDE = "changeCurrentSlide",
     STORE_SLIDE = "storeSlide",
@@ -50,6 +53,7 @@ export enum ActionType {
 }
 
 export type EditorAction =
+    | SetEditorAction
     | UpdatePresentationTitleAction
     | ChangeCurrentSlideAction
     | StoreSlideAction
