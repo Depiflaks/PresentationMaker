@@ -4,7 +4,8 @@ import { editorReducer } from "./editorReducer";
 const store = createStore(editorReducer)
 
 // store.subscribe(() => {
-//     console.log(store.getState());
+//     const editor = store.getState();
+//     console.log('storage: ', editor.slides[editor.current].selection.elements);
 // })
 
 export {

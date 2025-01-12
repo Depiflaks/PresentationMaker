@@ -155,11 +155,11 @@ export function setSelectedList(
     { slideId, newIds }: SetSelectedListInput,
 ): Editor {
     const slide = editor.slides[slideId];
-    const newMain = EditorService.rectSelectedItems(slide.view.elements, newIds);
+    const newArea = EditorService.rectSelectedItems(slide.view.elements, newIds);
     const newSlide: Slide = {
         ...slide,
         selection: {
-            area: newMain,
+            area: newArea,
             elements: newIds,
         },
     };

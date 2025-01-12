@@ -3,26 +3,18 @@ import { Position, Rect } from "~/store/types/Global";
 import { Element } from "~/store/types/slide/element/Element";
 import { Elements, Slide } from "~/store/types/slide/Slide";
 import { CursorDelta } from "../handler/type/types";
+import { store } from "~/store/redux/store";
 
-type SelectionServiceInput = {
-    editorRef: React.RefObject<Editor>;
-};
 
 export class EditorService {
-    private editorRef: React.RefObject<Editor>;
-
-    constructor({ editorRef }: SelectionServiceInput) {
-        this.editorRef = editorRef;
-    }
-
-    getForegroundObjectId(point: Position): string | null {
-        const slide = this.getSlide();
+    static getForegroundObjectId(point: Position): string | null {
+        const slide = EditorService.getSlide();
 
         const elements = slide.view.elements;
         let topElement: Element | null = null;
         for (const elementId in elements) {
             const element = elements[elementId];
-            const intersects = EditorService.isIntersect(point, element);
+            const intersects = EditorService.isPointIntersect(point, element);
             if (intersects) {
                 if (!topElement || element.zIndex > topElement.zIndex) {
                     topElement = element;
@@ -46,7 +38,17 @@ export class EditorService {
         return result;
     }
 
-    static isIntersect(point: Position, rect: Rect): boolean {
+
+    static isRectInside(innerRect: Rect, outerRect: Rect): boolean {
+        const isLeftInside = innerRect.x >= outerRect.x;
+        const isRightInside = innerRect.x + innerRect.width <= outerRect.x + outerRect.width;
+        const isTopInside = innerRect.y >= outerRect.y;
+        const isBottomInside = innerRect.y + innerRect.height <= outerRect.y + outerRect.height;
+    
+        return isLeftInside && isRightInside && isTopInside && isBottomInside;
+    }
+
+    static isPointIntersect(point: Position, rect: Rect): boolean {
         const left = rect.x;
         const right = rect.x + rect.width;
         const top = rect.y;
@@ -62,7 +64,7 @@ export class EditorService {
 
     static checkCurrentSelectionIntersection(point: Position, slide: Slide): boolean {
         for (let id of slide.selection.elements) {
-            if (EditorService.isIntersect(point, slide.view.elements[id])) {
+            if (EditorService.isPointIntersect(point, slide.view.elements[id])) {
                 return true;
             }
         }
@@ -114,14 +116,12 @@ export class EditorService {
         return result
     }
 
-    getEditor() {
-        if (!this.editorRef.current)
-            throw new Error("Editor is not initialized.");
-        return this.editorRef.current;
+    static getEditor(): Editor {
+        return store.getState();
     }
 
-    getSlide(): Slide {
-        const editor = this.getEditor();
+    static getSlide(): Slide {
+        const editor = EditorService.getEditor();
         if (editor.current === "") throw new Error("Slide list is empty");
         return editor.slides[editor.current];
     }

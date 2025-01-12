@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { ToolType } from "~/store/types/Global";
 import { useAppActions } from "../useAppActions";
-import { Editor } from "~/store/types/Editor";
 import { MouseEventsHandler } from "./handler/MouseEventsHandler";
 import { ActionService } from "./service/ActionService";
 import { EditorService } from "./service/EditorService";
@@ -11,11 +10,10 @@ import { InputService } from "./service/InputService";
 interface UseMouseEventsProps {
     tool: ToolType;
     workspaceRef: React.RefObject<HTMLDivElement>;
-    editorRef: React.RefObject<Editor>;
     inputRef: React.RefObject<HTMLInputElement>;
 }
 
-export function useMouseEvents({ tool, workspaceRef, editorRef, inputRef }: UseMouseEventsProps) {
+export function useMouseEvents({ tool, workspaceRef, inputRef }: UseMouseEventsProps): void {
     const actions = useAppActions();
 
     const errorhandler = (callback: () => void) => {
@@ -35,14 +33,11 @@ export function useMouseEvents({ tool, workspaceRef, editorRef, inputRef }: UseM
         const canvasService = new CanvasService(
             element.getBoundingClientRect()
         );
-
         const actionService = new ActionService({
             actions: actions,
         });
 
-        const editorService = new EditorService({
-            editorRef: editorRef
-        });
+        const editorService = new EditorService();
 
         const handler = new MouseEventsHandler({
             service: {

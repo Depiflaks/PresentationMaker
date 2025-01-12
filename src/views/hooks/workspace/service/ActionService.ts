@@ -2,7 +2,7 @@ import { ActionCreatorsMapObject } from "redux";
 import { DELTA_SCALE } from "~/store/const/CONST";
 import { Position, Rect } from "~/store/types/Global";
 import { Slide } from "~/store/types/slide/Slide";
-import { CursorDelta, MouseState, MoveItemsInput } from "../handler/type/types";
+import { MouseState, MoveItemsInput } from "../handler/type/types";
 import { AppendToSelectedListInput, SetSelectionAreaInput, SetSelectedListInput, StoreElementInput } from "~/store/input/slide/SlideInputs";
 import { CreateImageElementInput } from "~/store/input/element/image/ImageElementInputs";
 import { Element, ImageElement, TextElement } from "~/store/types/slide/element/Element";

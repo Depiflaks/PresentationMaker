@@ -25,14 +25,9 @@ export default function Workspace({ tool }: Props) {
     const editor = useAppSelector((editor) => editor);
 
     const canvasRef = useRef<HTMLDivElement>(null);
-    const editorRef = useRef<Editor>(editor);
     const imageInputRef = useRef<HTMLInputElement>(null);
 
-    useEffect(() => {
-        editorRef.current = editor;
-    }, [editor]);
-
-    useMouseEvents({ workspaceRef: canvasRef, tool, editorRef, inputRef: imageInputRef });
+    useMouseEvents({ workspaceRef: canvasRef, tool, inputRef: imageInputRef });
 
     if (editor.current === "") return <div className={styles.workspace}></div>;
 
