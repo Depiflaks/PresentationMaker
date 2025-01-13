@@ -1,5 +1,5 @@
-import { Editor } from "../types/Editor";
-import { defaultEditor } from "../data/default";
+import { Editor } from "../store/types/Editor";
+import { defaultEditor } from "../store/data/default";
 
 export function loadEditorFromStorage(): Editor {
     const savedState = localStorage.getItem("editorState");

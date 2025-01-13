@@ -21,7 +21,7 @@ export default function Color({ caption, color, onChange }: ColorProps) {
                 <input
                     className={styles.colorInput}
                     type="color"
-                    value={color}
+                    defaultValue={color}
                     onChange={(e) => {
                         onChange(e.target.value);
                     }}

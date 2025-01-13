@@ -18,6 +18,7 @@ export const TEMPORARY_PROCEDURES: ActionType[] = [
     ActionType.SET_SELECTED_LIST,
     ActionType.APPEND_TO_SELECTED_LIST,
     ActionType.DELETE_FROM_SELECTED_LIST,
+    ActionType.SET_SELECTION_AREA_TYPE,
 ];
 
 export const START_POSITION: Position = {

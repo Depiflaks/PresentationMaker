@@ -6,8 +6,8 @@ import { useAppSelector } from "../hooks/useAppSelector";
 import {
     loadEditorFromStorage,
     saveEditorToStorage,
-} from "~/store/storage/localStorageHandler";
-import { validateEditor } from "~/store/storage/importHandler";
+} from "~/utils/localStorage";
+import { validateEditor } from "~/utils/import";
 import ImportError from "./importError/ImportError";
 
 export default function Header() {

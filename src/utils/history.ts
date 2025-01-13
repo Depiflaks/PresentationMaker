@@ -1,10 +1,10 @@
 import { Store } from "redux";
 import { Editor } from "~/store/types/Editor";
 
-type HistoryType = {
+export type HistoryType = {
     undo: () => Editor | undefined,
     redo: () => Editor | undefined,
-    update: () => void,
+    update: (editor: Editor) => void,
 }
 
 function getLastItem(stack: Array<Editor>): Editor {
@@ -15,32 +15,30 @@ function initHistory(store: Store<Editor>): HistoryType {
     const undoStack: Array<Editor> = []
     let redoStack: Array<Editor> = []
 
-    let previousEditor = store.getState()
+    let previousEditor: Editor = store.getState()
 
-    function update() {
-        const editor = store.getState();
-        if (editor.shouldSave && (!undoStack.length || previousEditor != editor)) {
-            if (editor == getLastItem(undoStack)) {
-                undoStack.pop()
-                redoStack.push(previousEditor)
-            } else if (editor == getLastItem(redoStack)) {
-                redoStack.pop()
-                undoStack.push(previousEditor)
-            } else {
-                undoStack.push(previousEditor)
-                redoStack = []
-            }
-            console.log(undoStack, redoStack, editor.shouldSave);
-        }
-        previousEditor = editor
+    function update(editor: Editor) {
+        undoStack.push(previousEditor);
+        redoStack = [];
+        previousEditor = {...editor};
     }
 
     function undo() {
-        return getLastItem(undoStack)
+        if (undoStack.length === 0) return {...previousEditor};
+        const editor = getLastItem(undoStack);
+        undoStack.pop();
+        redoStack.push({...previousEditor});
+        previousEditor = {...editor};
+        return {...editor};
     }
 
     function redo() {
-        return getLastItem(redoStack)
+        if (redoStack.length === 0) return {...previousEditor};
+        const editor = getLastItem(redoStack);
+        redoStack.pop()
+        undoStack.push({...previousEditor})
+        previousEditor = {...editor};
+        return {...editor};
     }
 
     return {
@@ -51,6 +49,5 @@ function initHistory(store: Store<Editor>): HistoryType {
 }
 
 export {
-    type HistoryType,
     initHistory
 }

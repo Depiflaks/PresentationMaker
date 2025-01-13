@@ -1,9 +1,15 @@
 import { useEffect } from "react";
 import { ToolType } from "~/store/types/Global";
 
-export function useKeyboardShortcut(onToolChange: (newTool: ToolType) => void) {
+type Props = {
+    onToolChange: (newTool: ToolType) => void;
+    onUndo: () => void;
+    onRedo: () => void;
+}
+
+export function useKeyboard({ onToolChange, onRedo, onUndo }: Props) {
     useEffect(() => {
-        const handleKeyPress = (event: KeyboardEvent): void => {
+        const handleKeyDown = (event: KeyboardEvent): void => {
             switch (event.key) {
                 case " ":
                     onToolChange(ToolType.HAND);
@@ -18,16 +24,24 @@ export function useKeyboardShortcut(onToolChange: (newTool: ToolType) => void) {
                     onToolChange(ToolType.IMAGE);
                     break;
                 case "z":
-                    onToolChange(ToolType.ZOOM);
+                    if (event.ctrlKey) {
+                        onUndo()
+                    } else {
+                        onToolChange(ToolType.ZOOM);
+                    }
                     break;
-                default:
-                    break;
+                case 'u':
+                    if (event.ctrlKey) {
+                        event.preventDefault()
+                        onRedo()
+                    }
+                    break
             }
         };
 
-        window.addEventListener("keydown", handleKeyPress);
+        window.addEventListener("keydown", handleKeyDown);
         return () => {
-            window.removeEventListener("keydown", handleKeyPress);
+            window.removeEventListener("keydown", handleKeyDown);
         };
     }, [onToolChange]);
 }

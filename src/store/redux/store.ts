@@ -1,13 +1,10 @@
-import { legacy_createStore as createStore } from "redux";
+import { applyMiddleware, legacy_createStore as createStore } from "redux";
 import { editorReducer } from "./editorReducer";
+import { initHistory } from "~/utils/history";
+import { handleMiddleware } from "~/utils/middleware";
 
-const store = createStore(editorReducer)
+const history = initHistory(createStore(editorReducer));
 
-// store.subscribe(() => {
-//     const editor = store.getState();
-//     console.log('storage: ', editor.slides[editor.current].selection.elements);
-// })
+const store = createStore(editorReducer, applyMiddleware(handleMiddleware(history)));
 
-export {
-    store
-}
+export { store, history };

@@ -1,8 +1,8 @@
 import styles from "./ToolBar.module.css";
 import { ToolType } from "~/store/types/Global";
 import Tool from "./tool/Tool";
-import { useKeyboardShortcut } from "~/views/hooks/workspace/useKeyboardShortcut";
-import { TOOLBAR_ACTIONS, TOOLBAR_TOOLS } from "./const/tools";
+import { useKeyboard } from "~/views/hooks/workspace/useKeyboardShortcut";
+import { TOOLBAR_TOOLS } from "./const/tools";
 import React from "react";
 import { HistoryContext } from "~/views/hooks/historyContext";
 import { useAppActions } from "~/views/hooks/useAppActions";
@@ -13,7 +13,6 @@ type Props = {
 };
 
 export default function ToolBar({ currentTool, onToolChange }: Props) {
-    useKeyboardShortcut(onToolChange);
     const { setEditor } = useAppActions();
     const history = React.useContext(HistoryContext);
 
@@ -30,6 +29,7 @@ export default function ToolBar({ currentTool, onToolChange }: Props) {
             setEditor(newEditor);
         }
     }
+    useKeyboard({onToolChange, onRedo, onUndo});
     return (
         <div className={styles.toolbar}>
             <Tool

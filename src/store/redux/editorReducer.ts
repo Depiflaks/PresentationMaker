@@ -4,21 +4,15 @@ import { changeCurrentSlide, moveSlide, removeSlide, storeSlide, updatePresentat
 import { appendToSelectedList, changeRelative, changeScale, deleteFromSelectedList, removeElement, setSelectionArea, setSelectedList, storeElement, updateSlideBackground, setSelectionAreaType } from "~/store/actions/slide/Slide";
 import { updateElementsRect } from "~/store/actions/element/Element";
 import { updateTextElement } from "~/store/actions/element/text/Text";
-import { loadEditorFromStorage, saveEditorToStorage } from "../storage/localStorageHandler";
-import { TEMPORARY_PROCEDURES } from "../const/CONST";
+import { loadEditorFromStorage } from "../../utils/localStorage";
 import { updateImageElement } from "../actions/element/image/Image";
 
 export function editorReducer(editor: Editor = loadEditorFromStorage(), action: EditorAction): Editor {
     const updatedEditor = updateReduser(editor, action);
-    if (shouldSaveToHistory(action.type)) {
-        saveEditorToStorage(updatedEditor);
-    }
     return updatedEditor;
 }
 
-export function shouldSaveToHistory(actionType: ActionType): boolean {
-    return !TEMPORARY_PROCEDURES.includes(actionType);
-}
+
 
 function updateReduser(editor: Editor = loadEditorFromStorage(), action: EditorAction): Editor {
     switch (action.type) {
