@@ -22,8 +22,18 @@ export default function Workspace({ tool }: Props) {
 
     useMouseEvents({ workspaceRef: canvasRef, tool, inputRef: imageInputRef });
 
-    if (editor.current === "")
-        return <div className={styles.workspace} id="workspace"></div>;
+    if (editor.current === "") {
+        console.log(123);
+        return (
+            <div className={styles.workspace} ref={canvasRef} id="workspace">
+            <svg
+                className={styles.svg}
+                viewBox={`${0} ${0} ${FIELD.height} ${FIELD.height}`}
+            >
+            </svg>
+        </div>
+        );
+    }
 
     const slide = editor.slides[editor.current];
 

@@ -80,18 +80,21 @@ export class ActionService {
 
     moveItems({ mouseState, cursorDelta }: MoveItemsInput): void {
         const slide = EditorService.getSlide();
+        const elements = slide.view.elements;
         const { updateElementRect } = this.actions;
         const point = mouseState.current;
         const input: UpdateElementsRectInput = {
             rectMap: {}
         }
         for (const id in cursorDelta) {
+            if (Math.abs(elements[id].x - (point.x + cursorDelta[id].x)) < 5 && Math.abs(elements[id].y - (point.y + cursorDelta[id].y)) < 5) continue;
             input.rectMap[id] = {
                 ...slide.view.elements[id],
                 x: point.x + cursorDelta[id].x,
                 y: point.y + cursorDelta[id].y,
             }
         }
+        if (Object.keys(input.rectMap).length === 0) return;
         updateElementRect(input);
     }
 

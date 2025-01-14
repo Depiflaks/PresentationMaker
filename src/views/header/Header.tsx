@@ -9,9 +9,11 @@ import {
 } from "~/utils/localStorage";
 import { validateEditor } from "~/utils/import";
 import ImportError from "./importError/ImportError";
+import { generatePDF } from "~/utils/pdf";
 
 export default function Header() {
-    const title = useAppSelector((editor) => editor.title);
+    const editor = useAppSelector((editor) => editor);
+    const title = editor.title;
     const titleInputRef = useRef<HTMLInputElement>(null);
     const importInputRef = useRef<HTMLInputElement>(null);
     const exportLinkRef = useRef<HTMLAnchorElement>(null);
@@ -26,6 +28,10 @@ export default function Header() {
 
     const onImportButtonClick = () => {
         importInputRef.current?.click();
+    };
+
+    const onSaveToPDFButtonClick = () => {
+        generatePDF(editor);
     };
 
     const onExportButtonClick = () => {
@@ -89,6 +95,9 @@ export default function Header() {
                         }}
                     />
                 )}
+                <button title="Save to PDF" onClick={onSaveToPDFButtonClick}>
+                    <img src={headerIconsMap.save} alt="Save to PDF" />
+                </button>
                 <button title="Import" onClick={onImportButtonClick}>
                     <img src={headerIconsMap.import} alt="Import" />
                 </button>

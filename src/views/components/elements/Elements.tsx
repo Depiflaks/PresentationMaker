@@ -45,7 +45,7 @@ export default function Elements({ elements }: Props) {
                         return getElementComponent(element);
                     })}
                 </g>
-            ))}{" "}
+            ))}
         </>
     );
 }

@@ -27,31 +27,24 @@ const editorSchema = {
                                         ".*": {
                                             type: "object",
                                             properties: {
-                                                type: { type: "string", enum: ["text", "image"] },
+                                                type: {
+                                                    type: "string",
+                                                    enum: ["text", "image"]
+                                                },
                                                 id: { type: "string" },
-                                                position: {
-                                                    type: "object",
-                                                    properties: {
-                                                        x: { type: "number" },
-                                                        y: { type: "number" }
-                                                    },
-                                                    required: ["x", "y"]
-                                                },
-                                                size: {
-                                                    type: "object",
-                                                    properties: {
-                                                        width: { type: "number" },
-                                                        height: { type: "number" }
-                                                    },
-                                                    required: ["width", "height"]
-                                                },
-                                                content: { type: "string", nullable: true },
-                                                fontSize: { type: "number", nullable: true },
-                                                fontFamily: { type: "string", nullable: true },
-                                                color: { type: "string", nullable: true },
-                                                src: { type: "string", nullable: true }
+                                                zIndex: { type: "number" },
+                                                x: { type: "number" },
+                                                y: { type: "number" },
+                                                width: { type: "number" },
+                                                height: { type: "number" },
+                                                content: { type: "string" },
+                                                fontSize: { type: "number" },
+                                                fontFamily: { type: "string" },
+                                                color: { type: "string" },
+                                                href: { type: "string" },
+                                                aspectRatio: { type: "boolean" }
                                             },
-                                            required: ["type", "id", "position", "size"]
+                                            required: ["type", "id", "zIndex", "x", "y", "width", "height"]
                                         }
                                     }
                                 },
@@ -70,34 +63,26 @@ const editorSchema = {
                         selection: {
                             type: "object",
                             properties: {
-                                main: {
+                                area: {
                                     type: "object",
                                     properties: {
-                                        start: {
-                                            type: "object",
-                                            properties: {
-                                                x: { type: "number" },
-                                                y: { type: "number" }
-                                            },
-                                            required: ["x", "y"]
-                                        },
-                                        size: {
-                                            type: "object",
-                                            properties: {
-                                                width: { type: "number" },
-                                                height: { type: "number" }
-                                            },
-                                            required: ["width", "height"]
-                                        }
+                                        x: { type: "number" },
+                                        y: { type: "number" },
+                                        width: { type: "number" },
+                                        height: { type: "number" }
                                     },
-                                    required: ["start", "size"]
+                                    required: ["x", "y", "width", "height"]
+                                },
+                                areaType: {
+                                    type: "string",
+                                    enum: ["#fce181", "#fff"]
                                 },
                                 elements: {
                                     type: "array",
                                     items: { type: "string" }
                                 }
                             },
-                            required: ["main", "elements"]
+                            required: ["area", "areaType", "elements"]
                         }
                     },
                     required: ["id", "view", "selection"]
@@ -108,7 +93,6 @@ const editorSchema = {
     },
     required: ["id", "title", "author", "order", "slides", "current"]
 };
-
 
 export function validateEditor(editor: Object) {
     const ajv = new Ajv();
