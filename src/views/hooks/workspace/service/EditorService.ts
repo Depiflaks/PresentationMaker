@@ -23,10 +23,10 @@ export class EditorService {
         return topElement ? topElement.id : null;
     }
 
-    static mapElementsByZIndex(slide: Slide): Record<number, Elements> {
+    static mapElementsByZIndex(elements: Element[]): Record<number, Elements> {
         const result: Record<number, Elements> = {};
 
-        Object.values(slide.view.elements).forEach((element) => {
+        elements.forEach((element) => {
             const { zIndex } = element;
             if (!result[zIndex]) {
                 result[zIndex] = {};

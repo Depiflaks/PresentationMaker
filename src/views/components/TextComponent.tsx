@@ -1,10 +1,12 @@
-import { TextElement } from "~/store/types/slide/element/Element"
+import { TextElement } from "~/store/types/slide/element/Element";
 
 type Props = {
-    element: TextElement,
-}
+    element: TextElement;
+};
 
-export default function TextComponent({element} : Props) {
+export default function TextComponent({ element }: Props) {
+    const lines = element.content.split("\n");
+    console.log(lines)
     return (
         <text
             x={element.x}
@@ -16,7 +18,11 @@ export default function TextComponent({element} : Props) {
             fill={element.color}
             dominantBaseline="text-before-edge"
         >
-            {element.content}
+            {lines.map((line, index) => (
+                <tspan key={index} x={element.x} dy={index === 0 ? 0 : element.fontSize}>
+                    {line === "" ? " " : line}
+                </tspan>
+            ))}
         </text>
-    )
+    );
 }

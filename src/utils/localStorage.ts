@@ -1,12 +1,24 @@
 import { Editor } from "../store/types/Editor";
-import { defaultEditor } from "../store/data/default";
+import { createId } from "./uuid";
+import { createSlide } from "~/store/actions/slide/Slide";
 
 export function loadEditorFromStorage(): Editor {
+    const slide = createSlide();
+    const defaultEditor: Editor = {
+        id: createId(),
+        author: 'user',
+        current: slide.id,
+        order: [slide.id],
+        title: 'My Banana Presentation',
+        slides: {
+            [slide.id]: slide
+        },
+    }
     const savedState = localStorage.getItem("editorState");
     if (savedState !== null) {
-        return JSON.parse(savedState)
+        return JSON.parse(savedState);
     } else {
-        return defaultEditor
+        return defaultEditor;
     }
 }
 

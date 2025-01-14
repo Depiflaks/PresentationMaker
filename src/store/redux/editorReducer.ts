@@ -12,8 +12,6 @@ export function editorReducer(editor: Editor = loadEditorFromStorage(), action: 
     return updatedEditor;
 }
 
-
-
 function updateReduser(editor: Editor = loadEditorFromStorage(), action: EditorAction): Editor {
     switch (action.type) {
         case ActionType.SET_EDITOR:

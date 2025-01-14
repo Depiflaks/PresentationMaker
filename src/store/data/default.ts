@@ -1,20 +1,5 @@
 import { createId } from "../../utils/uuid";
-import { createSlide } from "../actions/slide/Slide";
-import { Editor } from "../types/Editor";
 import { ElementType, ImageElement, TextElement } from "../types/slide/element/Element";
-
-const slide = createSlide();
-
-export const defaultEditor: Editor = {
-    id: createId(),
-    author: 'user',
-    current: slide.id,
-    order: [slide.id],
-    title: 'My Banana Presentation',
-    slides: {
-        [slide.id]: slide
-    },
-}
 
 export const defaultTextElement: TextElement = {
     id: createId(),
@@ -23,7 +8,7 @@ export const defaultTextElement: TextElement = {
     content: "Your text",
     fontSize: 20,
     fontFamily: "Arial",
-    zIndex: 1,
+    zIndex: 2,
     x: 0,
     y: 0,
     width: 0,
@@ -35,7 +20,7 @@ export const defaultImageElement: ImageElement = {
     type: ElementType.IMAGE,
     href: "",
     aspectRatio: true,
-    zIndex: 1,
+    zIndex: 2,
     x: 0,
     y: 0,
     width: 0,
