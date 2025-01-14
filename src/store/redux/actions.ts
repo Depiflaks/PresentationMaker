@@ -1,4 +1,3 @@
-import { Editor } from "../types/Editor";
 import {
     UpdatePresentationTitleAction,
     ChangeCurrentSlideAction,
@@ -14,7 +13,7 @@ import {
     UpdateTextElementAction,
 } from "./actionTypes/Element";
 import {
-    RemoveElementAction,
+    RemoveElementsAction,
     ChangeRelativeAction,
     ChangeScaleAction,
     UpdateSlideBackgroundAction,
@@ -43,7 +42,7 @@ export enum ActionType {
     APPEND_TO_SELECTED_LIST = "appendToSelectedList",
     DELETE_FROM_SELECTED_LIST = "deleteFromSelectedList",
 
-    REMOVE_ELEMENT = "removeElement",
+    REMOVE_ELEMENTS = "removeElements",
     UPDATE_SLIDE_BACKGROUND = "updateSlideBackground",
     STORE_ELEMENT = "storeElement",
 
@@ -61,7 +60,7 @@ export type EditorAction =
     | StoreSlideAction
     | RemoveSlideAction
     | MoveSlideAction
-    | RemoveElementAction
+    | RemoveElementsAction
     | ChangeRelativeAction
     | ChangeScaleAction
     | UpdateSlideBackgroundAction

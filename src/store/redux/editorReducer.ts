@@ -1,7 +1,7 @@
 import { Editor } from "~/store/types/Editor"
 import { ActionType, EditorAction } from "./actions"
 import { changeCurrentSlide, moveSlide, removeSlide, storeSlide, updatePresentationTitle } from "~/store/actions/editor/Editor"
-import { appendToSelectedList, changeRelative, changeScale, deleteFromSelectedList, removeElement, setSelectionArea, setSelectedList, storeElement, updateSlideBackground, setSelectionAreaType } from "~/store/actions/slide/Slide";
+import { appendToSelectedList, changeRelative, changeScale, deleteFromSelectedList, removeElements, setSelectionArea, setSelectedList, storeElement, updateSlideBackground, setSelectionAreaType } from "~/store/actions/slide/Slide";
 import { updateElementsRect, updateElementZIndex } from "~/store/actions/element/Element";
 import { updateTextElement } from "~/store/actions/element/text/Text";
 import { loadEditorFromStorage } from "../../utils/localStorage";
@@ -32,8 +32,8 @@ function updateReduser(editor: Editor = loadEditorFromStorage(), action: EditorA
         case ActionType.MOVE_SLIDE:
             return moveSlide(editor, action.payload);
 
-        case ActionType.REMOVE_ELEMENT:
-            return removeElement(editor, action.payload);
+        case ActionType.REMOVE_ELEMENTS:
+            return removeElements(editor, action.payload);
 
         case ActionType.SET_SELECTION_AREA:
             return setSelectionArea(editor, action.payload);

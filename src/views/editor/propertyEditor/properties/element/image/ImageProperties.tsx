@@ -7,9 +7,14 @@ type Props = {
 }
 
 export default function ImageProperties({ element }: Props) {
-    const { update } = useAppActions();
+    const { updateImageElement } = useAppActions();
     const onChangeAspectRatio = (value: boolean) => {
-
+        updateImageElement({
+            elementId: element.id,
+            parameters: {
+                aspectRatio: value
+            }
+        });
     }
     return (
         <>
@@ -17,7 +22,7 @@ export default function ImageProperties({ element }: Props) {
                 caption="Aspect Ratio"
                 subCaption="Active"
                 value={element.aspectRatio}
-                onChange={() => {}}
+                onChange={(value: boolean) => {onChangeAspectRatio(value)}}
             />
         </>
     );

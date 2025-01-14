@@ -7,7 +7,7 @@ import { slidesModels } from "~/store/data/models/Models";
 import { Editor, SlideCollection } from "~/store/types/Editor";
 import { createId } from "~/utils/uuid";
 import {
-    RemoveElementInput,
+    RemoveElementsInput,
     ChangeRelativeInput,
     ChangeScaleInput,
     UpdateSlideBackgroundInput,
@@ -34,13 +34,15 @@ export function createSlide(model: number = 0): Slide {
     };
 }
 
-export function removeElement(
+export function removeElements(
     editor: Editor,
-    { slideId, elementId }: RemoveElementInput,
+    { slideId, elementIds }: RemoveElementsInput,
 ): Editor {
     const slides = editor.slides;
     const newColl: Elements = { ...slides[slideId].view.elements };
-    delete newColl[elementId];
+    for (let id of elementIds) {
+        delete newColl[id];
+    }
     slides[slideId].view.elements = newColl;
     return {
         ...editor,

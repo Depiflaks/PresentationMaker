@@ -1,9 +1,9 @@
-import { AppendToSelectedListInput, ChangeRelativeInput, ChangeScaleInput, DeleteFromSelectedListInput, RemoveElementInput, SetSelectionAreaInput, SetSelectedListInput, StoreElementInput, UpdateSlideBackgroundInput, SetSelectionAreaTypeInput } from "~/store/input/slide/SlideInputs";
+import { AppendToSelectedListInput, ChangeRelativeInput, ChangeScaleInput, DeleteFromSelectedListInput, RemoveElementsInput, SetSelectionAreaInput, SetSelectedListInput, StoreElementInput, UpdateSlideBackgroundInput, SetSelectionAreaTypeInput } from "~/store/input/slide/SlideInputs";
 import { ActionType } from "../../actions";
 
-export function removeElement(input: RemoveElementInput) {
+export function removeElements(input: RemoveElementsInput) {
     return {
-        type: ActionType.REMOVE_ELEMENT,
+        type: ActionType.REMOVE_ELEMENTS,
         payload: input,
     };
 }

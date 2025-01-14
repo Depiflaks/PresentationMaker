@@ -2,9 +2,9 @@ import { Position, Rect } from "~/store/types/Global";
 import { TextElement, ImageElement } from "~/store/types/slide/element/Element";
 import { AreaType } from "~/store/types/slide/Slide";
 
-export type RemoveElementInput = {
+export type RemoveElementsInput = {
     slideId: string;
-    elementId: string;
+    elementIds: string[];
 };
 
 export type ChangeRelativeInput = {
