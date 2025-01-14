@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import styles from "../Properties.module.css";
 
 interface ColorProps {
@@ -7,8 +8,15 @@ interface ColorProps {
 }
 
 export default function Color({ caption, color, onChange }: ColorProps) {
-    const handleTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const [localValue, setLocalValue] = useState(color);
+    
+    useEffect(() => {
+        setLocalValue(color);
+    }, [color]);
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
+        setLocalValue(value);
         if (/^#[0-9A-Fa-f]{6}$/.test(value)) {
             onChange(value);
         }
@@ -21,16 +29,14 @@ export default function Color({ caption, color, onChange }: ColorProps) {
                 <input
                     className={styles.colorInput}
                     type="color"
-                    defaultValue={color}
-                    onChange={(e) => {
-                        onChange(e.target.value);
-                    }}
+                    value={localValue}
+                    onChange={handleChange}
                 />
                 <input
                     className={styles.inputField}
                     type="text"
-                    defaultValue={color}
-                    onBlur={handleTextChange}
+                    value={localValue}
+                    onChange={handleChange}
                 />
             </div>
         </div>

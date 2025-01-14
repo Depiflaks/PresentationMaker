@@ -1,4 +1,4 @@
-import { UpdateElementsRectInput } from "~/store/input/element/ElementInputs";
+import { UpdateElementsRectInput, UpdateElementZIndexInput } from "~/store/input/element/ElementInputs";
 import { ActionType } from "../actions";
 import { UpdateTextElementInput } from "~/store/input/element/text/TextElementInputs";
 import { UpdateImageElementInput } from "~/store/input/element/image/ImageElementInputs";
@@ -6,6 +6,11 @@ import { UpdateImageElementInput } from "~/store/input/element/image/ImageElemen
 export type UpdateElementRectAction = {
     type: ActionType.UPDATE_ELEMENT_RECT;
     payload: UpdateElementsRectInput;
+};
+
+export type UpdateElementZIndexAction = {
+    type: ActionType.UPDATE_ELEMENT_ZINDEX;
+    payload: UpdateElementZIndexInput;
 };
 
 export type UpdateTextElementAction = {

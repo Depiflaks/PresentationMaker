@@ -2,7 +2,7 @@ import { Editor } from "~/store/types/Editor"
 import { ActionType, EditorAction } from "./actions"
 import { changeCurrentSlide, moveSlide, removeSlide, storeSlide, updatePresentationTitle } from "~/store/actions/editor/Editor"
 import { appendToSelectedList, changeRelative, changeScale, deleteFromSelectedList, removeElement, setSelectionArea, setSelectedList, storeElement, updateSlideBackground, setSelectionAreaType } from "~/store/actions/slide/Slide";
-import { updateElementsRect } from "~/store/actions/element/Element";
+import { updateElementsRect, updateElementZIndex } from "~/store/actions/element/Element";
 import { updateTextElement } from "~/store/actions/element/text/Text";
 import { loadEditorFromStorage } from "../../utils/localStorage";
 import { updateImageElement } from "../actions/element/image/Image";
@@ -64,6 +64,9 @@ function updateReduser(editor: Editor = loadEditorFromStorage(), action: EditorA
 
         case ActionType.UPDATE_ELEMENT_RECT:
             return updateElementsRect(editor, action.payload);
+
+        case ActionType.UPDATE_ELEMENT_ZINDEX:
+            return updateElementZIndex(editor, action.payload);
 
         case ActionType.UPDATE_TEXT_ELEMENT:
             return updateTextElement(editor, action.payload);

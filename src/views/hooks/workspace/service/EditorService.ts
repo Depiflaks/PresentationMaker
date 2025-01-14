@@ -4,6 +4,7 @@ import { Element } from "~/store/types/slide/element/Element";
 import { Elements, Slide } from "~/store/types/slide/Slide";
 import { CursorDelta } from "../handler/type/types";
 import { store } from "~/store/redux/store";
+import { ElementRects } from "~/store/input/element/ElementInputs";
 
 export class EditorService {
     static getForegroundObjectId(point: Position): string | null {
@@ -132,6 +133,36 @@ export class EditorService {
         }
         return result;
     }
+    
+    static scaleElements(
+        previousArea: Rect, 
+        selectedElementIds: string[], 
+        newArea: Rect, 
+    ): ElementRects {
+        const slide = EditorService.getSlide();
+        const elements = slide.view.elements
+        const scaleX = newArea.width / previousArea.width;
+        const scaleY = newArea.height / previousArea.height;
+    
+        const scaledElements: ElementRects = {};
+    
+        selectedElementIds.forEach((id) => {
+            const element = elements[id];
+            if (!element) return;
+    
+            const newElement: Rect = {
+                x: (element.x - previousArea.x) * scaleX + newArea.x,
+                y: (element.y - previousArea.y) * scaleY + newArea.y,
+                width: element.width * scaleX,
+                height: element.height * scaleY,
+            };
+    
+            scaledElements[id] = newElement;
+        });
+    
+        return scaledElements;
+    }
+    
 
     static getEditor(): Editor {
         return store.getState();

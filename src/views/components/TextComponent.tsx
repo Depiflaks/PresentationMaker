@@ -6,7 +6,6 @@ type Props = {
 
 export default function TextComponent({ element }: Props) {
     const lines = element.content.split("\n");
-    console.log(lines)
     return (
         <text
             x={element.x}

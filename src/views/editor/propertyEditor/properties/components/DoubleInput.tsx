@@ -1,6 +1,7 @@
+import { useEffect, useState } from "react";
 import styles from "../Properties.module.css";
 
-interface Pair<type> {
+export interface Pair<type> {
     first: type;
     second: type;
 }
@@ -13,12 +14,23 @@ interface Props {
 }
 
 export default function DoubleInput({ caption, items, value, onChange }: Props) {
-    const changeFirst = (newValue: number) => {
-        onChange({ ...value, first: newValue });
+    const [localValue, setLocalValue] = useState(value);
+
+    useEffect(() => {
+        setLocalValue(value);
+    }, [value]);
+
+    const handleChange = (field: "first" | "second", newValue: number) => {
+        const updatedValue = { ...localValue, [field]: newValue };
+        setLocalValue(updatedValue);
     };
-    const changeSecond = (newValue: number) => {
-        onChange({ ...value, second: newValue });
+
+    const handleBlur = (field: "first" | "second", newValue: number) => {
+        const updatedValue = { ...localValue, [field]: newValue };
+        setLocalValue(updatedValue);
+        onChange(updatedValue);
     };
+
     return (
         <div className={styles.container}>
             <h4 className={styles.header}>{caption}</h4>
@@ -28,8 +40,9 @@ export default function DoubleInput({ caption, items, value, onChange }: Props) 
                     <input
                         className={styles.inputField}
                         type="number"
-                        value={value.first}
-                        onChange={(e) => changeFirst(Number(e.target.value))}
+                        value={localValue.first}
+                        onChange={(e) => handleChange("first", Number(e.target.value))}
+                        onBlur={(e) => handleBlur("first", Number(e.target.value))}
                     />
                 </div>
                 <div>
@@ -37,8 +50,9 @@ export default function DoubleInput({ caption, items, value, onChange }: Props) 
                     <input
                         className={styles.inputField}
                         type="number"
-                        value={value.second}
-                        onChange={(e) => changeSecond(Number(e.target.value))}
+                        value={localValue.second}
+                        onChange={(e) => handleChange("second", Number(e.target.value))}
+                        onBlur={(e) => handleBlur("second", Number(e.target.value))}
                     />
                 </div>
             </div>

@@ -9,6 +9,7 @@ import {
 } from "./actionTypes/Editor";
 import {
     UpdateElementRectAction,
+    UpdateElementZIndexAction,
     UpdateImageElementAction,
     UpdateTextElementAction,
 } from "./actionTypes/Element";
@@ -47,6 +48,7 @@ export enum ActionType {
     STORE_ELEMENT = "storeElement",
 
     UPDATE_ELEMENT_RECT = "updateElementRect",
+    UPDATE_ELEMENT_ZINDEX = "updateElementZIndex",
 
     UPDATE_TEXT_ELEMENT = "updateTextElement",
     UPDATE_IMAGE_ELEMENT = "updateImageElement",
@@ -65,6 +67,7 @@ export type EditorAction =
     | UpdateSlideBackgroundAction
     | StoreElementAction
     | UpdateElementRectAction
+    | UpdateElementZIndexAction
     | UpdateTextElementAction
     | UpdateImageElementAction
     | SetSelectionAreaAction
