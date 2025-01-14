@@ -4,7 +4,7 @@ import { Position, ToolType } from "~/store/types/Global";
 import { EditorService } from "../service/EditorService";
 import { CanvasService } from "../service/CanvasService";
 import { emptyState } from "./const/CONST";
-import { MouseAction } from "./type/MouseAction";
+import { MouseAction, ResizeType } from "./type/MouseAction";
 import { InputService } from "../service/InputService";
 import { AreaType } from "~/store/types/slide/Slide";
 
@@ -21,6 +21,7 @@ type Service = {
 type SelectionState = {
     state: MouseState;
     type: MouseAction;
+    resizeType: ResizeType;
     tool: ToolType;
     delta: CursorDelta;
 };
@@ -35,6 +36,7 @@ export class MouseEventsHandler {
         this.selection = {
             state: { ...emptyState },
             type: MouseAction.SELECT,
+            resizeType: ResizeType.NONE,
             tool: tool,
             delta: {},
         };
