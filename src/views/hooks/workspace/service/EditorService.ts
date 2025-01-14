@@ -133,14 +133,17 @@ export class EditorService {
         }
         return result;
     }
-    
-    static scaleElements(
-        previousArea: Rect, 
-        selectedElementIds: string[], 
+
+    static scaleSelectedElements(
         newArea: Rect, 
     ): ElementRects {
         const slide = EditorService.getSlide();
-        const elements = slide.view.elements
+        const elements = slide.view.elements;
+        const selectedElementIds = slide.selection.elements;
+        const previousArea = EditorService.rectSelectedItems(
+            elements,
+            selectedElementIds,
+        );
         const scaleX = newArea.width / previousArea.width;
         const scaleY = newArea.height / previousArea.height;
     
@@ -162,7 +165,6 @@ export class EditorService {
     
         return scaledElements;
     }
-    
 
     static getEditor(): Editor {
         return store.getState();

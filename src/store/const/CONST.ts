@@ -11,6 +11,8 @@ export const START_SCALE: number = 1.1;
 
 export const DELTA_SCALE: number = 0.1;
 
+export const RESIZE_POINT_RADIUS: number = 10;
+
 export const TEMPORARY_PROCEDURES: ActionType[] = [
     ActionType.CHANGE_RELATIVE,
     ActionType.CHANGE_SCALE,

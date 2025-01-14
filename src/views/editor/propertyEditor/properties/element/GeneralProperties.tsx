@@ -13,9 +13,8 @@ export default function GeneralProperties({ slide }: Props) {
     const { updateElementRect, updateElementZIndex } = useAppActions();
     const area = EditorService.roundRect(slide.selection.area);
     const updatePosition = (newPoint: Position) => {
-        const elementIds = slide.selection.elements;
         const area = slide.selection.area;
-        const scaleElements = EditorService.scaleElements(area, elementIds, {
+        const scaleElements = EditorService.scaleSelectedElements({
             ...area,
             ...newPoint,
         });
@@ -24,9 +23,8 @@ export default function GeneralProperties({ slide }: Props) {
         });
     };
     const updateSize = (newSize: Size) => {
-        const elementIds = slide.selection.elements;
         const area = slide.selection.area;
-        const scaleElements = EditorService.scaleElements(area, elementIds, {
+        const scaleElements = EditorService.scaleSelectedElements({
             ...area,
             ...newSize,
         });

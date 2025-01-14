@@ -1,3 +1,4 @@
+import { RESIZE_POINT_RADIUS } from "~/store/const/CONST";
 import { AreaType, Slide } from "~/store/types/slide/Slide";
 
 type Props = {
@@ -68,7 +69,7 @@ export default function Selection({ slide }: Props) {
                         key={index}
                         cx={handle.x}
                         cy={handle.y}
-                        r={5}
+                        r={RESIZE_POINT_RADIUS}
                         fill="#d38e10"
                         stroke="none"
                         style={{ cursor: handle.cursor }}

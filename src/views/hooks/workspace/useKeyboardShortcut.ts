@@ -14,7 +14,6 @@ export function useKeyboard({ onToolChange, onRedo, onUndo }: Props) {
     useEffect(() => {
         const actionService = new ActionService({actions});
         const handleKeyDown = (event: KeyboardEvent): void => {
-            console.log(event);
             switch (event.key) {
                 case " ":
                     onToolChange(ToolType.HAND);

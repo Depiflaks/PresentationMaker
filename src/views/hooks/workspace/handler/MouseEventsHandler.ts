@@ -7,6 +7,7 @@ import { emptyState } from "./const/CONST";
 import { MouseAction, ResizeType } from "./type/MouseAction";
 import { InputService } from "../service/InputService";
 import { AreaType } from "~/store/types/slide/Slide";
+import { ResizeService } from "../service/ResizeService";
 
 type MouseEventsHandlerInput = {
     service: Service;
@@ -72,11 +73,15 @@ export class MouseEventsHandler {
     private handleSelectionDown() {
         const mouse = this.selection.state.start;
         const itemId = this.getForegroundObjectId();
-        if (EditorService.checkCurrentSelectionIntersection(mouse)) {
+        this.selection.resizeType = ResizeService.getResizeType(mouse);
+        if (this.selection.resizeType !== ResizeType.NONE) {
+            this.setSelectionAreaType(AreaType.TRANSPARENT_FILL);
+            this.selection.type = MouseAction.RESIZE;
+        }
+        else if (EditorService.checkCurrentSelectionIntersection(mouse)) {
             this.selection.delta = EditorService.calculateCursorDelta(mouse);
             this.setSelectionAreaType(AreaType.TRANSPARENT_FILL);
             this.selection.type = MouseAction.MOVE;
-            return;
         } else if (itemId) {
             this.setSelectionAreaType(AreaType.NONE_FILL);
             this.setSelectedList([itemId]);
@@ -144,6 +149,9 @@ export class MouseEventsHandler {
             case MouseAction.MOVE:
                 this.moveSelection();
                 break;
+            case MouseAction.RESIZE:
+                this.resizeSelectionArea();
+                break;
         }
     }
 
@@ -173,6 +181,13 @@ export class MouseEventsHandler {
         );
     }
 
+    private resizeSelectionArea(): void {
+        const mouse = this.selection.state.current;
+        const resizeType = this.selection.resizeType;
+        const newSelectionArea = ResizeService.resizeSelectionRect(mouse, resizeType);
+        this.service.action.setSelectionArea(newSelectionArea);
+    }
+
     private moveItems(): void {
         this.service.action.moveItems({
             cursorDelta: this.selection.delta,
@@ -198,15 +213,29 @@ export class MouseEventsHandler {
     }
 
     private handleSelectionUp(): void {
-        if (this.selection.type === MouseAction.SELECT) {
-            this.setSelectionAreaType(AreaType.NONE_FILL);
-            const newSelection = EditorService.listIntersectedElements();
-            this.setSelectedList(newSelection);
-        } else if (this.selection.type === MouseAction.MOVE) {
-            this.setSelectionAreaType(AreaType.NONE_FILL);
-            this.setSelectionAreaBySelectedItems();
-            this.moveItems();
+        switch (this.selection.type) {
+            case MouseAction.SELECT:
+                this.setSelectionAreaType(AreaType.NONE_FILL);
+                const newSelection = EditorService.listIntersectedElements();
+                this.setSelectedList(newSelection);
+                break;
+            case MouseAction.MOVE:
+                this.setSelectionAreaType(AreaType.NONE_FILL);
+                this.setSelectionAreaBySelectedItems();
+                this.moveItems();
+                break;
+            case MouseAction.RESIZE:
+                this.setSelectionAreaType(AreaType.NONE_FILL);
+                this.resizeItems();
+                break;
         }
+    }
+
+    private resizeItems(): void {
+        const slide = EditorService.getSlide();
+        const newArea = slide.selection.area;
+        const scaledElements = EditorService.scaleSelectedElements(newArea);
+        this.service.action.resizeItems(scaledElements);
     }
 
     private handleImageUp(): void {

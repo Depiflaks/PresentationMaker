@@ -10,6 +10,10 @@ export interface Size {
 
 export interface Rect extends Position, Size {};
 
+export interface Circle extends Position {
+    radius: number
+}
+
 export enum ToolType {
     HAND = "hand",
     SELECTION = "selection",

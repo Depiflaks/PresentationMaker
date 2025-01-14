@@ -7,7 +7,7 @@ import { Element, ImageElement, TextElement } from "~/store/types/slide/element/
 import { createImageElement } from "~/store/actions/element/image/Image";
 import { CreateTextElementInput } from "~/store/input/element/text/TextElementInputs";
 import { createTextElement } from "~/store/actions/element/text/Text";
-import { UpdateElementsRectInput } from "~/store/input/element/ElementInputs";
+import { ElementRects, UpdateElementsRectInput } from "~/store/input/element/ElementInputs";
 import { EditorService } from "./EditorService";
 import { useAppActions } from "../../useAppActions";
 import { useDispatch } from "react-redux";
@@ -93,6 +93,14 @@ export class ActionService {
             }
         }
         updateElementRect(input);
+    }
+
+    resizeItems(newRects: ElementRects): void {
+        const { updateElementRect } = this.actions;
+
+        updateElementRect({
+            rectMap: newRects
+        });
     }
 
     deleteSelectedItems(): void {
