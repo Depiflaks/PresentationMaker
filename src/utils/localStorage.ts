@@ -27,7 +27,6 @@ export function loadEditorFromStorage(): Editor {
 export function saveEditorToStorage(editor: Editor): void {
     const updatedEditor = getEditorWithEmptySelections(editor);
     localStorage.setItem("editorState", JSON.stringify(updatedEditor));
-    
 }
 
 export function getEditorWithEmptySelections(editor: Editor): Editor {

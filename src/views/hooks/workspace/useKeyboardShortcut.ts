@@ -35,7 +35,7 @@ export function useKeyboard({ onToolChange, onRedo, onUndo }: Props) {
                     }
                     break;
                 case "u":
-                    if (event.ctrlKey) {
+                    if (event.ctrlKey || event.metaKey) {
                         event.preventDefault()
                         onRedo()
                     }
