@@ -3,8 +3,8 @@ import { AreaType, Selection } from "../types/slide/Slide";
 import { ActionType } from "../redux/actions";
 
 export const FIELD: Size = {
-    width: 1600,
-    height: 900
+    width: 1920,
+    height: 1080
 }
 
 export const START_SCALE: number = 1.1;

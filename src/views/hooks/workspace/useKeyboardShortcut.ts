@@ -28,7 +28,7 @@ export function useKeyboard({ onToolChange, onRedo, onUndo }: Props) {
                     onToolChange(ToolType.IMAGE);
                     break;
                 case "z":
-                    if (event.ctrlKey) {
+                    if (event.ctrlKey || event.metaKey) {
                         onUndo()
                     } else {
                         onToolChange(ToolType.ZOOM);
