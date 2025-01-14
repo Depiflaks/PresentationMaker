@@ -95,6 +95,18 @@ export class ActionService {
         updateElementRect(input);
     }
 
+    deleteSelectedItems(): void {
+        const slide = EditorService.getSlide();
+        const { removeElements } = this.actions;
+        const elements = slide.selection.elements;
+        if (elements.length !== 0) {
+            removeElements({
+                slideId: slide.id,
+                elementIds: elements
+            });
+        }
+    }
+
     setSelectionArea(newArea: Rect): void {
         const slide = EditorService.getSlide();
         const { setSelectionArea } = this.actions;

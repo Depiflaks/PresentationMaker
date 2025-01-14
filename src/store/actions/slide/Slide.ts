@@ -38,15 +38,27 @@ export function removeElements(
     editor: Editor,
     { slideId, elementIds }: RemoveElementsInput,
 ): Editor {
-    const slides = editor.slides;
-    const newColl: Elements = { ...slides[slideId].view.elements };
+    const slide: Slide = editor.slides[slideId];
+    const newColl: Elements = { ...slide.view.elements };
     for (let id of elementIds) {
         delete newColl[id];
     }
-    slides[slideId].view.elements = newColl;
+    const newSlide: Slide = {
+        ...slide,
+        view: {
+            ...slide.view,
+            elements: newColl
+        },
+        selection: {
+            ...EMPTY_SELECTION
+        }
+    };
     return {
         ...editor,
-        slides: slides,
+        slides: {
+            ...editor.slides,
+            [newSlide.id]: newSlide
+        },
     };
 }
 

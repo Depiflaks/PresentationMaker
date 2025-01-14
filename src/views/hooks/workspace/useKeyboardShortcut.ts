@@ -1,5 +1,7 @@
 import { useEffect } from "react";
 import { ToolType } from "~/store/types/Global";
+import { useAppActions } from "../useAppActions";
+import { ActionService } from "./service/ActionService";
 
 type Props = {
     onToolChange: (newTool: ToolType) => void;
@@ -8,8 +10,11 @@ type Props = {
 }
 
 export function useKeyboard({ onToolChange, onRedo, onUndo }: Props) {
+    const actions = useAppActions();
     useEffect(() => {
+        const actionService = new ActionService({actions});
         const handleKeyDown = (event: KeyboardEvent): void => {
+            console.log(event);
             switch (event.key) {
                 case " ":
                     onToolChange(ToolType.HAND);
@@ -30,11 +35,14 @@ export function useKeyboard({ onToolChange, onRedo, onUndo }: Props) {
                         onToolChange(ToolType.ZOOM);
                     }
                     break;
-                case 'u':
+                case "u":
                     if (event.ctrlKey) {
                         event.preventDefault()
                         onRedo()
                     }
+                    break
+                case "Delete":
+                    actionService.deleteSelectedItems();
                     break
             }
         };
